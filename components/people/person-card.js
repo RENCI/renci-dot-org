@@ -35,7 +35,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}            
-//             src={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
+            src={ `https://dashboard.renci.org/api/webinfo/people/${person.id}/photo`}
             onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
             image={person.photo}
