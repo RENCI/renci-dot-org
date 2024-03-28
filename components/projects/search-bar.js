@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { styled } from "@mui/material";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
+import {
+  IconButton,
+  InputAdornment,
+  FormLabel,
+  FormControl,
+  OutlinedInput,
+  styled,
+} from "@mui/material";
+import { Backspace as ClearIcon } from '@mui/icons-material'
 
 const StyledAutocompleteSearch = styled("div")(
   ({ theme, bottomBorderRadius = true }) => `
@@ -23,24 +28,34 @@ const StyledAutocompleteSearch = styled("div")(
   `
 );
 
-export const SearchBar = ({ setSearchQuery, options }) => {
+export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
+  const handleClickClear = () => setSearchQuery('')
+
   return (
-    <FormControl
-      style={{
-        width: "100%",
-      }}
-    >
-      <FormLabel>Project Search</FormLabel>
+    <FormControl fullWidth sx={{
+      '.MuiInputAdornment-root': { pr: 1 }
+    }}>
+      <FormLabel htmlFor="project-search-input">Project Search</FormLabel>
       <StyledAutocompleteSearch>
-        <TextField
-              style={{
-                width: "100%",
-              }}
-          id="search-bar"
+        <OutlinedInput
+          fullWidth
+          value={ searchQuery }
+          id="project-search-input"
           onInput={(e) => {
             setSearchQuery(e.target.value.toLowerCase());
           }}
           placeholder="Search..."
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="Clear search query"
+                onClick={ handleClickClear }
+                edge="end"
+              >
+                <ClearIcon />
+              </IconButton>
+            </InputAdornment>
+          }
         />
       </StyledAutocompleteSearch>
     </FormControl>
