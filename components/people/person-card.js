@@ -34,15 +34,15 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
               [theme.breakpoints.down("sm")]: {
                 width: 100,
               },
-            }}
-            
-            src={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
+            }}            
+//             src={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
             onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
+            image={person.photo}
           />
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Typography mb={0.5} sx={{ textDecoration: "underline" }}>
-              {person.firstName} {person.lastName}
+              {person.fullName || person.displayName}
             </Typography>
 
             {showTitle && person.title && (
@@ -62,9 +62,6 @@ PersonCard.propTypes = {
   showTitle: PropTypes.bool.isRequired,
   person: PropTypes.shape({
     slug: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
     title: PropTypes.string,
-    photo: PropTypes.object,
   }),
 };

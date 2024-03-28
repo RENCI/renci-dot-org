@@ -1,11 +1,12 @@
 import { Divider, Typography } from '@mui/material'
-import { fetchStrapiProject } from '../../lib/strapi'
+import { fetchSingleProject } from '@/lib/dashboard/projects'
 import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
 import { Markdown } from '../../components/markdown'
 
 export default function Project({ project }) {
+  //need to destructure project object
   return (
     <Page
       title={ `${ project.name }` }
@@ -56,7 +57,7 @@ export default function Project({ project }) {
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                   .map(partner => (
                     <li key={ `${ project.name }-${ partner.name }` }>
-                      <Link to={ partner.url }>{ partner.name }</Link>
+                      <Link to={ partner.orgURL }>{ partner.name }</Link>
                     </li>
                   ))
               }
@@ -75,7 +76,7 @@ export default function Project({ project }) {
                     .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                     .map(partner => (
                       <li key={ `${ project.name }-${ partner.name }` }>
-                        <Link to={ partner.url }>{ partner.name }</Link>
+                        <Link to={ partner.orgURL }>{ partner.name }</Link>
                       </li>
                     ))
                 }
@@ -93,7 +94,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const project = await fetchStrapiProject(params.id)
+  const project = await fetchSingleProject(params.id)
 
   return { props: { project: JSON.parse(JSON.stringify(project)) } }
 }
