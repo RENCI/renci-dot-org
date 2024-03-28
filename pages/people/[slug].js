@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { Divider, Typography } from '@mui/material'
-import { fetchStrapiPerson } from "../../lib/strapi";
 import { fetchFromDashboard } from '@/utils/dashboard';
 import { Link, Page, Section, TextImageSection } from '../../components'
 

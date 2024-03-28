@@ -21,6 +21,6 @@ module.exports = {
     defaultLocale: "en",
   },
   images: {
-    domains: ['https://dashboard.renci.org/','radx-images.s3.amazonaws.com', 'dashboard.renci.org'],
+    domains: ['https://dashboard.renci.org/','radx-images.s3.amazonaws.com', 'dashboard.renci.org', '/static/images'],
   },
 };
