@@ -6,15 +6,105 @@ import {
   CardHeader,
   CardContent,
   Grid,
+  Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import { Link, Page } from "../../components";
 import { PersonGrid, PersonCard } from "../../components/people";
 import { useEffect, useState } from "react";
 import { fetchDashboardPeople } from "@/lib/dashboard/people";
 
-// this provides data for the vertical menu
+// this provides data for the letters menu
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+const VerticalLettersMenu = ({ linkedLetters }) => {
+  return (
+    <Box
+      component="nav"
+      sx={{
+        '--distance-from-top': '10rem',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        gap: "4px",
+        position: "sticky",
+        overflowY: "auto",
+        overflowX: "hidden",
+        top: "var(--distance-from-top)",
+        maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
+        whiteSpace: 'pre-wrap',
+        alignSelf: "flex-start",
+        paddingX: '6px',
+        scrollbarWidth: "thin",
+
+        "&::-webkit-scrollbar": {
+          width: "4px",
+        },
+        "&::-webkit-scrollbar-track": {
+          backgroundColor: "transparent",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "transparent",
+          borderRadius: "2px",
+        },
+        "&:hover::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+        }
+
+      }}
+    >
+      {letters.map((letter) =>
+        linkedLetters.includes(letter) ? (
+          <Link to={`#${letter}`} key={letter}>
+            {letter}
+          </Link>
+        ) : (
+          <Typography
+            component="span"
+            key={letter}
+            style={{ color: "#abc" }}
+          >
+            {letter}
+          </Typography>
+        )
+      )}
+    </Box>
+  )
+}
+
+const HorizontalLettersMenu = ({ linkedLetters }) => {
+  return (
+    <Stack
+      flexDirection="row"
+      alignItems="center"
+      justifyContent={{ xs: 'center', md: 'flex-end' }}
+      component="nav"
+      gap={ 1 }
+      sx={{
+        flex: 1,
+        flexWrap: 'wrap',
+      }}
+    >
+      {letters.map((letter) =>
+        linkedLetters.includes(letter) ? (
+          <Link to={`#${letter}`} key={letter}>
+            {letter}
+          </Link>
+        ) : (
+          <Typography
+            component="span"
+            key={letter}
+            style={{ color: "#abc" }}
+          >
+            {letter}
+          </Typography>
+        )
+      )}
+    </Stack>
+  )
+}
 
 /*
  * people are coming into this component from
@@ -25,15 +115,9 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
  * }
  */
 export default function People({ people, peopleFromDashboard }) {
-  const [oodPids, setOodPids] = useState([]);
-  let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
+  const tallViewport = useMediaQuery('(min-height: 950px)')
 
-  useEffect(() => {
-    let oodPid = people.ood.map((member) => {
-      return member.pid;
-    });
-    setOodPids(oodPid);
-  }, [people]);
+  let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
 
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
@@ -74,59 +158,19 @@ export default function People({ people, peopleFromDashboard }) {
         </PersonGrid>
       </Box>
 
-      <Typography variant="h2">Everyone Else</Typography>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        alignItems={{ xs: 'flex-start', lg: 'stretch' }}
+        justifyContent="flex-start"
+        gap={ 2 }
+      >
+        <Typography variant="h2">Everyone Else</Typography>
+        { !tallViewport && <HorizontalLettersMenu linkedLetters={ linkedLetters } /> }
+      </Stack>
 
       <Box sx={{ display: "flex", gap: "1rem", my: '2rem' }}>
-        <Box
-          component="nav"
-          sx={{
-            '--distance-from-top': '10rem',
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "flex-start",
-            gap: "4px",
-            position: "sticky",
-            overflowY: "auto",
-            overflowX: "hidden",
-            top: "var(--distance-from-top)",
-            maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
-            alignSelf: "flex-start",
-            paddingX: '6px',
-            scrollbarWidth: "thin",
+        { tallViewport && <VerticalLettersMenu linkedLetters={ linkedLetters } /> }
 
-            "&::-webkit-scrollbar": {
-              width: "4px",
-            },
-            "&::-webkit-scrollbar-track": {
-              backgroundColor: "transparent",
-            },
-            "&::-webkit-scrollbar-thumb": {
-              backgroundColor: "transparent",
-              borderRadius: "2px",
-            },
-            "&:hover::-webkit-scrollbar-thumb": {
-              backgroundColor: "rgba(0, 0, 0, 0.3)",
-            }
-
-          }}
-        >
-          {letters.map((letter) =>
-            linkedLetters.includes(letter) ? (
-              <Link to={`#${letter}`} key={letter}>
-                {letter}
-              </Link>
-            ) : (
-              <Typography
-                component="span"
-                key={letter}
-                style={{ color: "#abc" }}
-              >
-                {letter}
-              </Typography>
-            )
-          )}
-        </Box>
         <PersonGrid size='medium'>
           {
             people.people
