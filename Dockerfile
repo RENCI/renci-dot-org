@@ -21,6 +21,9 @@ COPY . .
 # disable NextJS analytics
 ENV NEXT_TELEMETRY_DISABLED 1
 
+ARG STRAPI_ACCESS_TOKEN=$(STRAPI_ACCESS_TOKEN)
+ENV STRAPI_ACCESS_TOKEN=$STRAPI_ACCESS_TOKEN
+
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -30,9 +33,6 @@ WORKDIR /app
 # take the build arg and pass it as an env variable for the /api/version route
 ARG VERSION=$(VERSION)
 ENV VERSION=$VERSION
-
-ARG STRAPI_ACCESS_TOKEN=$(STRAPI_ACCESS_TOKEN)
-ENV STRAPI_ACCESS_TOKEN=$STRAPI_ACCESS_TOKEN
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
