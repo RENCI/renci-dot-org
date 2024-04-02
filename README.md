@@ -44,8 +44,12 @@ It's very important to note that the access token effectively gets embedded into
 
 You should test that the image functions properly by running this command and then opening [http://localhost:3000](http://localhost:3000):
 ```bash
-docker run -p 3000:3000 containers.renci.org/renci-dot-org/frontend:1.1.4
+docker run -p 3000:3000 \
+-e STRAPI_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+-e NEXT_PUBLIC_STRAPI_API_URL=https://api.renci.org \ 
+containers.renci.org/renci-dot-org/frontend:1.1.4
 ```
+You have to declare the access token as an environment variable as it's still being used by the backend at runtime for the global metadata per page request.
 
 Once you have verified the image is working, push it to the registry with:
 ```bash
