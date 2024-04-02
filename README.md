@@ -32,7 +32,7 @@ kubectl get pods -n comms -o jsonpath="{.items[*].spec.containers[*].image}" -l 
 In the root of the project, use this command to build the image:
 ```bash
 docker build . -t containers.renci.org/renci-dot-org/frontend:1.1.4 \
-  --build-args VERSION=1.1.4
+  --build-arg VERSION=1.1.4 \
   --build-arg STRAPI_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 > [!IMPORTANT]    
