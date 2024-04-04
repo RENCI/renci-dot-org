@@ -129,7 +129,6 @@ export async function getServerSideProps({ params, res }) {
   )
   
   const person = await fetchFromDashboard(`people/${params.slug}`)
-  console.log(JSON.parse(JSON.stringify(person)))
 
   return { props: { person: JSON.parse(JSON.stringify(person)) } }
 }
