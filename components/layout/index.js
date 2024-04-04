@@ -1,5 +1,7 @@
 export * from './hero'
 export * from './layout'
+export * from './app-bar'
+export * from './home-layout'
 export * from './page'
 export * from './section'
 export * from './text-image-section'
