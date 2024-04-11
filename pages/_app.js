@@ -11,7 +11,7 @@ import fontCss from "../fonts/atlas-grotesk/fonts.css";
 import App from "next/app";
 import { getGlobalData } from "utils/api";
 import { DefaultSeo } from "next-seo";
-import { fetchOurWorkTrayItems } from "../lib/strapi";
+import { fetchOurWorkTrayItems } from "../lib/dashboard/ourWorkTray";
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
