@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
+import { fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
@@ -114,7 +115,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const collaboration = await fetchStrapiCollaboration(params.id)
+  const collaboration = await fetchSingleCollaboration(params.id)
 
   return { props: { collaboration: JSON.parse(JSON.stringify(collaboration)) } }
 }
