@@ -4,7 +4,9 @@ import { fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
+import { LinkTray } from '../../components/link-tray'
 import { Divider, Typography } from '@mui/material'
+
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -24,6 +26,9 @@ export default function Collaboration({ collaboration }) {
             <Divider />
           </>
         )
+      }
+      {
+        <LinkTray urls={collaboration.urls}/>
       }
       {
         collaboration.role && (

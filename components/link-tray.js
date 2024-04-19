@@ -7,6 +7,7 @@ import {
   YouTube as YouTube,
   Instagram as InstagramIcon,
   Facebook as FacebookIcon,
+  X as TwitterIcon,
   Link as LinkIcon,
 } from '@mui/icons-material'
 import { Link } from './'
@@ -17,14 +18,16 @@ const ICONS = {
   'youtube.com': <YouTube />,
   'instagram.com': <InstagramIcon />,
   'facebook.com': <FacebookIcon />,
+  'twitter.com': <TwitterIcon />,
   'default': <LinkIcon />,
 }
 
 const domainPattern = new RegExp(/\/\/(\w+\.\w+)\//)
 
 const SocialLink = ({ to }) => {
-  const matches = to.match(domainPattern)
-  const domain = matches[1]
+  const url = new URL(to);
+  const domain = url.hostname.replace(/^www\./, '')
+
   // if the domain matches by our regular expression is a key in ICONS,
   // then we render the icon that is the value of the property [domain].
   if (domain in ICONS) {
@@ -52,9 +55,14 @@ export const LinkTray = ({ urls }) => {
       display: 'flex',
       flexDirection: 'row',
       gap: '0.5rem',
+      justifyContent: 'flex-end'
     }}>
       {
-        urls.map(url => <SocialLink to={ url } key={ url } />)
+        urls.map((url) => { 
+          return(
+            <SocialLink to={ url.address } key={ url.address } />
+          )
+        })
       }
     </Box>
   )
