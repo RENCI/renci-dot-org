@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: containers.renci.org/renci-dot-org/frontend
-  tag: latest
+  tag: "1.1.4"
 
 env:
   - name: STRAPI_ACCESS_TOKEN
@@ -10,6 +10,8 @@ env:
       secretKeyRef:
         name: renci-dot-org-api
         key: token
+  - name: NEXT_PUBLIC_STRAPI_API_URL
+    value: https://api.renci.org
 
 resources:
   limits:
@@ -24,4 +26,4 @@ service:
   port: 3000
 
 ingress:
-  host: new-rdo.apps.renci.org
+  host: new.renci.org

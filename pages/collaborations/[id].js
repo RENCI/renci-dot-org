@@ -1,10 +1,12 @@
 import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
+import { fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
-import { Divider } from '@mui/material'
 import { LinkTray } from '../../components/link-tray'
+import { Divider, Typography } from '@mui/material'
+
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -63,7 +65,7 @@ export default function Collaboration({ collaboration }) {
       }
 
       <Section title="Contributors">
-        <h3>People</h3>
+        <Typography variant="h3">People</Typography>
         <PersonGrid size="small">
           {
             collaboration.members.map(person => (
@@ -75,7 +77,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.partners.length > 0 && (
             <Fragment>
-              <h3>Partners</h3>
+              <Typography variant="h3">Partners</Typography>
               <ul>
                 {
                   collaboration.partners
@@ -92,7 +94,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.funding.length > 0 && (
             <Fragment>
-              <h3>Funders</h3>
+              <Typography variant="h3">Funders</Typography>
               <ul>
                 {
                   collaboration.funding
@@ -118,7 +120,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const collaboration = await fetchStrapiCollaboration(params.id)
+  const collaboration = await fetchSingleCollaboration(params.id)
 
   return { props: { collaboration: JSON.parse(JSON.stringify(collaboration)) } }
 }

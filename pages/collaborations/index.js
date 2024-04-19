@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchStrapiCollaborations } from '../../lib/strapi'
+import { fetchDashboardCollaborations } from '@/lib/dashboard/collaborations'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -52,7 +52,7 @@ export async function getServerSideProps({ res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const collaborations = await fetchStrapiCollaborations()
+  const collaborations = await fetchDashboardCollaborations()
   return {
     props: { collaborations: JSON.parse(JSON.stringify(collaborations)) },
   }

@@ -16,11 +16,15 @@ module.exports = {
   // images: {
   //   domains: ["heal-community-portal-api.s3.amazonaws.com"],
   // },
+  // swcMinify: false,
+  experimental: {
+    outputStandalone: true,
+  },
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
   },
   images: {
-    domains: ['radx-images.s3.amazonaws.com'],
+    domains: ['https://dashboard.renci.org/','radx-images.s3.amazonaws.com', 'dashboard.renci.org', '/static/images'],
   },
 };

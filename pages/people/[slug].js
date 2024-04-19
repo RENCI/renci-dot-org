@@ -1,56 +1,35 @@
 import { Fragment } from 'react'
 import { Divider, Typography } from '@mui/material'
-import { fetchStrapiPerson } from "../../lib/strapi";
+import { fetchFromDashboard } from '@/utils/dashboard';
+import { fetchSinglePerson } from '@/lib/dashboard/people'
+
 import { Link, Page, Section, TextImageSection } from '../../components'
 
 export default function Person({ person }) {
   return (
-    <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
+    <Page title={ person.displayName } hideTitle>
       <TextImageSection 
-        imageUrl={ person.photoURL }
+        imageUrl={ person.photo }
         imageWidth={400}
         imageHeight={400}
         imageAspectRatio={"1 / 1"}
-        imageAlt={ `Photo of ${ person.firstName } ${ person.lastName }` }
+        imageAlt={ `Photo of ${ person.displayName }` }
         rounded={true}
         >
           <Typography variant="h1" >
-            { person.fullName }
+            { person.displayName }
           </Typography>
-          <Typography paragraph>{ person.title }</Typography>
           {
-            person.team && (
-              <Fragment>
-                {
-                  person.team.map(group => (
-                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
-                      <Link to={ `/teams/${ group.slug }` }> 
-                        { group.name } Operational Team
-                      </Link> 
-                    </Typography>
-                  ))
-                }
-              </Fragment>
+            person.title && (
+              <Typography paragraph>{ person.title } | {person.division && (<span style={{fontWeight: 500}}><Link to={ `/${person.division.type}/${ person.division.slug }` }> 
+                  {person.division.name} Group
+                </Link></span>)}
+              </Typography>
             )
           }
           {
-            person.researchGroup && (
-              <Fragment>
-                {
-                  person.researchGroup.map(group => (
-                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
-                    <Link to={ `/groups/${ group.slug }` }>
-                      { group.name } Research Group
-                    </Link> 
-                  </Typography>
-                      ))
-                }
-              </Fragment>
-            )
-          }
-          {
-            person.email && (
-              <Typography paragraph>
+            person?.email && (
+              <Typography paragraph sx={{fontWeight: 500}}>
                 <Link to={ `mailto:${ person.email }` }>
                   { person.email }
                 </Link>
@@ -58,24 +37,24 @@ export default function Person({ person }) {
             )
           }
           {
-            person.phoneNumber && (
-              <Typography paragraph>{ person.phoneNumber }</Typography>
+            person.phones[0] && (
+              <Typography paragraph>{ person.phones[0].number }</Typography>
             )
           }
       </TextImageSection>
 
       {
-        person.contributions && (
+        ( person.projects || person.collaborations ) && (
           <Fragment>
             <Divider />
             <Section title="Contributions">
               {
-                person.contributions.projects && (
+                person.projects[0] && (
                   <Fragment>
                     <Typography variant="h3">Projects</Typography>
                     <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
-                        person.contributions.projects.map(project => (
+                        person.projects.map(project => (
                           <li key={ `${ project.name }` }>
                             <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
                           </li>
@@ -86,12 +65,12 @@ export default function Person({ person }) {
                 )
               }
               {
-                person.contributions.collaborations && (
+                person.collaborations[0] && (
                   <Fragment>
                     <Typography variant="h3">Collaborations</Typography>
                     <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
-                        person.contributions.collaborations.map(project => (
+                        person.collaborations.map(project => (
                           <li key={ `${ project.name }` }>
                             <Link to={ `/collaborations/${ project.slug }` }>{ project.name }</Link>
                           </li>
@@ -128,7 +107,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const person = await fetchStrapiPerson(params.slug)
+  const person = await fetchSinglePerson(params.slug)
 
   return { props: { person: JSON.parse(JSON.stringify(person)) } }
 }

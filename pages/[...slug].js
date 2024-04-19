@@ -5,6 +5,7 @@ import Seo from "@/components/elements/seo"
 import { useRouter } from "next/router"
 import Layout from "../components/layout"
 import { getLocalizedPaths } from "utils/localize"
+import Head from "next/head"
 
 // The file is called [[...slug]].js because we're using Next's
 // optional catch all routes feature. See the related docs:
@@ -14,6 +15,7 @@ const DynamicPage = ({
   sections,
   metadata,
   preview,
+  title,
   global,
   pageContext
 }) => {
@@ -31,6 +33,10 @@ const DynamicPage = ({
   
   return (
     <div>
+      {Boolean(title) && <Head>
+        <title> { title } | RENCI.org</title>
+      </Head>}
+
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
       {/* Display content sections */}
@@ -81,6 +87,7 @@ export async function getServerSideProps(context) {
       sections: contentSections,
       metadata: pageData.metaData,
       global: globalLocale,
+      title: pageData.title,
       pageContext: {
         ...pageContext,
         // localizedPaths,

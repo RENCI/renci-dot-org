@@ -361,10 +361,10 @@ const TagSelectorFreeSearchPreview = ({ inputValue, setValue }) => {
   return (
     <TagSelectorGroup label="Custom filter">
       <StyledOption onClick={() => { setValue(prev => [...prev, inputValue]) }}>
-        <Tag contents={`"${inputValue}"`} />
-        <span style={{ marginLeft: '8px' }}>
-          press <StyledKbd>enter</StyledKbd> or click to apply.
+        <span style={{ marginRight: '8px' }}>
+          Press <StyledKbd>enter</StyledKbd> to search titles with
         </span>
+        <Tag contents={`"${inputValue}"`} />
       </StyledOption>
     </TagSelectorGroup>
   )

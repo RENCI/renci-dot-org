@@ -2,9 +2,10 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchStrapiTeams } from '../../lib/strapi'
+// import { fetchStrapiTeams } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { fetchDashboardTeams } from '@/lib/dashboard/teams'
 
 export default function Teams({ teams }) {
   return (
@@ -50,7 +51,8 @@ export async function getServerSideProps({ res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const teams = await fetchStrapiTeams()
+  // const teams = await fetchStrapiTeams()
+  const teams = await fetchDashboardTeams()
 
   return {
     props: { teams: JSON.parse(JSON.stringify(teams)) },

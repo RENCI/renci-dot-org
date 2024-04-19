@@ -1,10 +1,11 @@
 import { Typography } from '@mui/material'
 import { fetchStrapiTeam } from '../../lib/strapi'
+import { fetchSingleTeam } from '@/lib/dashboard/teams'
 import { Markdown, Page } from '../../components'
 import { PersonCard, PersonGrid } from "../../components/people/";
 import { Section } from '../../components/layout'
 
-export default function ResearchGroup({ team }) {
+export default function Team({ team }) {
   return (
     <Page
       title={ `${ team.name }` }
@@ -37,7 +38,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const team = await fetchStrapiTeam(params.id)
+  const team = await fetchSingleTeam(params.id)
 
   return { props: { team: JSON.parse(JSON.stringify(team)) } }
 }

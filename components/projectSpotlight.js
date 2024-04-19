@@ -5,6 +5,7 @@ import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 import { MarkdownLess } from './markdown'
+import serverRacks from '../images/racks.jpg'
 
 export const ProjectCard = ({project}) => {
   const styles = {
@@ -61,15 +62,16 @@ export const ProjectCard = ({project}) => {
       }
     }
   }
+  
   return (
     <Card sx={styles.project} key={project.slug}>
       <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
-          <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
+          <CardMedia component={'img'} src={ project.featuredImage.length > 0 ? project.featuredImage[0].url : serverRacks.src } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
-            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.name}</Typography>
+            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.webName}</Typography>
           </Box>
       </CardActionArea>
-      <CardContent sx={project.description ? styles.description : styles.noSnippet}>
+      <CardContent sx={project.webDescription ? styles.description : styles.noSnippet}>
         <MarkdownLess paragraph >{ project.snippet }</MarkdownLess>
       </CardContent>
       <CardContent>

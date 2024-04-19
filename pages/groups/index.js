@@ -2,9 +2,9 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchStrapiGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { fetchResearchGroups } from '@/lib/dashboard/research-groups'
 
 export default function ResearchGroups({ researchGroups }) {
   return (
@@ -44,8 +44,8 @@ export async function getServerSideProps({ res }) {
     'Cache-Control',
     'no-cache, no-store, must-revalidate'
   )
-  
-  const researchGroups = await fetchStrapiGroups()
+
+  const researchGroups = await fetchResearchGroups()
   return {
     props: { researchGroups: JSON.parse(JSON.stringify(researchGroups)) },
   }
