@@ -17,9 +17,7 @@ module.exports = {
   //   domains: ["heal-community-portal-api.s3.amazonaws.com"],
   // },
   // swcMinify: false,
-  experimental: {
-    outputStandalone: true,
-  },
+  output: "standalone",
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
