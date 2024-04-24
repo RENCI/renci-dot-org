@@ -77,12 +77,11 @@ export default function Projects({ projects, size = "medium" }) {
   );
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
+export async function getStaticProps() {
   const projectsFromDashboard = await fetchDashboardProjects();
 
   return {
     props: { projects: JSON.parse(JSON.stringify(projectsFromDashboard)) },
+    revalidate: 3600,
   };
 }

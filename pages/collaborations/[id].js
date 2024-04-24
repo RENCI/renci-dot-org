@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
-import { fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
+import { fetchDashboardCollaborations, fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
@@ -114,13 +114,22 @@ export default function Collaboration({ collaboration }) {
   )
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticPaths() {
+  const dashboardCollaborations = await fetchDashboardCollaborations();
+
+  const paths = dashboardCollaborations?.map(({ slug }) => ({ params: { id: slug } }));
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps({ params }) {
   const collaboration = await fetchSingleCollaboration(params.id)
 
-  return { props: { collaboration: JSON.parse(JSON.stringify(collaboration)) } }
+  return {
+    props: { collaboration: JSON.parse(JSON.stringify(collaboration)) },
+    revalidate: 3600
+  }
 }

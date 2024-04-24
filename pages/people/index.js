@@ -199,15 +199,11 @@ export default function People({ people, peopleFromDashboard }) {
   );
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-
+export async function getStaticProps() {
   const people1 = await fetchDashboardPeople();
 
   return {
     props: { people: {ood: people1.ood, people: people1.people} },
+    revalidate: 3600,
   };
 }

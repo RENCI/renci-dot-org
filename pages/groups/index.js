@@ -39,14 +39,10 @@ export default function ResearchGroups({ researchGroups }) {
   )
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-
+export async function getStaticProps() {
   const researchGroups = await fetchResearchGroups()
   return {
     props: { researchGroups: JSON.parse(JSON.stringify(researchGroups)) },
+    revalidate: 3600,
   }
 }

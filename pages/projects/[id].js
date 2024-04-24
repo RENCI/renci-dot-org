@@ -1,5 +1,5 @@
 import { Divider, Typography } from '@mui/material'
-import { fetchSingleProject } from '@/lib/dashboard/projects'
+import { fetchDashboardProjects, fetchSingleProject } from '@/lib/dashboard/projects'
 import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
@@ -88,13 +88,22 @@ export default function Project({ project }) {
   )
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticPaths() {
+  const dashboardProjects = await fetchDashboardProjects();
+
+  const paths = dashboardProjects?.map(({ slug }) => ({ params: { id: slug } }));
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps({ params }) {
   const project = await fetchSingleProject(params.id)
 
-  return { props: { project: JSON.parse(JSON.stringify(project)) } }
+  return {
+    props: { project: JSON.parse(JSON.stringify(project)) },
+    revalidate: 3600
+  }
 }
