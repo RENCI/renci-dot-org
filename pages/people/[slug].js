@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Divider, Typography } from '@mui/material'
 import { fetchFromDashboard } from '@/utils/dashboard';
-import { fetchSinglePerson } from '@/lib/dashboard/people'
+import { fetchDashboardPeople, fetchSinglePerson } from '@/lib/dashboard/people'
 
 import { Link, Page, Section, TextImageSection } from '../../components'
 
@@ -101,13 +101,22 @@ export default function Person({ person }) {
   )
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticPaths() {
+  const dashboardPeople = await fetchDashboardPeople();
+
+  const paths = dashboardPeople.people?.map(({ slug }) => ({ params: { slug } }));
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps({ params }) {
   const person = await fetchSinglePerson(params.slug)
 
-  return { props: { person: JSON.parse(JSON.stringify(person)) } }
+  return { 
+    props: { person: JSON.parse(JSON.stringify(person)) },
+    revalidate: 3600
+  }
 }
