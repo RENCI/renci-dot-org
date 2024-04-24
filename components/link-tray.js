@@ -60,7 +60,7 @@ export const LinkTray = ({ urls }) => {
       {
         urls.map((url) => { 
           return(
-            <SocialLink to={ url.address } key={ url.address } />
+            <SocialLink to={ url } key={ url } />
           )
         })
       }
