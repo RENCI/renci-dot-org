@@ -4,7 +4,9 @@ import {
   TextAndImage, 
   PageTitle, 
   RichText, 
-  Hero } from "./strapi-components"
+  Hero,
+  NewsBlock
+} from "./strapi-components"
 
 // Map Strapi sections to section components
 const sectionComponents = {
@@ -13,6 +15,7 @@ const sectionComponents = {
   "sections.text-and-image": TextAndImage,
   "sections.page-title": PageTitle,
   "sections.hero": Hero,
+  "sections.news-block": NewsBlock,
 }
 
 // Display a section individually
