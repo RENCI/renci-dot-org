@@ -1,9 +1,12 @@
 import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
+import { fetchDashboardCollaborations, fetchSingleCollaboration } from '@/lib/dashboard/collaborations'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
-import { Divider } from '@mui/material'
+import { LinkTray } from '../../components/link-tray'
+import { Divider, Typography } from '@mui/material'
+
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -23,6 +26,9 @@ export default function Collaboration({ collaboration }) {
             <Divider />
           </>
         )
+      }
+      {
+        <LinkTray urls={collaboration.urls}/>
       }
       {
         collaboration.role && (
@@ -59,7 +65,7 @@ export default function Collaboration({ collaboration }) {
       }
 
       <Section title="Contributors">
-        <h3>People</h3>
+        <Typography variant="h3">People</Typography>
         <PersonGrid size="small">
           {
             collaboration.members.map(person => (
@@ -71,7 +77,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.partners.length > 0 && (
             <Fragment>
-              <h3>Partners</h3>
+              <Typography variant="h3">Partners</Typography>
               <ul>
                 {
                   collaboration.partners
@@ -88,7 +94,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.funding.length > 0 && (
             <Fragment>
-              <h3>Funders</h3>
+              <Typography variant="h3">Funders</Typography>
               <ul>
                 {
                   collaboration.funding
@@ -108,13 +114,22 @@ export default function Collaboration({ collaboration }) {
   )
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
-  const collaboration = await fetchStrapiCollaboration(params.id)
+export async function getStaticPaths() {
+  const dashboardCollaborations = await fetchDashboardCollaborations();
 
-  return { props: { collaboration: JSON.parse(JSON.stringify(collaboration)) } }
+  const paths = dashboardCollaborations?.map(({ slug }) => ({ params: { id: slug } }));
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const collaboration = await fetchSingleCollaboration(params.id)
+
+  return {
+    props: { collaboration: JSON.parse(JSON.stringify(collaboration)) },
+    revalidate: 3600
+  }
 }

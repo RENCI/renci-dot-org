@@ -26,3 +26,9 @@ export default function Internships() {
     </Page>
   )
 }
+
+// there is no data needed for this page, but this is a workaround to prevent getInitialProps from
+// running on this client page
+export const getStaticProps = () => {
+  return { props: { dummyValue: 1 }}
+}

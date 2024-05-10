@@ -1,15 +1,17 @@
 import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
-import { Divider, Typography, Box, Stack } from "@mui/material";
+import { Divider, Typography, Stack, styled, Avatar } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
 import qs from "qs";
 import { Link } from "@/components/link"
+import { useRouter } from "next/router";
 
 export default function Article({ article }) {
+  const router = useRouter();
   
   const tags = [
     article.projects.map((x) => ({ ...x, type: 'projects' })),
@@ -24,6 +26,11 @@ export default function Article({ article }) {
     return `/news?${qs.stringify({[type]: id})}`
   }
 
+  let authors = [
+    ...article.renciAuthors,
+    ...article.externalAuthors?.split(",").map((a) => a.trim()) ?? []
+  ]
+  
   return (
   <Page hideTitle title={article.title} description={article.subtitle}>
 
@@ -60,16 +67,34 @@ export default function Article({ article }) {
           const id = type === 'postTags' ? name : slug;
 
           return (
-            <Link key={i} to={createTagLinkURL(id, type)}>
-              <Tag
-                type={type}
-                contents={name}
-                sx={{ minWidth: 'fit-content', maxWidth: 'revert' }}
-              />
-            </Link>
+            <Tag
+              key={i}
+              type={type}
+              contents={name}
+              onClick={() => { router.push(createTagLinkURL(id, type)); }}
+              sx={{ maxWidth: 'revert', cursor: 'pointer' }}
+            />
           )
         })}
       </Stack>
+
+      {Boolean(authors.length) && <Stack my={2} flexDirection="row" alignItems="center" gap={1} flexWrap="wrap">
+        {authors.reduce((acc, a, i) => {
+          let out;
+          if (typeof a === "string") out = <span>{a}</span>;
+          else if (!a.active) out = <span>{a.name}</span>;
+          else out = <Link to={`/people/${a.slug}`} key={a.slug}>
+            <Stack flexDirection="row" alignItems="center" sx={{ maxWidth: "fit-content" }}>
+              {Boolean(a.photo) && <Avatar alt={`A thumbnail photo of ${a.name}`} src={a.photo.url} sx={{ mr: 1, width: '2lh', height: '2lh' }} />}
+              <span>{a.name}</span>
+            </Stack>
+          </Link>
+
+          acc.push(out);
+          if(i < authors.length - 1) acc.push("·");
+          return acc;
+        }, [])}
+      </Stack>}
 
       <Divider sx={{ margin: '1rem 0'}}/>
 
@@ -78,15 +103,18 @@ export default function Article({ article }) {
       {
         article.content.map((item)=> {
           return item.__typename == "ComponentPostSectionsImage" ? (
-            <Image 
-              priority
-              src={item.image.data.attributes.url}
-              alt={item.altText}
-              width= {item.image.data.attributes.width}
-              height={item.image.data.attributes.height}
-              layout="responsive"
-              objectFit='cover'
-            />
+            <Figure>
+              <Image 
+                priority
+                src={item.image.data.attributes.url}
+                alt={item.altText}
+                width= {item.image.data.attributes.width}
+                height={item.image.data.attributes.height}
+                layout="responsive"
+                objectFit='cover'
+              />
+              <Typography component={"figcaption"} variant="caption">{item.caption}</Typography>
+            </Figure>
           ) : (
             <Markdown>{item.content}</Markdown>
           )
@@ -95,63 +123,79 @@ export default function Article({ article }) {
 
     </Section>
 
-    <Divider sx={{ margin: '1rem 0'}}/>
+    {
+      ( article.researchGroups[0] || article.collaborations[0] || article.projects[0] || article.people[0] ) && (
+        <Fragment>
+          <Divider sx={{ margin: '1rem 0'}}/>
 
-    <Section title="Read More">
-      {article.researchGroups[0] && (
-        <Fragment>
-          <Typography variant="h3">Research Groups:</Typography>
-          <ul>
-            {
-              article.researchGroups.map((item, i) => (
-                <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
-          <br/>
+          <Section title="Read More">
+            {article.researchGroups[0] && (
+              <Fragment>
+                <Typography variant="h3">Research Groups</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.researchGroups.map((item, i) => (
+                      <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+            {article.collaborations[0] && (
+              <Fragment>
+                <Typography variant="h3">Collaborations</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.collaborations.map((item, i) => (
+                      <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+            {article.projects[0] && (
+              <Fragment>
+                <Typography variant="h3">Projects</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                {
+                  article.projects.map((item, i) => (
+                    <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
+                  ))
+                }
+                </ul>
+              </Fragment>
+            )}
+            {article.people[0] && (
+              <Fragment>
+                <Typography variant="h3">People</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.people.map((item, i) => (
+                      <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+          </Section>
         </Fragment>
-      )}
-      {article.collaborations[0] && (
-        <Fragment>
-          <Typography variant="h3">Collaborations:</Typography>
-          <ul>
-            {
-              article.collaborations.map((item, i) => (
-                <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
-          <br/>
-        </Fragment>
-      )}
-      {article.projects[0] && (
-        <Fragment>
-          <Typography variant="h3">Projects:</Typography>
-          {
-            article.projects.map((item, i) => (
-              <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
-          <br/>
-        </Fragment>
-      )}
-      {article.people[0] && (
-        <Fragment>
-          <Typography variant="h3">People:</Typography>
-          <ul>
-            {
-              article.people.map((item, i) => (
-                <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
-          <br/>
-        </Fragment>
-      )}
-    </Section>
+      )
+    }
   </Page>
   )
 }
+
+const Figure = styled('figure')`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & figcaption.MuiTypography-root {
+    align-self: center;
+    font-style: italic;
+  }
+`;
 
 export async function getStaticPaths() {
   const postsGql = await fetchStrapiGraphQL(`query {

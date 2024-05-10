@@ -95,7 +95,7 @@ export const ProjectSpotlight = ({ selectedProjects }) => {
 
   return (
     <Fragment>
-      <Typography variant='h3' style={{margin: '2rem 0'}}>Project Spotlight</Typography>
+      <Typography variant='h2'>Project Spotlight</Typography>
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 4 }}

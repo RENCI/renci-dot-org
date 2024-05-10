@@ -21,6 +21,9 @@ COPY . .
 # disable NextJS analytics
 ENV NEXT_TELEMETRY_DISABLED 1
 
+ARG STRAPI_ACCESS_TOKEN=$(STRAPI_ACCESS_TOKEN)
+ENV STRAPI_ACCESS_TOKEN=$STRAPI_ACCESS_TOKEN
+
 RUN npm run build
 
 # Production image, copy all the files and run next
