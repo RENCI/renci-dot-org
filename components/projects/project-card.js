@@ -16,15 +16,12 @@ export const ProjectCard = ({project}) => {
     },
     cardMedia: {
       width: useMediaQuery(theme.breakpoints.down("md")) ? '100%' : '250px',
-      // maxHeight: useMediaQuery(theme.breakpoints.down("md")) ? '175px' : null,
-      // border: useMediaQuery(theme.breakpoints.down("md")) ? '3px solid red' : '3px solid green',
       backgroundSize: 'contain',
       backgroundPosition: 'center'
     },
     description: {
       textAlign: 'left',
       flexBasis: useMediaQuery(theme.breakpoints.down("md")) ? null:'840px',
-      // height: '250px'
     },
   }
 
@@ -35,11 +32,6 @@ export const ProjectCard = ({project}) => {
         spacing={3}
         flex
       >
-        {/* <CardMedia 
-          component={'img'} 
-          src={  project.featuredImage.length > 0 ? project.featuredImage[0].url : serverRacks.src} 
-          sx={styles.cardMedia} 
-        /> */}
         {
           project.featuredImage.length > 0 
           ? <CardMedia component={'img'} src={  project.featuredImage[0].url } sx={styles.cardMedia} />
@@ -74,31 +66,7 @@ export const ProjectCard = ({project}) => {
           <Link to={ `/projects/${ project.slug }`} style={{textDecoration: 'none',}}>
             <Typography variant='h4' sx={{marginBottom: '1rem', fontWeight:'500'}}>{project.webName}</Typography>
           </Link>
-          {/* <Box sx={{
-            '--maxHeight': 'calc(6rem * 1.5)',
-            '&:before': {
-              content: "''",
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              pointerEvents: 'none',
-              background: 'linear-gradient(transparent 0px, white calc(var(--maxHeight) - 4px ))'
-            },
-            '& > .hover-link': {
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-            },
-            position: 'relative',
-            maxHeight: 'var(--maxHeight)',
-            overflow: 'hidden',
-          }}>
-          <Markdown>{ project.webDescription }</Markdown>
-          <Link to={ `/projects/${ project.slug }`} className='hover-link'>Read more →</Link>
 
-          </Box> */}
           <Markdown>{ project.webDescription }</Markdown>
 
         </CardContent>
