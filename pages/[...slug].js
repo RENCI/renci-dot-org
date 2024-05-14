@@ -5,6 +5,8 @@ import Seo from "@/components/elements/seo"
 import { useRouter } from "next/router"
 import Layout from "../components/layout"
 import { getLocalizedPaths } from "utils/localize"
+import Head from "next/head"
+import { fetchStrapiGraphQL } from "@/lib/strapi"
 
 // The file is called [[...slug]].js because we're using Next's
 // optional catch all routes feature. See the related docs:
@@ -14,6 +16,7 @@ const DynamicPage = ({
   sections,
   metadata,
   preview,
+  title,
   global,
   pageContext
 }) => {
@@ -31,6 +34,10 @@ const DynamicPage = ({
   
   return (
     <div>
+      {Boolean(title) && <Head>
+        <title> { title } | RENCI.org</title>
+      </Head>}
+
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
       {/* Display content sections */}
@@ -42,12 +49,31 @@ const DynamicPage = ({
   )
 }
 
-export async function getServerSideProps(context) {
-  context.res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
+export async function getStaticPaths() {
+  const pagesGql = await fetchStrapiGraphQL(`query {
+    pages {
+      data {
+        attributes {
+          slug
+        }
+      }
+    }
+  }`);
 
+  const paths = pagesGql.data.pages.data.map(({ attributes: { slug } }) => ({
+      params: {
+        slug: slug.split("/"),
+      }
+    })
+  );
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps(context) {
   const { params, locale, locales, defaultLocale, preview = null } = context
 
   const globalLocale = await getGlobalData(locale)
@@ -81,6 +107,7 @@ export async function getServerSideProps(context) {
       sections: contentSections,
       metadata: pageData.metaData,
       global: globalLocale,
+      title: pageData.title,
       pageContext: {
         ...pageContext,
         // localizedPaths,

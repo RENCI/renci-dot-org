@@ -1,5 +1,6 @@
 import { Typography, Divider } from '@mui/material'
 import { fetchStrapiGroup } from '../../lib/strapi'
+import { fetchResearchGroups, fetchSingleResearchGroup } from '@/lib/dashboard/research-groups'
 import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
@@ -11,7 +12,6 @@ export default function ResearchGroup({ researchGroup }) {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
-
       {
         !researchGroup.featuredImage && (
           <>
@@ -62,7 +62,7 @@ export default function ResearchGroup({ researchGroup }) {
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                   .map(partner => (
                     <li key={ `${ researchGroup.name }-${ partner.name }` }>
-                      <Link to={ partner.url }>{ partner.name }</Link>
+                      <Link to={ partner.orgURL }>{ partner.name }</Link>
                     </li>
                   ))
               }
@@ -94,13 +94,22 @@ export default function ResearchGroup({ researchGroup }) {
   )
 }
 
-export async function getServerSideProps({ params, res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
-  const researchGroup = await fetchStrapiGroup(params.id)
+export async function getStaticPaths() {
+  const dashboardGroups = await fetchResearchGroups();
 
-  return { props: { researchGroup: JSON.parse(JSON.stringify(researchGroup)) } }
+  const paths = dashboardGroups?.map(({ slug }) => ({ params: { id: slug } }));
+
+  return {
+    paths,
+    fallback: 'blocking', 
+  };
+}
+
+export async function getStaticProps({ params }) {
+  const researchGroup = await fetchSingleResearchGroup(params.id)
+
+  return { 
+    props: { researchGroup: JSON.parse(JSON.stringify(researchGroup)) },
+    revalidate: 3600
+  }
 }

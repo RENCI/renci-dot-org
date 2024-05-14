@@ -1,4 +1,4 @@
-import { Container, Fade, Grid, List, ListItem, ListSubheader, Paper, Typography } from '@mui/material'
+import { Container, Fade, Grid, List, ListItem, ListSubheader, Paper, Divider, Typography } from '@mui/material'
 import style from './menu.module.css'
 import { useConfig } from '../../../context'
 import { Link } from '../../'
@@ -53,6 +53,11 @@ export const OurWorkTray = ({
                     </ListItem>
                   ))
                 }
+                {/* Add a one-off menu item that links to the list of all RENCI projects */}
+                <Divider sx={{ paddingTop: '0.5rem' }}/>
+                <ListItem sx={{ padding: '0.5rem', fontWeight: '500' }}>
+                  <Link to="/projects">See All Projects</Link>
+                </ListItem>
               </List>
             </Grid>
             

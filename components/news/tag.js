@@ -25,7 +25,7 @@ const TYPES = {
   },
   default: {
     bgColor: "#ededed",
-    color: "#414141",
+    color: "#474747",
   },
 };
 

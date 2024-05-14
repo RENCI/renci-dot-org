@@ -70,9 +70,6 @@ export async function getStaticProps({ params }) {
     }
   `);
 
-  console.log(dateStr);
-  console.log(postsGql);
-
   const posts = postsGql.data.posts.data.map(({ attributes }) => attributes);
 
   return {

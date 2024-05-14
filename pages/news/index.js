@@ -111,7 +111,7 @@ export default function News() {
   const isTagSelected = useCallback((id, type) => {
     if (id === undefined || type === undefined) return false;
     return selectedTags[type]?.find((tag) => (
-      tag[type === 'freeSearch' ? 'name' : 'slug'] === id
+      tag[type === 'freeSearch' || type === 'postTags' ? 'name' : 'slug'] === id
       )) !== undefined;
   }, [selectedTags]);
 
