@@ -3,6 +3,7 @@ import { styled } from "@mui/material";
 export const Pattern = styled("div") `
 position: relative;
 min-width: 250px;
+min-height: 150px;
 overflow: hidden;
 background-color: #9fccd5;
 background-image:
