@@ -37,7 +37,7 @@ export const ProjectCard = ({project}) => {
           : <Pattern />
         }
         <CardContent sx={styles.description}>
-          <Stack direction="row-reverse" justifyContent="space-between" >
+        <Stack direction="row-reverse" justifyContent="space-between" sx={{marginBottom: '0.25rem'}}>
             {project.isActive ? (
               <Chip label="ACTIVE" size="small" sx={{
                 background: "linear-gradient(135deg, #238b8b, #00778f)", 
