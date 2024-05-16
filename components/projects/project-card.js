@@ -30,7 +30,6 @@ export const ProjectCard = ({project}) => {
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         spacing={3}
-        flex
       >
         {
           project.featuredImage.length > 0 
@@ -49,13 +48,27 @@ export const ProjectCard = ({project}) => {
               <Chip label="INACTIVE" size="small"/>
             )}
             {project.researchGroups.length > 0 ? (
-              <Link to={`/groups/${project.researchGroups[0].slug}`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+              <Link 
+                to={`/groups/${project.researchGroups[0].slug}`} 
+                style={{
+                  textDecoration: 'none', 
+                  textTransform: 'uppercase', 
+                  marginBottom: '0.5rem'
+                }}
+              >
                 <Typography variant='caption' sx={{}}>
                   {project.researchGroups[0].name}
                 </Typography>
               </Link>
             ) : project.collaborations.length > 0 ? (
-              <Link to={`/collaborations/${project.collaborations[0].slug}`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+              <Link 
+                to={`/collaborations/${project.collaborations[0].slug}`} 
+                style={{
+                  textDecoration: 'none', 
+                  textTransform: 'uppercase', 
+                  marginBottom: '0.5rem'
+                }}
+              >
                 <Typography variant='caption' sx={{}}>
                   {project.collaborations[0].name}
                 </Typography>
@@ -63,7 +76,10 @@ export const ProjectCard = ({project}) => {
             ) : null}
           </Stack>
           
-          <Link to={ `/projects/${ project.slug }`} style={{textDecoration: 'none',}}>
+          <Link 
+            to={ `/projects/${ project.slug }`} 
+            style={{ textDecoration: 'none' }}
+          >
             <Typography variant='h4' sx={{marginBottom: '1rem', fontWeight:'500'}}>{project.webName}</Typography>
           </Link>
 
