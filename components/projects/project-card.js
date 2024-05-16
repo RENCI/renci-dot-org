@@ -49,15 +49,15 @@ export const ProjectCard = ({project}) => {
               <Chip label="INACTIVE" size="small"/>
             )}
             {project.researchGroups.length > 0 ? (
-              <Link to={`/groups`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+              <Link to={`/groups/${project.researchGroups[0].slug}`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
                 <Typography variant='caption' sx={{}}>
-                  {project.researchGroups[0].text}
+                  {project.researchGroups[0].name}
                 </Typography>
               </Link>
             ) : project.collaborations.length > 0 ? (
-              <Link to={`/collaborations`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+              <Link to={`/collaborations/${project.collaborations[0].slug}`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
                 <Typography variant='caption' sx={{}}>
-                  {project.collaborations[0].text}
+                  {project.collaborations[0].name}
                 </Typography>
               </Link>
             ) : null}
