@@ -45,9 +45,9 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
               {person.fullName || person.displayName}
             </Typography>
 
-            {showTitle && person.title && (
+            {showTitle && (person.title || person.lead) && (
               <Typography variant="caption" sx={{ lineHeight: 1.4 }}>
-                {person.title}
+                {person.title || "Lead"}
               </Typography>
             )}
           </CardContent>

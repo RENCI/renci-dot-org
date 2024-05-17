@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Typography, Box, useTheme } from "@mui/material";
 import { Page } from "../../components";
 // import { fetchAllStrapiProjects } from "../../lib/strapi";
-import { ProjectCard } from "../../components/projectSpotlight";
+import { ProjectCard } from "@/components/projects/project-card";
 import { SearchBar } from "@/components/projects/search-bar";
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 
@@ -54,18 +54,7 @@ export default function Projects({ projects, size = "medium" }) {
         options={projectsFiltered}
       />
 
-      <Box
-        sx={{
-          flex: 1,
-          marginTop: "3rem",
-          display: "grid",
-          gap: "2rem",
-          gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))`,
-          [theme.breakpoints.down("sm")]: {
-            gridTemplateColumns: "1fr",
-          },
-        }}
-      >
+      <Box sx={{margin: '2rem 0'}}>
         {projectsFiltered.map((project) => {
           return (
             <ProjectCard project={project} key={`project-${project.slug}`} />

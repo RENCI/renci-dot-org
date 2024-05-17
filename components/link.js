@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import NextLink from 'next/link'
 
-const InternalLink = React.forwardRef(function InternalLink({ children, className, ...props }, ref) {
+const InternalLink = React.forwardRef(function InternalLink({ children, className, style, ...props }, ref) {
   return (
     <NextLink { ...props }>
-      <a className={ className } ref={ ref }>{ children }</a>
+      <a className={ className } ref={ ref } style={ style }>{ children }</a>
     </NextLink>
   )
 })
