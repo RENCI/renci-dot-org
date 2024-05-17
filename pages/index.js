@@ -7,7 +7,7 @@ import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 import { fetchHomeNews } from '../lib/strapi'
-import { HomePageArticlePreview } from "../components/news/article-preview";
+import { GenericArticlePreview } from "../components/news/article-preview";
 
 export default function Home({ selectedProjects, newsArray }) {
 
@@ -34,7 +34,7 @@ export default function Home({ selectedProjects, newsArray }) {
             <Typography variant='h2' sx={{paddingTop: '1rem'}}>Recent News</Typography>
             <Stack direction='column' gap={2} paddingY={2}>
               { newsArray.map((article, i) => (
-                <HomePageArticlePreview
+                <GenericArticlePreview
                   key={i}
                   article={article}
                 />
