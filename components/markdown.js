@@ -30,9 +30,6 @@ const componentMap = {
   ),
   ul: ({ node, children, ...props }) => (
     <ul style={{marginTop: 0, lineHeight: '1.8'}} {...props}>{children}</ul>
-  ),
-  li: ({node, children, ...props}) => (
-    <li style={{fontSize: '85%'}} {...props}>{children}</li>
   )
 }
 
