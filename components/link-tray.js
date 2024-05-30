@@ -10,7 +10,6 @@ import {
   X as TwitterIcon,
   Link as LinkIcon,
 } from '@mui/icons-material'
-import { Link } from './link'
 
 const ICONS = {
   'github.com': <GitHubIcon />,
@@ -34,10 +33,14 @@ const SocialLink = ({ to }) => {
     return (
       <Tooltip title={ `Visit ${ domain }` }>
         <IconButton
-          component={ Link }
-          to={ to }
+          component="a"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={ to }
           aria-label={ `Visit ${ domain[0].toUpperCase() + domain.slice(1) }` }
-        >{ ICONS[domain] }</IconButton>
+        >
+          { ICONS[domain] }
+        </IconButton>
       </Tooltip>
     )
   }
@@ -45,10 +48,14 @@ const SocialLink = ({ to }) => {
   return (
     <Tooltip title="Visit website">
       <IconButton
-        component={ Link }
-        to={ to }
+        component="a"
+        target="_blank"
+        rel="noopener noreferrer"
+        href={ to }
         aria-label="Visit website"
-      >{ ICONS.default }</IconButton>
+      >
+        { ICONS.default }
+      </IconButton>
     </Tooltip>
   )
 }
