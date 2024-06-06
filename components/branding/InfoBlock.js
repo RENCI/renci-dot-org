@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { copyToClipboard } from '@/utils/copyToClipboard';
 
 const styles = {
@@ -31,6 +32,11 @@ const styles = {
     opacity: 0,
     fontSize: '98%',
   },
+  copySuccessIcon: {
+    color: 'green',
+    marginLeft: '8px',
+    fontSize: '99%'
+  }
 }
 
 export const InfoBlock = ( props ) => {
@@ -58,11 +64,11 @@ export const InfoBlock = ( props ) => {
       >
         { props.body }
         {
-          copyable
+          ( copyable && !copySuccess )
           ? <ContentCopyIcon fontSize="small" sx={styles.copyIcon} className="copyIcon"/>
           : null
         }
-        {copySuccess && ("Copied!")}
+        { copySuccess && <CheckCircleIcon sx={styles.copySuccessIcon}/> }
       </Typography>
 
     </div>
