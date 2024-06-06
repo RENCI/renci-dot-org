@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { copyToClipboard } from '@/utils/copyToClipboard';
@@ -35,6 +35,17 @@ const styles = {
 
 export const InfoBlock = ( props ) => {
   const { copyable } = props
+  const [ copySuccess, setCopySuccess ] = useState(false)
+
+  useEffect(() => {
+    if (copySuccess) {
+      const timer = setTimeout(() => {
+        setCopySuccess(false);
+      }, 2500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [copySuccess])
 
   return (
     <div style={props.style}>
@@ -42,14 +53,16 @@ export const InfoBlock = ( props ) => {
         { props.title }
       </Typography>
       <Typography variant="body2"
-      onClick={()=> copyToClipboard(props.body)}
-      sx={copyable ? styles.copyableBody : styles.body}>
+        onClick={() => copyToClipboard(props.body, setCopySuccess)}
+        sx={copyable ? styles.copyableBody : styles.body}
+      >
         { props.body }
         {
           copyable
           ? <ContentCopyIcon fontSize="small" sx={styles.copyIcon} className="copyIcon"/>
           : null
         }
+        {copySuccess && ("Copied!")}
       </Typography>
 
     </div>
