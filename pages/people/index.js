@@ -98,8 +98,7 @@ const HorizontalLettersMenu = ({ linkedLetters }) => {
 };
 
 /*
- * people are coming into this component from
- * fetchStrapiPeople with this shape:
+ * people are coming into this component with this shape:
  * {
  *   ood: […],
  *   people: […],
