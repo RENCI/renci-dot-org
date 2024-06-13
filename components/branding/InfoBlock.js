@@ -45,9 +45,7 @@ export const InfoBlock = ( props ) => {
       >
         { body }
         {
-          copySuccess ?
-
-              <CheckCircleIcon fontSize="small" color="success" />
+          copySuccess ? <CheckCircleIcon fontSize="small" color="success" />
           : <ContentCopyIcon fontSize="small" className="copyIcon" />
         }
       </Typography>
