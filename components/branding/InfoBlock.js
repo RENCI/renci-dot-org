@@ -23,6 +23,19 @@ export const InfoBlock = ( props ) => {
   const { copyable } = props
   const [ copySuccess, setCopySuccess ] = useState(false)
 
+  const CopyableText = ( { body } ) => (
+    <Typography 
+      variant="body2"
+      onClick={() => copyToClipboard(body, setCopySuccess)}
+    >
+      { body }
+      {
+        copySuccess ? <CheckCircleIcon fontSize="small" color="success" />
+         : <ContentCopyIcon fontSize="small" className="copyIcon" />
+      }
+    </Typography>
+  )
+
   useEffect(() => {
     if (copySuccess) {
       const timer = setTimeout(() => {
@@ -39,24 +52,9 @@ export const InfoBlock = ( props ) => {
         { props.title }
       </Typography>
       {
-        copyable ? (
-          <Typography variant="body2"
-            onClick={() => copyToClipboard(props.body, setCopySuccess)}
-          >
-            { props.body }
-            {
-              copySuccess ? (
-                <CheckCircleIcon fontSize="small" color="success" />
-              ) : (
-                <ContentCopyIcon fontSize="small" className="copyIcon"/>
-              )
-            }
-          </Typography>
-        ) : (
-          <Typography variant="body2">{ props.body }</Typography>
-        )
+        copyable ? <CopyableText body={ props.body } />
+        : <Typography variant="body2">{ props.body }</Typography>
       }
     </Box>
   )
 }
-
