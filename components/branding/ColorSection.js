@@ -5,7 +5,7 @@ import { ColorBlock } from './ColorBlock'
 export const ColorSection = (props) => {
   const { colors } = props
   return (
-    <Grid container >
+    <Grid container spacing={3}>
       {
         Object.keys(colors).map(function(key) {
           return (
