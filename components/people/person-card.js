@@ -7,7 +7,8 @@ import { useTheme } from "@emotion/react";
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
 
-  const onMediaFallback = event => event.target.src = "/static/images/generic-avatar.svg" ;
+  const onMediaFallback = (event) =>
+    (event.target.src = "/static/images/generic-avatar.svg");
   return (
     <Card
       elevation={0}
@@ -17,14 +18,16 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
       }}
     >
       <Link to={`/people/${person.slug}`}>
-        <Box sx={{
-          display: "flex",
-          flexDirection: "column",
-          [theme.breakpoints.down("sm")]: {
-            flexDirection: "row",
-            alignItems: "center",
-          },
-        }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            [theme.breakpoints.down("sm")]: {
+              flexDirection: "row",
+              alignItems: "center",
+            },
+          }}
+        >
           <CardMedia
             component="img"
             sx={{
@@ -34,8 +37,8 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
               [theme.breakpoints.down("sm")]: {
                 width: 100,
               },
-            }}            
-            src={ `https://dashboard.renci.org/api/webinfo/people/${person.id}/photo`}
+            }}
+            src={`https://dashboard.renci.org/api/webinfo/people/${person.id}/photo`}
             onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
             image={person.photo}

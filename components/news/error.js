@@ -21,33 +21,45 @@ export const Error = ({
   tryAgainCb,
   sx = {},
 }) => {
-  return <Box sx={{
-    backgroundColor: red[50],
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '8px',
-    color: red[900],
-    px: 2,
-    py: 10,
-    ...sx,
-  }}>
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      textAlign: 'center',
-      maxWidth: '40ch',
-      gap: 2,
-    }}>
-      <ErrorRounded fill={red[900]} fontSize="large" />
-      <Typography>{message}</Typography>
-      {tryAgainCb !== undefined && 
-        <ErrorButton onClick={() => { tryAgainCb() }}>{tryAgainMessage}</ErrorButton>
-      }
+  return (
+    <Box
+      sx={{
+        backgroundColor: red[50],
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "8px",
+        color: red[900],
+        px: 2,
+        py: 10,
+        ...sx,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          maxWidth: "40ch",
+          gap: 2,
+        }}
+      >
+        <ErrorRounded fill={red[900]} fontSize="large" />
+        <Typography>{message}</Typography>
+        {tryAgainCb !== undefined && (
+          <ErrorButton
+            onClick={() => {
+              tryAgainCb();
+            }}
+          >
+            {tryAgainMessage}
+          </ErrorButton>
+        )}
+      </Box>
     </Box>
-  </Box>
-}
+  );
+};
 
 const ErrorButton = styled(Button)`
   color: ${red[900]};
@@ -55,5 +67,5 @@ const ErrorButton = styled(Button)`
   border-radius: 8px;
   &:hover {
     background-color: ${red[150]};
-  };
-`
+  }
+`;

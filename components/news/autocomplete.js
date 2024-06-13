@@ -38,14 +38,14 @@ const useAutocompleteFilterContext = () => {
   const ctx = useContext(AutocompleteFilterContext);
   if (!ctx)
     throw new Error(
-      "Autocomplete components must be called within AutocompleteFilter"
+      "Autocomplete components must be called within AutocompleteFilter",
     );
   return ctx;
 };
 
 export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
   { children, tags, value, setValue },
-  ref
+  ref,
 ) {
   const options = useMemo(
     () =>
@@ -53,7 +53,7 @@ export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
         acc.push(...items.map((item) => ({ ...item, type })));
         return acc;
       }, []),
-    [tags]
+    [tags],
   );
 
   const {
@@ -97,7 +97,7 @@ export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
         acc[val.type] ? acc[val.type].push(val) : (acc[val.type] = [val]);
         return acc;
       }, {}),
-    [value]
+    [value],
   );
 
   const deleteValue = useCallback(
@@ -107,11 +107,11 @@ export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
           return prev.filter((v) => v !== value.name);
         }
         return prev.filter(
-          (v) => v.name !== value.name || v.type !== value.type
+          (v) => v.name !== value.name || v.type !== value.type,
         );
       });
     },
-    [setValue]
+    [setValue],
   );
 
   const rootRef = useForkRef(ref, setAnchorEl);
@@ -203,20 +203,20 @@ const FilterList = () => {
               <TypeHeading>{LABELS[type]}</TypeHeading>
               <TagFlexWrapper>
                 {selectedFilters.map((filterItem, i) => (
-                    <Tag
-                      contents={filterItem.name}
-                      key={`${filterItem}_${i}`}
-                      title={filterItem.name}
-                      type={type}
-                      onDelete={() => {
+                  <Tag
+                    contents={filterItem.name}
+                    key={`${filterItem}_${i}`}
+                    title={filterItem.name}
+                    type={type}
+                    onDelete={() => {
+                      deleteValue(filterItem);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
                         deleteValue(filterItem);
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          deleteValue(filterItem);
-                        }
-                      }}
-                    />
+                      }
+                    }}
+                  />
                 ))}
               </TagFlexWrapper>
             </Box>
@@ -261,59 +261,63 @@ const TagSelector = () => {
           timeout={{ appear: 250, enter: 250, exit: 0 }}
         >
           <StyledListbox {...getListboxProps()}>
-            {groupedOptions.length > 0 ? (<>
-              <TagSelectorFreeSearchPreview
-                inputValue={inputValue}
-                setValue={setValue}
-              />
-              {groupedOptions.sort((a, b) => {
-                // keep researchGroups at top and postTags at bottom
-                if (a.group === 'researchGroups') return -1;
-                if (b.group === 'researchGroups') return 1;
-                if (a.group === 'postTags') return 1;
-                if (b.group === 'postTags') return -1;
-                else return a.group.localeCompare(b.group);
-              }).map(({ group, options, key }) => (
-                <TagSelectorGroup label={LABELS[group]} key={key}>
-                  {options.map((option, i) => {
-                    const matches = match(option.name, inputValue, {
-                      insideWords: true,
-                    });
-                    const parts = parse(option.name, matches);
-                    const optionProps = getOptionProps({
-                      option,
-                      index: key + i,
-                    });
+            {groupedOptions.length > 0 ? (
+              <>
+                <TagSelectorFreeSearchPreview
+                  inputValue={inputValue}
+                  setValue={setValue}
+                />
+                {groupedOptions
+                  .sort((a, b) => {
+                    // keep researchGroups at top and postTags at bottom
+                    if (a.group === "researchGroups") return -1;
+                    if (b.group === "researchGroups") return 1;
+                    if (a.group === "postTags") return 1;
+                    if (b.group === "postTags") return -1;
+                    else return a.group.localeCompare(b.group);
+                  })
+                  .map(({ group, options, key }) => (
+                    <TagSelectorGroup label={LABELS[group]} key={key}>
+                      {options.map((option, i) => {
+                        const matches = match(option.name, inputValue, {
+                          insideWords: true,
+                        });
+                        const parts = parse(option.name, matches);
+                        const optionProps = getOptionProps({
+                          option,
+                          index: key + i,
+                        });
 
-                    return (
-                      <StyledOption {...optionProps} key={option.slug}>
-                        <Tag
-                          contents={
-                            <>
-                              {parts.map((part, partIndex) => (
-                                <span
-                                  key={partIndex}
-                                  style={{
-                                    fontWeight: part.highlight ? 700 : 400,
-                                  }}
-                                >
-                                  {part.text}
-                                </span>
-                              ))}
-                              {option.numOfPosts > 1 ? (
-                                <span> ({option.numOfPosts})</span>
-                              ) : null}
-                            </>
-                          }
-                          inverted={optionProps["aria-selected"]}
-                          type={option.type}
-                        />
-                      </StyledOption>
-                    );
-                  })}
-                </TagSelectorGroup>
-              ))}
-            </>) : (
+                        return (
+                          <StyledOption {...optionProps} key={option.slug}>
+                            <Tag
+                              contents={
+                                <>
+                                  {parts.map((part, partIndex) => (
+                                    <span
+                                      key={partIndex}
+                                      style={{
+                                        fontWeight: part.highlight ? 700 : 400,
+                                      }}
+                                    >
+                                      {part.text}
+                                    </span>
+                                  ))}
+                                  {option.numOfPosts > 1 ? (
+                                    <span> ({option.numOfPosts})</span>
+                                  ) : null}
+                                </>
+                              }
+                              inverted={optionProps["aria-selected"]}
+                              type={option.type}
+                            />
+                          </StyledOption>
+                        );
+                      })}
+                    </TagSelectorGroup>
+                  ))}
+              </>
+            ) : (
               <TagSelectorFreeSearchPreview
                 inputValue={inputValue}
                 setValue={setValue}
@@ -326,10 +330,7 @@ const TagSelector = () => {
   );
 };
 
-const TagSelectorGroup = ({
-  children,
-  label,
-}) => (
+const TagSelectorGroup = ({ children, label }) => (
   <Box sx={{ mb: "10px", isolation: "isolate" }}>
     <TypeHeading
       sx={{
@@ -360,26 +361,34 @@ const TagSelectorFreeSearchPreview = ({ inputValue, setValue }) => {
   if (inputValue === "") return null;
   return (
     <TagSelectorGroup label="Custom filter">
-      <StyledOption onClick={() => { setValue(prev => [...prev, inputValue]) }}>
-        <span style={{ marginRight: '8px' }}>
+      <StyledOption
+        onClick={() => {
+          setValue((prev) => [...prev, inputValue]);
+        }}
+      >
+        <span style={{ marginRight: "8px" }}>
           Press <StyledKbd>enter</StyledKbd> to search titles with
         </span>
         <Tag contents={`"${inputValue}"`} />
       </StyledOption>
     </TagSelectorGroup>
-  )
-}
+  );
+};
 
 const ClearAllButton = () => {
   const { clearAll } = useAutocompleteFilterContext();
 
-  return <StyledClearAllButton
-    onClick={() => { clearAll() }}
-  >
-    <CloseRounded />
-    <TypeHeading>Clear All</TypeHeading>
-  </StyledClearAllButton>
-}
+  return (
+    <StyledClearAllButton
+      onClick={() => {
+        clearAll();
+      }}
+    >
+      <CloseRounded />
+      <TypeHeading>Clear All</TypeHeading>
+    </StyledClearAllButton>
+  );
+};
 
 AutocompleteFilter.Input = Input;
 AutocompleteFilter.FilterList = FilterList;
@@ -471,7 +480,7 @@ const StyledAutocompleteRoot = styled("div")(
   &:focus-visible {
     outline: 0;
   }
-`
+`,
 );
 
 const StyledInput = styled("input")`
@@ -498,7 +507,9 @@ const StyledPopper = styled("div")`
 `;
 
 const StyledListbox = styled("ul")`
-  font-family: IBM Plex Sans, sans-serif;
+  font-family:
+    IBM Plex Sans,
+    sans-serif;
   font-size: 0.875rem;
   box-sizing: border-box;
   padding: 0px 16px 6px 16px;
@@ -531,7 +542,7 @@ const StyledOption = styled("li")(
   &.Mui-focusVisible {
     box-shadow: 0 0 0 2px ${theme.palette.primary.main}a0;
   }
-`
+`,
 );
 
 const StyledKbd = styled("kbd")`
@@ -549,4 +560,4 @@ const StyledKbd = styled("kbd")`
   padding: 2px 4px;
   white-space: nowrap;
   text-transform: uppercase;
-`
+`;

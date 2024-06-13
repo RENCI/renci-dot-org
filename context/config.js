@@ -1,50 +1,60 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
-const ConfigContext = createContext()
+const ConfigContext = createContext();
 
-const WIDTHS = { SMALL: 'md', MEDIUM: 'lg', LARGE: 'xl' }
-const MODES = { LIGHT: 'LIGHT', DARK: 'DARK' }
+const WIDTHS = { SMALL: "md", MEDIUM: "lg", LARGE: "xl" };
+const MODES = { LIGHT: "LIGHT", DARK: "DARK" };
 
 //
 
 const ACTIONS = {
-  CHANGE_WIDTH: 'change-width',
-  CHANGE_MODE: 'change-mode',
-}
+  CHANGE_WIDTH: "change-width",
+  CHANGE_MODE: "change-mode",
+};
 
 //
 
 const DEFAULT_CONFIG = {
-  width: 'lg',
-  mode: 'light',
-}
+  width: "lg",
+  mode: "light",
+};
 
 //
 
 export const ConfigProvider = ({ children }) => {
-  const [width, setWidth] = useState(DEFAULT_CONFIG.width)
-  const [mode, setMode] = useState(DEFAULT_CONFIG.mode)
-  
-  const config = useMemo(() => ({
-    mode,
-    width,
-  }), [mode, width])
+  const [width, setWidth] = useState(DEFAULT_CONFIG.width);
+  const [mode, setMode] = useState(DEFAULT_CONFIG.mode);
 
-  const changeMode = newMode => () => {
+  const config = useMemo(
+    () => ({
+      mode,
+      width,
+    }),
+    [mode, width],
+  );
+
+  const changeMode = (newMode) => () => {
     if (!(newMode in MODES)) {
-      return
+      return;
     }
-    setMode(MODES[newMode])
-  }
- 
-  const changeWidth = newWidth => () => {
-    if (!newWidth in WIDTHS) {
-      return
-    }
-    setWidth(WIDTHS[newWidth])
-  }
+    setMode(MODES[newMode]);
+  };
 
-  useEffect(() => console.table(config), [config])
+  const changeWidth = (newWidth) => () => {
+    if ((!newWidth) in WIDTHS) {
+      return;
+    }
+    setWidth(WIDTHS[newWidth]);
+  };
+
+  useEffect(() => console.table(config), [config]);
 
   return (
     <ConfigContext.Provider
@@ -54,9 +64,9 @@ export const ConfigProvider = ({ children }) => {
         changeWidth,
       }}
     >
-      { children }
+      {children}
     </ConfigContext.Provider>
-  )
-}
+  );
+};
 
-export const useConfig = () => useContext(ConfigContext)
+export const useConfig = () => useContext(ConfigContext);
