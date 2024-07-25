@@ -13,6 +13,28 @@ const HeroContainer = styled(Box)(({ theme }) => ({
   margin: `calc(-1 * ${theme.spacing(2)})`,
 }));
 
+const ParallaxContainer = styled("div")(({ 
+  theme,
+  backgroundImage,
+  backgroundColor
+}) => ({
+  width: "100vw",
+  paddingY: {
+    md: theme.spacing(12),
+    sm: theme.spacing(12),
+    xs: theme.spacing(2),
+  },
+  minHeight: "500px",
+  marginLeft: "calc(50% - 50vw)",
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundColor,
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+}));
+
 const Superheader = styled((props) => (
   <Typography variant="h6" as="h2" {...props}>
     {props.children}
@@ -38,24 +60,11 @@ export const Hero = ({
 }) => {
   const { scrollPosition } = useScrollPosition();
   return (
-    <Box
-      sx={{
-        width: "100vw",
-        paddingY: {
-          md: 12,
-          sm: 12,
-          xs: 2,
-        },
-        minHeight: "500px",
-        marginLeft: "calc(50% - 50vw)",
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundColor,
-        backgroundPosition: `0 ${scrollPosition / 2}px`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
+    <ParallaxContainer
+      backgroundImage={backgroundImage}
+      backgroundColor={backgroundColor}
+      style={{
+        backgroundPosition: `0 ${scrollPosition / 2}px`
       }}
     >
       <Container
@@ -85,7 +94,7 @@ export const Hero = ({
           )}
         </HeroContainer>
       </Container>
-    </Box>
+    </ParallaxContainer>
   );
 };
 

@@ -7,7 +7,7 @@ import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 import { fetchHomeNews } from '../lib/strapi'
-import { HomePageArticlePreview } from "../components/news/article-preview";
+import { GenericArticlePreview } from "../components/news/article-preview";
 
 export default function Home({ selectedProjects, newsArray }) {
 
@@ -34,7 +34,7 @@ export default function Home({ selectedProjects, newsArray }) {
             <Typography variant='h2' sx={{paddingTop: '1rem'}}>Recent News</Typography>
             <Stack direction='column' gap={2} paddingY={2}>
               { newsArray.map((article, i) => (
-                <HomePageArticlePreview
+                <GenericArticlePreview
                   key={i}
                   article={article}
                 />
@@ -48,13 +48,8 @@ export default function Home({ selectedProjects, newsArray }) {
   )
 }
 
-export async function getServerSideProps({ res }) {
+export async function getStaticProps() {
   try {
-    res.setHeader(
-      'Cache-Control',
-      'no-cache, no-store, must-revalidate'
-    )
-  
     const [newsArray, projects] = await Promise.all([
       fetchHomeNews(),
       fetchDashboardProjects(),
@@ -74,13 +69,15 @@ export async function getServerSideProps({ res }) {
     return {
       props: { 
         selectedProjects: JSON.parse(JSON.stringify(projectSelection)), 
-        newsArray: JSON.parse(JSON.stringify(newsArray)) 
+        newsArray: JSON.parse(JSON.stringify(newsArray)),
       },
+      revalidate: 3600,
     }
   } catch (error) {
     console.error('Error fetching data:', error);
     return {
-      props: { selectedProjects: [], newsArray: [] }
+      props: { selectedProjects: [], newsArray: [] },
+      revalidate: 3600,
     };
   }
 }

@@ -45,16 +45,11 @@ export default function Teams({ teams }) {
   )
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
-  // const teams = await fetchStrapiTeams()
+export async function getStaticProps() {
   const teams = await fetchDashboardTeams()
 
   return {
     props: { teams: JSON.parse(JSON.stringify(teams)) },
+    revalidate: 3600,
   }
 }

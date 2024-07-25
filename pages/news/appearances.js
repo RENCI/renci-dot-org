@@ -114,15 +114,10 @@ export default function NewsAppearances({ appearances }) {
   );
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticProps() {
   const appearances = await fetchAllNewsAppearances();
-
   return {
     props: { appearances: JSON.parse(JSON.stringify(appearances)) },
+    revalidate: 3600,
   };
 }

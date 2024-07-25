@@ -112,7 +112,7 @@ export const ArticlePreview = ({
   </Stack>
 }
 
-export const HomePageArticlePreview = ({article }) => {
+export const GenericArticlePreview = ({article }) => {
   const date = new Date(article.publishDate)
   const [day, month, year] = [
     date.getUTCDate(),

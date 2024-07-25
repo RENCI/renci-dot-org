@@ -49,10 +49,13 @@ export async function getPageData(params, locale, preview) {
   return pagesData.data[0].attributes;
 }
 
+let strapiGlobal;
+
 // Get site data from Strapi (metadata, navbar, footer...)
 export async function getGlobalData(locale) {
-  const global = await fetchAPI(`/api/global?populate[metaData][populate]=*&populate[navBar][populate]=*&populate[favicon][populate]=*`);
-  return global;
+  if (!strapiGlobal)
+    strapiGlobal = await fetchAPI(`/api/global?populate[metaData][populate]=*&populate[navBar][populate]=*&populate[favicon][populate]=*`);
+  return strapiGlobal;
 }
 
 export async function getStrapiApiPageData(slug) {
