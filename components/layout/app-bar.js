@@ -10,7 +10,7 @@ export const AppBar = ({ ourWorkTrayItems, homePageAppBar = false }) => {
   const { config } = useConfig();
   const scrollTrigger = useScrollTrigger({
     disableHysteresis: true,
-    threshold: 400,
+    threshold: 200,
   });
   
   return (
@@ -18,7 +18,8 @@ export const AppBar = ({ ourWorkTrayItems, homePageAppBar = false }) => {
       elevation={homePageAppBar && !scrollTrigger ? 0 : 1}
       position={homePageAppBar ? "fixed" : "sticky"}
       sx={{
-      backgroundColor: homePageAppBar && !scrollTrigger ? "transparent" : "white",
+      backgroundColor: homePageAppBar && !scrollTrigger ? "rgba(255 255 255 / 40%)" : "white",
+      borderBottom: '1px solid rgba(0 0 0 / 15%)',
       transition: 'background-color 300ms',
       height: `${HEIGHT}px`,
       display: 'flex',
