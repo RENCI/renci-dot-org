@@ -169,6 +169,25 @@ export default function Home({ selectedProjects, newsArray }) {
         </Box>
       </SolidSection>
 
+      <SolidSection bgColor={"white"} title={<Satellite />}>
+        <Box sx={{ maxWidth: "60%" }}>
+          <Typography
+            variant="h1"
+            my={2}
+            sx={{ textWrap: "balanced", fontWeight: "bold" }}
+          >
+            20 years of excellence
+          </Typography>
+          <Typography sx={{ textWrap: "balanced", my: "2rem" }}>
+            Founded in 2004, RENCI has demonstrated experience and
+            driven innovation across a variety of projects and domains.
+          </Typography>
+          <Button variant="outlined" endIcon={<ArrowRight />}>
+            Read our mission statement
+          </Button>
+        </Box>
+      </SolidSection>
+
       <SliceSection
         contentSide="left"
         contentBgColor={"rgb(49 114 138)"}
