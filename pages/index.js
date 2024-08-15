@@ -12,15 +12,16 @@ import { GenericArticlePreview } from "../components/news/article-preview";
 import { useConfig } from "context";
 import { ArrowRight } from "@mui/icons-material";
 import { Satellite } from "@/components/home/satellite";
+import { SliceSection } from "@/components/home/slice-section"
+import { SlideUpBox } from "@/components/home/slide-up-box";
 
 export default function Home({ selectedProjects, newsArray }) {
   const { config } = useConfig();
 
   return (
     <>
-      <SliceSection contentBgColor={"white"}>
-        <Satellite />
-        {/* <Box sx={{ maxWidth: "60%" }}>
+      <SliceSection contentBgColor={"white"} bgImage={homeHero} sx={{ position: "relative" }}>
+        <Box sx={{ maxWidth: "60%" }}>
           <Typography
             variant="h1"
             my={2}
@@ -46,7 +47,10 @@ export default function Home({ selectedProjects, newsArray }) {
           <Button variant="outlined" endIcon={<ArrowRight />}>
             Learn more
           </Button>
-        </Box> */}
+        </Box>
+        <SlideUpBox title={"Learn more about APSViz"} height={"300px"} width={"400px"}>
+          <p>A core project within the Department of Homeland Security’s Coastal Resilience Center at UNC-Chapel Hill, APSViz disseminates real-time coastal hazards information and enhances research productivity by making it much easier to understand computer simulations and predictions of coastal hazards.</p>
+        </SlideUpBox>
       </SliceSection>
 
       <SliceSection
@@ -160,61 +164,6 @@ export default function Home({ selectedProjects, newsArray }) {
     //   }
 
     // </Page>
-  );
-}
-
-function SliceSection({ children, contentSide = "left", contentBgColor, sx }) {
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "100dvh",
-        display: "flex",
-        justifyContent: contentSide === "left" ? "flex-start" : "flex-end",
-        alignItems: "stretch",
-        overflow: "hidden",
-        ...sx,
-      }}
-    >
-      <Box sx={{ zIndex: -1 }}>
-        <Image
-          src={homeHero}
-          alt="An abstract background image"
-          quality="100"
-          layout="fill"
-          objectFit="cover"
-        />
-      </Box>
-
-      <Box
-        sx={{
-          filter:
-            contentSide === "left"
-              ? "drop-shadow(10px 0px 5px rgba(0,0,0,0.15))"
-              : "drop-shadow(-10px 0px 5px rgba(0,0,0,0.15))",
-          flex: 1,
-          maxWidth: "60%",
-        }}
-      >
-        <Box
-          sx={{
-            backgroundColor: contentBgColor,
-            zIndex: 2,
-            height: "100%",
-            clipPath:
-              contentSide === "left"
-                ? "polygon(0 0, 100% 0, 80% 100%, 0% 100%)"
-                : "polygon(0 0, 100% 0, 100% 100%, 20% 100%)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {children}
-        </Box>
-      </Box>
-    </Box>
   );
 }
 
