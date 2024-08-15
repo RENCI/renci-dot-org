@@ -16,6 +16,7 @@ import { SliceSection } from "@/components/home/slice-section";
 import { SlideUpBox } from "@/components/home/slide-up-box";
 import { SolidSection } from "@/components/home/solid-section";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
+import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
 
 export default function Home({ selectedProjects, newsArray }) {
   const { config } = useConfig();
@@ -190,8 +191,9 @@ export default function Home({ selectedProjects, newsArray }) {
 
       <SliceSection
         contentSide="left"
-        contentBgColor={"rgb(49 114 138)"}
+        contentBgColor={"rgb(32 49 82)"}
         sx={{ color: "white" }}
+        otherSide={<CollaborationLogos />}
       >
         <Box
           sx={{
@@ -202,21 +204,24 @@ export default function Home({ selectedProjects, newsArray }) {
           }}
         >
           <Typography variant="h1" my={2} sx={{ textWrap: "balanced" }}>
-            NC researchers come together to harness...
+            Collaborating with industry-leading organizations
           </Typography>
           <Typography sx={{ textWrap: "balanced" }} my={4}>
-            In an increasingly interconnected world, the integration of clinical
-            and environmental health data holds immense potential for advancing
-            research, improving patient outcomes, and shaping the future of
-            healthcare. However, to truly make an impact on individuals and
-            communities, institutional and scientific silos that hinder
-            collaboration and resource
+            RENCI’s expertise in leading and coordinating large and
+            complex team science projects is recognized at the national
+            scale, and our growing outreach and engagement expertise
+            has landed us funding on multiple new federal projects.
+            Though we have well-established and recognized expertise in
+            many domain-specific areas, we know that our potential for
+            success and impact on society is far greater when we combine
+            our expertise and resources with other teams, and we strive to
+            continuously and intentionally embody the spirit of
+            collaboration.
           </Typography>
           <Button
             variant="contained"
             endIcon={<ArrowRight />}
             sx={{
-              alignSelf: "flex-end",
               background: "rgb(255, 68, 202)",
               borderRadius: "8px",
             }}

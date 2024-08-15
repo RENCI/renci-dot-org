@@ -6,6 +6,7 @@ export function SliceSection({
   contentSide = "left",
   contentBgColor,
   bgImage,
+  otherSide,
   sx,
 }) {
   return (
@@ -55,13 +56,15 @@ export function SliceSection({
 
       <Box sx={{ flex: 1, zIndex: -1 }}>
         {" "}
-        <Image
-          src={bgImage}
-          alt="An abstract background image"
-          quality="100"
-          layout="fill"
-          objectFit="cover"
-        />
+        {otherSide ? otherSide : (
+          <Image
+            src={bgImage}
+            alt="An abstract background image"
+            quality="100"
+            layout="fill"
+            objectFit="cover"
+          />
+        )}
       </Box>
     </Box>
   );
