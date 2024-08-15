@@ -12,15 +12,21 @@ import { GenericArticlePreview } from "../components/news/article-preview";
 import { useConfig } from "context";
 import { ArrowRight } from "@mui/icons-material";
 import { Satellite } from "@/components/home/satellite";
-import { SliceSection } from "@/components/home/slice-section"
+import { SliceSection } from "@/components/home/slice-section";
 import { SlideUpBox } from "@/components/home/slide-up-box";
+import { SolidSection } from "@/components/home/solid-section";
+import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
 
 export default function Home({ selectedProjects, newsArray }) {
   const { config } = useConfig();
 
   return (
     <>
-      <SliceSection contentBgColor={"white"} bgImage={homeHero} sx={{ position: "relative" }}>
+      <SliceSection
+        contentBgColor={"white"}
+        bgImage={homeHero}
+        sx={{ position: "relative" }}
+      >
         <Box sx={{ maxWidth: "60%" }}>
           <Typography
             variant="h1"
@@ -48,8 +54,18 @@ export default function Home({ selectedProjects, newsArray }) {
             Learn more
           </Button>
         </Box>
-        <SlideUpBox title={"Learn more about APSViz"} height={"300px"} width={"400px"}>
-          <p>A core project within the Department of Homeland Security’s Coastal Resilience Center at UNC-Chapel Hill, APSViz disseminates real-time coastal hazards information and enhances research productivity by making it much easier to understand computer simulations and predictions of coastal hazards.</p>
+        <SlideUpBox
+          title={"Learn more about APSViz"}
+          height={"300px"}
+          width={"400px"}
+        >
+          <p>
+            A core project within the Department of Homeland Security’s Coastal
+            Resilience Center at UNC-Chapel Hill, APSViz disseminates real-time
+            coastal hazards information and enhances research productivity by
+            making it much easier to understand computer simulations and
+            predictions of coastal hazards.
+          </p>
         </SlideUpBox>
       </SliceSection>
 
@@ -58,11 +74,18 @@ export default function Home({ selectedProjects, newsArray }) {
         contentBgColor={"rgb(30 55 91)"}
         sx={{ color: "white" }}
       >
-        <Box sx={{ maxWidth: "60%", display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Box
+          sx={{
+            maxWidth: "60%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
           <Typography
             variant="h1"
             my={2}
-            sx={{textWrap: "balanced"}}
+            sx={{ textWrap: "balanced", fontWeight: "bold" }}
           >
             NC researchers come together to harness...
           </Typography>
@@ -74,23 +97,92 @@ export default function Home({ selectedProjects, newsArray }) {
             communities, institutional and scientific silos that hinder
             collaboration and resource
           </Typography>
-          <Button variant="contained" endIcon={<ArrowRight />} sx={{ alignSelf: 'flex-end'}}>
+          <Button
+            variant="contained"
+            endIcon={<ArrowRight />}
+            sx={{
+              alignSelf: "flex-end",
+              background: "rgb(255, 68, 202)",
+              borderRadius: "8px",
+            }}
+          >
             Learn more
           </Button>
         </Box>
       </SliceSection>
-      
+
+      <SolidSection
+        bgColor={"rgb(56 103 128)"}
+        sx={{ color: "white" }}
+        title={
+          <Box sx={{ maxWidth: "60%" }}>
+            <Typography
+              variant="h1"
+              my={2}
+              sx={{ textWrap: "balanced", fontWeight: "bold" }}
+            >
+              Leading innovation in diverse research fields
+            </Typography>
+            <Typography sx={{ textWrap: "balanced" }}>
+              RENCI supports several research groups; centered around data
+              science, each domain-specific group offers scientific and
+              technical expertise to advance discovery within their field
+            </Typography>
+          </Box>
+        }
+      >
+        <Box sx={{ maxWidth: "80%" }}>
+          <ResearchGroupSummaries
+            groups={[
+              {
+                name: "Clinical Informatics",
+                summary:
+                  "Enhancing health sciences research and clinical practice through advanced data management and analysis, improving patient diagnoses and treatment outcomes.",
+                link: "/groups/clinical-informatics",
+              },
+              {
+                name: "Data Science and Analytics",
+                summary:
+                  "Transforming sectors like science and industry with big data tools and technologies for improved data access, sharing, analysis, and long-term archiving.",
+                link: "/groups/data-science-and-analytics",
+              },
+              {
+                name: "Earth Data Science",
+                summary:
+                  "Utilizing data management, high-performance computing, and visualization to model coastal impacts and support environmental data sharing and sustainability.",
+                link: "/groups/earth-data-science",
+              },
+              {
+                name: "Network Research and Infrastructure",
+                summary:
+                  "Advancing high-performance computing and networking to facilitate seamless data access, sharing, and storage for global scientific collaboration",
+                link: "/groups/nrig",
+              },
+              {
+                name: "Software Architecture",
+                summary:
+                  "Creating scalable cloud computing data science platforms featuring full-text search, knowledge graphs and machine learning models.",
+                link: "/groups/software-architecture",
+              },
+            ]}
+          />
+        </Box>
+      </SolidSection>
+
       <SliceSection
         contentSide="left"
         contentBgColor={"rgb(49 114 138)"}
         sx={{ color: "white" }}
       >
-        <Box sx={{ maxWidth: "60%", display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          <Typography
-            variant="h1"
-            my={2}
-            sx={{textWrap: "balanced"}}
-          >
+        <Box
+          sx={{
+            maxWidth: "60%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+          }}
+        >
+          <Typography variant="h1" my={2} sx={{ textWrap: "balanced" }}>
             NC researchers come together to harness...
           </Typography>
           <Typography sx={{ textWrap: "balanced" }} my={4}>
@@ -101,69 +193,20 @@ export default function Home({ selectedProjects, newsArray }) {
             communities, institutional and scientific silos that hinder
             collaboration and resource
           </Typography>
-          <Button variant="contained" endIcon={<ArrowRight />} sx={{ alignSelf: 'flex-end', background: 'rgb(255, 68, 202)', borderRadius: '8px' }}>
+          <Button
+            variant="contained"
+            endIcon={<ArrowRight />}
+            sx={{
+              alignSelf: "flex-end",
+              background: "rgb(255, 68, 202)",
+              borderRadius: "8px",
+            }}
+          >
             Learn more
           </Button>
         </Box>
       </SliceSection>
-
-      {/* <Box
-        sx={{
-          width: "100%",
-          minHeight: "100dvh",
-
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Container width={config.width}>
-          <Typography variant="h1" width="50%" my={2}>What we do</Typography>
-          <Typography variant="body1" width="60%" my={4}>
-          RENCI (Renaissance Computing Institute) develops and deploys advanced technologies to enable
-          research discoveries and practical innovations. RENCI partners with researchers, government,
-          and industry to engage and solve the problems that affect North Carolina, our nation, and 
-          the world. An institute of the University of North Carolina at Chapel Hill, RENCI was launched
-          in 2004 as a collaboration involving UNC Chapel Hill, Duke University, and North Carolina State University.
-          </Typography>
-          <Button variant="outlined" endIcon={<ArrowRight />}>About us</Button>
-        </Container>
-      </Box> */}
     </>
-
-    // <Page
-    //   title="Home"
-    //   description="Welcome to RENCI.org"
-    //   heroImage={ homeHero.src }
-    // >
-    //   <Typography paragraph>
-    //     The Renaissance Computing Institute (RENCI) is a research institute at UNC-Chapel
-    //     Hill that focuses on data science for the greater good. We are a team of innovators,
-    //     problem-solvers, and forward-thinking individuals from a diverse range of backgrounds,
-    //     skill sets, and perspectives coming together to conduct groundbreaking research and
-    //     enact positive change at the local, state, national, and international levels. Explore
-    //     our various projects, research groups, collaborations, and operations teams to learn
-    //     more about our work and the people who make it happen.
-    //   </Typography>
-
-    //   <ProjectSpotlight selectedProjects={selectedProjects}/>
-    //   {
-    //     newsArray && (
-    //       <Fragment>
-    //         <Typography variant='h2' sx={{paddingTop: '1rem'}}>Recent News</Typography>
-    //         <Stack direction='column' gap={2} paddingY={2}>
-    //           { newsArray.map((article, i) => (
-    //             <HomePageArticlePreview
-    //               key={i}
-    //               article={article}
-    //             />
-    //           ))}
-    //         </Stack>
-    //       </Fragment>
-    //     )
-    //   }
-
-    // </Page>
   );
 }
 
