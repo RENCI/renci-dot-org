@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { Typography, Stack, Box, Container, Button } from "@mui/material";
+import { Typography, Stack, Box, Container, Button, Input, TextField, Select, MenuItem } from "@mui/material";
 import { Link, Page } from "../components";
 import homeHero from "../images/home-hero.jpg";
 import homeHero2 from "../images/home-hero-2.jpg";
@@ -17,9 +17,13 @@ import { SlideUpBox } from "@/components/home/slide-up-box";
 import { SolidSection } from "@/components/home/solid-section";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
 import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
+import SliderPage from "@/components/home/slider-page";
 
 export default function Home({ selectedProjects, newsArray }) {
   const { config } = useConfig();
+
+  const [questionType, setQuestionType] = useState('')
+  const handleChange = (e) => setQuestionType(e.target.value);
 
   return (
     <>
@@ -180,8 +184,8 @@ export default function Home({ selectedProjects, newsArray }) {
             20 years of excellence
           </Typography>
           <Typography sx={{ textWrap: "balanced", my: "2rem" }}>
-            Founded in 2004, RENCI has demonstrated experience and
-            driven innovation across a variety of projects and domains.
+            Founded in 2004, RENCI has demonstrated experience and driven
+            innovation across a variety of projects and domains.
           </Typography>
           <Button variant="outlined" endIcon={<ArrowRight />}>
             Read our mission statement
@@ -207,15 +211,14 @@ export default function Home({ selectedProjects, newsArray }) {
             Collaborating with industry-leading organizations
           </Typography>
           <Typography sx={{ textWrap: "balanced" }} my={4}>
-            RENCI’s expertise in leading and coordinating large and
-            complex team science projects is recognized at the national
-            scale, and our growing outreach and engagement expertise
-            has landed us funding on multiple new federal projects.
-            Though we have well-established and recognized expertise in
-            many domain-specific areas, we know that our potential for
-            success and impact on society is far greater when we combine
-            our expertise and resources with other teams, and we strive to
-            continuously and intentionally embody the spirit of
+            RENCI’s expertise in leading and coordinating large and complex team
+            science projects is recognized at the national scale, and our
+            growing outreach and engagement expertise has landed us funding on
+            multiple new federal projects. Though we have well-established and
+            recognized expertise in many domain-specific areas, we know that our
+            potential for success and impact on society is far greater when we
+            combine our expertise and resources with other teams, and we strive
+            to continuously and intentionally embody the spirit of
             collaboration.
           </Typography>
           <Button
@@ -230,14 +233,79 @@ export default function Home({ selectedProjects, newsArray }) {
           </Button>
         </Box>
       </SliceSection>
+
+      <SliderPage
+        title={"Featured Projects"}
+        subtitle={"See all projects"}
+        items={
+          selectedProjects.map(
+            ({ id, webName, webDescription, slug, featuredImage }) =>
+              ({
+                key: id,
+                title: webName,
+                description: webDescription,
+                link: `/projects/${slug}`,
+                image: featuredImage?.[0]?.url ?? undefined,
+              })
+          )
+        }
+        bgColor={"white"}
+      />
+
+      <SliderPage
+        title={"Recent articles"}
+        subtitle={"See all articles"}
+        items={
+          newsArray.map(
+            ({ id, title, slug, publishDate, excerpt }) => 
+              ({
+                key: id,
+                title,
+                description: excerpt,
+                link: `/news/${publishDate.split('-')[0]}/${publishDate.split('-')[1].replace('0', '')}/${publishDate.split('-')[2].replace('0', '')}/${slug}`
+              })
+          )
+        }
+        bgColor={"linear-gradient(to bottom, rgb(89 141 151), rgb(95 173 161))"}
+        color={"white"}
+      />
+
+      <SolidSection
+        bgColor={"white"}
+        title={
+          <Box sx={{ maxWidth: "60%" }}>
+            <Typography
+              variant="h1"
+              my={2}
+              sx={{ textWrap: "balanced", fontWeight: "bold" }}
+            >
+              Contact us
+            </Typography>
+            <Typography sx={{ textWrap: "balanced" }}>
+              Interested in learning more or working with RENCI? Please fill out this form.
+            </Typography>
+          </Box>
+        }
+      >
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <TextField label="Name" />  
+          <Select label="Reason for inquiry" fullWidth>
+            <MenuItem>General Question</MenuItem>
+            <MenuItem>Request for collaboration</MenuItem>
+            <MenuItem>Media request</MenuItem>
+          </Select>
+          <TextField label="Message" multiline minRows={30} />  
+          <Button>
+            Send Message
+          </Button>
+        </Box>        
+      </SolidSection>
     </>
   );
 }
 
 export async function getStaticProps() {
   try {
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-
     const [newsArray, projects] = await Promise.all([
       fetchHomeNews(),
       fetchDashboardProjects(),
@@ -245,7 +313,7 @@ export async function getStaticProps() {
 
     let projectsCopy = [...projects];
     let projectSelection = [];
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < 10; i += 1) {
       const randomIndex = Math.floor(Math.random() * projectsCopy.length);
       const randomProject = projectsCopy.splice(randomIndex, 1)[0];
       //add a property that is a snippet of the original description before pushing to the array
