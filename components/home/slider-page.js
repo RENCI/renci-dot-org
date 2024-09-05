@@ -1,9 +1,8 @@
-import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Card, CardContent, IconButton, Typography } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
-import Image from "next/image";
 import { Link } from "../link";
-import BB from "./bb.png";
-import { ArrowRight } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, ArrowRight } from "@mui/icons-material";
+import { useCallback } from "react";
 
 /**
  * 
@@ -19,8 +18,16 @@ import { ArrowRight } from "@mui/icons-material";
  * @returns 
  */
 export default function SliderPage({ items, bgColor, color, title, subtitle }) {
-  const [emblaRef] = useEmblaCarousel();
+  const [emblaRef, emblaApi] = useEmblaCarousel();
   
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev()
+  }, [emblaApi])
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext()
+  }, [emblaApi])
+
   return (
     <Box
       sx={{
@@ -50,6 +57,15 @@ export default function SliderPage({ items, bgColor, color, title, subtitle }) {
             ))}
         </Box>
       </Box>
+
+      <ButtonGroup sx={{ alignSelf: 'flex-end', mr: 4, '& svg': { fill: color } }}>
+        <IconButton onClick={scrollPrev}>
+          <ArrowBack />
+        </IconButton>
+        <IconButton onClick={scrollNext}>
+          <ArrowForward />
+        </IconButton>
+      </ButtonGroup>
     </Box>
   );
 }
@@ -77,7 +93,7 @@ function Slide({ title, description, link, image }) {
     >
       {image !== undefined &&
         <Box sx={{ alignSelf: "stretch", flex: "1", position: "relative", borderRadius: "4px", border: "1px solid #e8e8e8", overflow: "hidden" }}>
-          {/* <Image src={BB} alt="" layout="fill" objectFit="cover" /> */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={image} alt="" style={{ objectFit: 'cover', maxHeight: '100%' }} />
         </Box>
       }
