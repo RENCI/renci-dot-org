@@ -18,7 +18,7 @@ export const AppBar = ({ ourWorkTrayItems, homePageAppBar = false }) => {
       elevation={homePageAppBar && !scrollTrigger ? 0 : 1}
       position={homePageAppBar ? "fixed" : "sticky"}
       sx={{
-      backgroundColor: homePageAppBar && !scrollTrigger ? "rgba(255 255 255 / 40%)" : "white",
+      backgroundColor: homePageAppBar && !scrollTrigger ? "rgba(255 255 255 / 60%)" : "white",
       borderBottom: '1px solid rgba(0 0 0 / 15%)',
       transition: 'background-color 300ms',
       height: `${HEIGHT}px`,

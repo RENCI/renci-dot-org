@@ -1,8 +1,9 @@
-import { Box, Button, ButtonGroup, Card, CardContent, IconButton, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, IconButton, Typography } from "@mui/material";
 import useEmblaCarousel from "embla-carousel-react";
 import { Link } from "../link";
 import { ArrowBack, ArrowForward, ArrowRight } from "@mui/icons-material";
 import { useCallback } from "react";
+import { MarkdownLess } from "../markdown";
 
 /**
  * 
@@ -36,7 +37,7 @@ export default function SliderPage({ items, bgColor, color, title, subtitle }) {
         color,
         display: "flex",
         flexDirection: "column",
-        gap: "4rem",
+        gap: "2rem",
         alignItems: "center",
         justifyContent: "center",
       }}
@@ -109,7 +110,9 @@ function Slide({ title, description, link, image }) {
         }}}>
           <Typography variant="h2" color="black" fontWeight="500" fontSize="1.5rem">{title}</Typography>
           <Typography>
-            {description}
+            <MarkdownLess>
+              {description}
+            </MarkdownLess>
           </Typography>
         </Box>
         <Box alignSelf="flex-end">

@@ -7,6 +7,7 @@ export function SliceSection({
   contentBgColor,
   bgImage,
   otherSide,
+  clearBackground = false,
   sx,
 }) {
   return (
@@ -18,13 +19,14 @@ export function SliceSection({
         flexDirection: contentSide === "left" ? "row" : "row-reverse",
         alignItems: "stretch",
         overflow: "hidden",
+        position: 'relative',
         ...sx,
       }}
     >
       <Box
         sx={{
           flex: 1,
-          backgroundColor: contentBgColor,
+          backgroundColor: clearBackground ? "transparent" : contentBgColor,
           display: "grid",
           placeItems: "center",
         }}
@@ -35,6 +37,7 @@ export function SliceSection({
       <Box
         sx={{
           flex: "0 0 150px",
+          visibility: clearBackground ? 'hidden' : 'visible',
           filter:
             contentSide === "left"
               ? "drop-shadow(10px 0px 5px rgba(0,0,0,0.15))"
