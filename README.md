@@ -57,7 +57,7 @@ You should test that the image functions properly by running this command and th
 
 ```bash
 docker run -p 3000:3000 \
--e STRAPI_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+-e STRAPI_ACCESS_TOKEN=YOUR_ACCESS_TOKEN \
 -e NEXT_PUBLIC_STRAPI_API_URL=https://api.renci.org \
 containers.renci.org/renci-dot-org/frontend:1.1.4
 ```
