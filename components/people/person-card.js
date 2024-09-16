@@ -7,7 +7,8 @@ import { useTheme } from "@emotion/react";
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
 
-  const onMediaFallback = event => event.target.src = "/static/images/generic-avatar.svg" ;
+  const onMediaFallback = (event) =>
+    (event.target.src = "/static/images/generic-avatar.svg");
 
   return (
     <Card
@@ -37,8 +38,8 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
               [theme.breakpoints.down("sm")]: {
                 width: 100,
               },
-            }}            
-            src={ person.photo }
+            }}
+            src={person.photo}
             onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
             image={person.photo}
