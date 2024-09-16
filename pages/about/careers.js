@@ -1,9 +1,11 @@
 import { Typography } from "@mui/material";
-import { Page } from "../../components";
+import { Page } from "@/components/layout";
+import { FlexTabs } from "@/components/flex-tabs";
 
 export default function Careers() {
   return (
     <Page title="Careers">
+      <FlexTabs />
       <Typography paragraph>
         RENCI’s inclusive, creative ethos transcends disciplinary boundaries to
         catalyze data-driven discovery and innovation for the public good. A
