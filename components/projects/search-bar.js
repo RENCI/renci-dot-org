@@ -8,7 +8,7 @@ import {
   OutlinedInput,
   styled,
 } from "@mui/material";
-import { Backspace as ClearIcon } from '@mui/icons-material'
+import { Backspace as ClearIcon } from "@mui/icons-material";
 
 const StyledAutocompleteSearch = styled("div")(
   ({ theme, bottomBorderRadius = true }) => `
@@ -25,21 +25,24 @@ const StyledAutocompleteSearch = styled("div")(
     &:focus-visible {
       outline: 0;
     }
-  `
+  `,
 );
 
 export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
-  const handleClickClear = () => setSearchQuery('')
+  const handleClickClear = () => setSearchQuery("");
 
   return (
-    <FormControl fullWidth sx={{
-      '.MuiInputAdornment-root': { pr: 1 }
-    }}>
+    <FormControl
+      fullWidth
+      sx={{
+        ".MuiInputAdornment-root": { pr: 1 },
+      }}
+    >
       <FormLabel htmlFor="project-search-input">Project Search</FormLabel>
       <StyledAutocompleteSearch>
         <OutlinedInput
           fullWidth
-          value={ searchQuery }
+          value={searchQuery}
           id="project-search-input"
           onInput={(e) => {
             setSearchQuery(e.target.value.toLowerCase());
@@ -49,7 +52,7 @@ export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
             <InputAdornment position="end">
               <IconButton
                 aria-label="Clear search query"
-                onClick={ handleClickClear }
+                onClick={handleClickClear}
                 edge="end"
               >
                 <ClearIcon />

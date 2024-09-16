@@ -122,16 +122,12 @@ const MyApp = (props) => {
 // Hopefully we can replace this with getStaticProps once this issue is fixed:
 // https://github.com/vercel/next.js/discussions/10949
 MyApp.getInitialProps = async (appContext) => {
-  const [
-    appProps,
-    globalLocale,
-    ourWorkTrayItems
-  ] = await Promise.all([
+  const [appProps, globalLocale, ourWorkTrayItems] = await Promise.all([
     // Calls page's `getInitialProps` and fills `appProps.pageProps`
     App.getInitialProps(appContext),
     getGlobalData(),
     fetchOurWorkTrayItems(),
-  ])
+  ]);
 
   return {
     ...appProps,

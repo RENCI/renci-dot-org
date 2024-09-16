@@ -1,12 +1,12 @@
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import {
   TitleAndBody,
-  TextAndImage, 
-  PageTitle, 
-  RichText, 
+  TextAndImage,
+  PageTitle,
+  RichText,
   Hero,
-  NewsBlock
-} from "./strapi-components"
+  NewsBlock,
+} from "./strapi-components";
 
 // Map Strapi sections to section components
 const sectionComponents = {
@@ -16,29 +16,25 @@ const sectionComponents = {
   "sections.page-title": PageTitle,
   "sections.hero": Hero,
   "sections.news-block": NewsBlock,
-}
+};
 
 // Display a section individually
 const Section = ({ sectionData }) => {
   // Prepare the component
-  const SectionComponent = sectionComponents[sectionData.__component]
+  const SectionComponent = sectionComponents[sectionData.__component];
   if (!SectionComponent) {
-    return null
+    return null;
   }
 
   // Display the section
-  return (
-    <SectionComponent
-      data={sectionData}
-    />
-  )
-}
+  return <SectionComponent data={sectionData} />;
+};
 
 const PreviewModeBanner = () => {
-  const router = useRouter()
+  const router = useRouter();
   const exitURL = `/api/exit-preview?redirect=${encodeURIComponent(
-    router.asPath
-  )}`
+    router.asPath,
+  )}`;
 
   return (
     <div className="py-4 bg-red-600 text-red-100 font-semibold uppercase tracking-wide">
@@ -52,8 +48,8 @@ const PreviewModeBanner = () => {
         </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Display the list of sections
 const Sections = ({ sections, preview }) => {
@@ -63,13 +59,10 @@ const Sections = ({ sections, preview }) => {
       {preview && <PreviewModeBanner />}
       {/* Show the actual sections */}
       {sections.map((section, sectionId) => (
-        <Section
-          sectionData={section}
-          key={sectionId}
-        />
+        <Section sectionData={section} key={sectionId} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Sections
+export default Sections;

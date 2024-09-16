@@ -1,4 +1,4 @@
-import { Markdown } from '../../markdown'
+import { Markdown } from "../../markdown";
 import { TextImageSection } from "../../layout";
 
 export const TextAndImage = ({ data }) => {

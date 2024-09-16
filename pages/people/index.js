@@ -23,7 +23,7 @@ const VerticalLettersMenu = ({ linkedLetters }) => {
     <Box
       component="nav"
       sx={{
-        '--distance-from-top': '10rem',
+        "--distance-from-top": "10rem",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -33,10 +33,10 @@ const VerticalLettersMenu = ({ linkedLetters }) => {
         overflowY: "auto",
         overflowX: "hidden",
         top: "var(--distance-from-top)",
-        maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
-        whiteSpace: 'pre-wrap',
+        maxHeight: "calc(100vh - var(--distance-from-top) - 2rem)",
+        whiteSpace: "pre-wrap",
         alignSelf: "flex-start",
-        paddingX: '6px',
+        paddingX: "6px",
         scrollbarWidth: "thin",
 
         "&::-webkit-scrollbar": {
@@ -51,8 +51,7 @@ const VerticalLettersMenu = ({ linkedLetters }) => {
         },
         "&:hover::-webkit-scrollbar-thumb": {
           backgroundColor: "rgba(0, 0, 0, 0.3)",
-        }
-
+        },
       }}
     >
       {letters.map((letter) =>
@@ -61,30 +60,26 @@ const VerticalLettersMenu = ({ linkedLetters }) => {
             {letter}
           </Link>
         ) : (
-          <Typography
-            component="span"
-            key={letter}
-            style={{ color: "#abc" }}
-          >
+          <Typography component="span" key={letter} style={{ color: "#abc" }}>
             {letter}
           </Typography>
-        )
+        ),
       )}
     </Box>
-  )
-}
+  );
+};
 
 const HorizontalLettersMenu = ({ linkedLetters }) => {
   return (
     <Stack
       flexDirection="row"
       alignItems="center"
-      justifyContent={{ xs: 'center', md: 'flex-end' }}
+      justifyContent={{ xs: "center", md: "flex-end" }}
       component="nav"
-      gap={ 1 }
+      gap={1}
       sx={{
         flex: 1,
-        flexWrap: 'wrap',
+        flexWrap: "wrap",
       }}
     >
       {letters.map((letter) =>
@@ -93,18 +88,14 @@ const HorizontalLettersMenu = ({ linkedLetters }) => {
             {letter}
           </Link>
         ) : (
-          <Typography
-            component="span"
-            key={letter}
-            style={{ color: "#abc" }}
-          >
+          <Typography component="span" key={letter} style={{ color: "#abc" }}>
             {letter}
           </Typography>
-        )
+        ),
       )}
     </Stack>
-  )
-}
+  );
+};
 
 /*
  * people are coming into this component from
@@ -115,15 +106,16 @@ const HorizontalLettersMenu = ({ linkedLetters }) => {
  * }
  */
 export default function People({ people, peopleFromDashboard }) {
-  const tallViewport = useMediaQuery('(min-height: 950px)')
+  const tallViewport = useMediaQuery("(min-height: 950px)");
 
-  let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
+  let previousLetter,
+    currentLetter = "?"; // used for adding name attrs for vertical letters nav menu
 
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
     const index = people.people.findIndex(
-      (person) => person.lastName[0] === char
+      (person) => person.lastName[0] === char,
     );
     return index > -1 ? [...chars, char] : chars;
   }, []);
@@ -146,53 +138,51 @@ export default function People({ people, peopleFromDashboard }) {
 
       <Typography variant="h2">Office of the Director</Typography>
 
-      <Box my='2rem'>
-        <PersonGrid size='large'>
+      <Box my="2rem">
+        <PersonGrid size="large">
           {people.ood.map((person) => (
-            <PersonCard
-              key={person.slug}
-              person={person}
-              showTitle={true}
-            />
+            <PersonCard key={person.slug} person={person} showTitle={true} />
           ))}
         </PersonGrid>
       </Box>
 
       <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        alignItems={{ xs: 'flex-start', lg: 'stretch' }}
+        direction={{ xs: "column", md: "row" }}
+        alignItems={{ xs: "flex-start", lg: "stretch" }}
         justifyContent="flex-start"
-        gap={ 2 }
+        gap={2}
       >
         <Typography variant="h2">Everyone Else</Typography>
-        { !tallViewport && <HorizontalLettersMenu linkedLetters={ linkedLetters } /> }
+        {!tallViewport && (
+          <HorizontalLettersMenu linkedLetters={linkedLetters} />
+        )}
       </Stack>
 
-      <Box sx={{ display: "flex", gap: "1rem", my: '2rem' }}>
-        { tallViewport && <VerticalLettersMenu linkedLetters={ linkedLetters } /> }
+      <Box sx={{ display: "flex", gap: "1rem", my: "2rem" }}>
+        {tallViewport && <VerticalLettersMenu linkedLetters={linkedLetters} />}
 
-        <PersonGrid size='medium'>
-          {
-            people.people
-              .map(person => {
-                // here, we add a name attribute, as necessary, to support the vertical side letters menu.
-                // the first person whose last name starts with 'A' gets a name attr,
-                // the first person whose last name starts with 'B' gets a name attr,
-                // etc.
-                previousLetter = currentLetter;
-                currentLetter = person.lastName[0].toLowerCase();
+        <PersonGrid size="medium">
+          {people.people.map((person) => {
+            // here, we add a name attribute, as necessary, to support the vertical side letters menu.
+            // the first person whose last name starts with 'A' gets a name attr,
+            // the first person whose last name starts with 'B' gets a name attr,
+            // etc.
+            previousLetter = currentLetter;
+            currentLetter = person.lastName[0].toLowerCase();
 
-                return (
-                  <PersonCard
-                    key={person.slug}
-                    person={person}
-                    showTitle={true}
-                    anchorName={ currentLetter !== previousLetter ? currentLetter.toUpperCase() : null }
-                  />
-                )
-              }
-            )
-          }
+            return (
+              <PersonCard
+                key={person.slug}
+                person={person}
+                showTitle={true}
+                anchorName={
+                  currentLetter !== previousLetter
+                    ? currentLetter.toUpperCase()
+                    : null
+                }
+              />
+            );
+          })}
         </PersonGrid>
       </Box>
     </Page>
@@ -203,7 +193,7 @@ export async function getStaticProps() {
   const people1 = await fetchDashboardPeople();
 
   return {
-    props: { people: {ood: people1.ood, people: people1.people} },
+    props: { people: { ood: people1.ood, people: people1.people } },
     revalidate: 3600,
   };
 }

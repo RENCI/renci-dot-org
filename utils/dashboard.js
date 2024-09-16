@@ -1,7 +1,5 @@
 export function getDashboardURL(endpoint) {
-  return `${
-    "https://dashboard.renci.org/api/webinfo/"
-  }${endpoint}`;
+  return `${"https://dashboard.renci.org/api/webinfo/"}${endpoint}`;
 }
 
 // Helper to make GET requests to Dashboard
@@ -16,7 +14,7 @@ export async function fetchFromDashboard(endpoint, options = {}) {
     ...options,
   };
   const requestUrl = getDashboardURL(endpoint);
-  
+
   const response = await fetch(requestUrl, mergedOptions);
 
   if (!response.ok) {

@@ -22,13 +22,60 @@
   min-height: 500px;
   overflow: hidden;
   background-color: #666;
-  background-image:
-    linear-gradient(30deg, #000000 12%, transparent 12%, transparent 87%, #000000 87%, #000000),
-    linear-gradient(150deg, #000000 12%, transparent 12%, transparent 87%, #000000 87%, #000000),
-    linear-gradient(30deg, #000000 12%, transparent 12%, transparent 87%, #000000 87%, #000000),
-    linear-gradient(150deg, #000000 12%, transparent 12%, transparent 87%, #000000 87%, #000000),
-    linear-gradient(60deg, #00000066 25%, transparent 25.5%, transparent 75%, #00000066 75%, #00000066), 
-    linear-gradient(60deg, #00000066 25%, transparent 25.5%, transparent 75%, #00000066 75%, #00000066);
-  background-size:40px 70px;
-  background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+  background-image: linear-gradient(
+      30deg,
+      #000000 12%,
+      transparent 12%,
+      transparent 87%,
+      #000000 87%,
+      #000000
+    ),
+    linear-gradient(
+      150deg,
+      #000000 12%,
+      transparent 12%,
+      transparent 87%,
+      #000000 87%,
+      #000000
+    ),
+    linear-gradient(
+      30deg,
+      #000000 12%,
+      transparent 12%,
+      transparent 87%,
+      #000000 87%,
+      #000000
+    ),
+    linear-gradient(
+      150deg,
+      #000000 12%,
+      transparent 12%,
+      transparent 87%,
+      #000000 87%,
+      #000000
+    ),
+    linear-gradient(
+      60deg,
+      #00000066 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #00000066 75%,
+      #00000066
+    ),
+    linear-gradient(
+      60deg,
+      #00000066 25%,
+      transparent 25.5%,
+      transparent 75%,
+      #00000066 75%,
+      #00000066
+    );
+  background-size: 40px 70px;
+  background-position:
+    0 0,
+    0 0,
+    20px 35px,
+    20px 35px,
+    0 0,
+    20px 35px;
 }

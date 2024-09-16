@@ -46,40 +46,42 @@ export const Tag = ({
   sx = {},
   ...props
 }) => {
-  if (TYPES[type] === undefined) type = 'default';
+  if (TYPES[type] === undefined) type = "default";
   const { color, bgColor } = TYPES[type];
-  
-  return <Chip
-    label={contents}
-    size="small"
-    deleteIcon={
-      props.onDelete ? (
-        <CloseRounded
-          sx={{
-            transform: "scale(0.8)",
-            transformOrigin: "center",
-            strokeWidth: 0,
-            fill: !inverted ? color : bgColor,
-          }}
-        />
-      ) : undefined
-    }
-    sx={{
-      direction: 'initial',
-      backgroundColor: !inverted ? bgColor : color,
-      color: !inverted ? color : bgColor,
-      borderRadius: "6px",
-      cursor: "revert",
-      border: `1px solid ${!inverted ? color : bgColor}80`,
-      whiteSpace: 'nowrap',
-      overflow:  'hidden',
-      textOverflow: 'ellipsis',
-      maxWidth: "35ch",
-      textTransform: uppercase ? 'uppercase' : 'initial',
-      ...sx,
-    }}
-    {...props}
-  />;
+
+  return (
+    <Chip
+      label={contents}
+      size="small"
+      deleteIcon={
+        props.onDelete ? (
+          <CloseRounded
+            sx={{
+              transform: "scale(0.8)",
+              transformOrigin: "center",
+              strokeWidth: 0,
+              fill: !inverted ? color : bgColor,
+            }}
+          />
+        ) : undefined
+      }
+      sx={{
+        direction: "initial",
+        backgroundColor: !inverted ? bgColor : color,
+        color: !inverted ? color : bgColor,
+        borderRadius: "6px",
+        cursor: "revert",
+        border: `1px solid ${!inverted ? color : bgColor}80`,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        maxWidth: "35ch",
+        textTransform: uppercase ? "uppercase" : "initial",
+        ...sx,
+      }}
+      {...props}
+    />
+  );
 };
 
 Tag.propTypes = {
