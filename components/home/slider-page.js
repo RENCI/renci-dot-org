@@ -32,12 +32,13 @@ export default function SliderPage({ items, bgColor, color, title, subtitle }) {
   return (
     <Box
       sx={{
-        height: "60dvh",
+        minHeight: "60dvh",
         background: bgColor,
         color,
         display: "flex",
         flexDirection: "column",
         gap: "2rem",
+        padding: 2,
         alignItems: "center",
         justifyContent: "center",
       }}
