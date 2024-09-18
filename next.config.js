@@ -10,7 +10,6 @@
 
 // module.exports = nextConfig
 
-
 module.exports = {
   // webpack5: false,
   // images: {
@@ -23,6 +22,11 @@ module.exports = {
     defaultLocale: "en",
   },
   images: {
-    domains: ['https://dashboard.renci.org/','radx-images.s3.amazonaws.com', 'dashboard.sandy-web.ad.renci.org', '/static/images'],
+    domains: [
+      "https://dashboard.renci.org/",
+      "radx-images.s3.amazonaws.com",
+      "dashboard.sandy-web.ad.renci.org",
+      "/static/images",
+    ],
   },
 };

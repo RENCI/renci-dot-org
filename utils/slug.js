@@ -5,11 +5,11 @@
  * ```
  */
 export const dateToSlug = (d) => {
-  const date = new Date(d)
+  const date = new Date(d);
   const [day, month, year] = [
     date.getUTCDate(),
     date.getUTCMonth() + 1,
     date.getUTCFullYear(),
-  ]
+  ];
   return `${year}/${month}/${day}`;
-}
+};

@@ -5,4 +5,4 @@ export const deleteIndexFromArray = (array, i) => {
   const a = array.slice();
   a.splice(i, 1);
   return a;
-}
+};

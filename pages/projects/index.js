@@ -54,7 +54,7 @@ export default function Projects({ projects, size = "medium" }) {
         options={projectsFiltered}
       />
 
-      <Box sx={{margin: '2rem 0'}}>
+      <Box sx={{ margin: "2rem 0" }}>
         {projectsFiltered.map((project) => {
           return (
             <ProjectCard project={project} key={`project-${project.slug}`} />

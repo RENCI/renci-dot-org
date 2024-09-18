@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 // import PropTypes from 'prop-types'
 import { Divider, Typography } from "@mui/material";
-import { Markdown } from '../../markdown'
+import { Markdown } from "../../markdown";
 // import { Hero } from './hero'
 
 export const PageTitle = ({ data }) => {

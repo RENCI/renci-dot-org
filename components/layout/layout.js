@@ -7,7 +7,7 @@ import { useConfig } from '../../context'
 import { AppBar } from './app-bar'
 
 export const Layout = ({ children, ourWorkTrayItems }) => {
-  const { config } = useConfig()
+  const { config } = useConfig();
 
   return (
     <Fragment>
@@ -17,17 +17,15 @@ export const Layout = ({ children, ourWorkTrayItems }) => {
       </Head>
       <AppBar ourWorkTrayItems={ourWorkTrayItems} />
       <main style={{ flex: 1 }}>
-        <Container maxWidth={ config.width }>
-          { children }
-        </Container>
+        <Container maxWidth={config.width}>{children}</Container>
       </main>
       <footer>
         <Footer />
       </footer>
     </Fragment>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};

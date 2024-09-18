@@ -9,8 +9,7 @@ export async function fetchAPI(path, options = {}) {
   const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
-      Authorization:
-          `Bearer ${process.env.STRAPI_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${process.env.STRAPI_ACCESS_TOKEN}`,
     },
   };
   const mergedOptions = {
@@ -37,11 +36,15 @@ export async function getPageData(params, locale, preview) {
   const slug = params.slug.join("/");
   // Find the pages that match this slug
   const pagesData = await fetchAPI(
-    `/api/pages?filters[slug]=${slug}&populate[contentSections][populate]=*&populate[metaData][populate]=*`
+    `/api/pages?filters[slug]=${slug}&populate[contentSections][populate]=*&populate[metaData][populate]=*`,
   );
 
   // Make sure we found something, otherwise return null
-  if (pagesData == null || pagesData.length === 0 || pagesData.data.length === 0) {
+  if (
+    pagesData == null ||
+    pagesData.length === 0 ||
+    pagesData.data.length === 0
+  ) {
     return null;
   }
 
@@ -54,7 +57,9 @@ let strapiGlobal;
 // Get site data from Strapi (metadata, navbar, footer...)
 export async function getGlobalData(locale) {
   if (!strapiGlobal)
-    strapiGlobal = await fetchAPI(`/api/global?populate[metaData][populate]=*&populate[navBar][populate]=*&populate[favicon][populate]=*`);
+    strapiGlobal = await fetchAPI(
+      `/api/global?populate[metaData][populate]=*&populate[navBar][populate]=*&populate[favicon][populate]=*`,
+    );
   return strapiGlobal;
 }
 

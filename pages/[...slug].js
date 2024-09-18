@@ -1,12 +1,12 @@
-import ErrorPage from "next/error"
-import { getPageData, fetchAPI, getGlobalData } from "../utils/api"
-import Sections from "../components/strapi-sections/sections"
-import Seo from "@/components/elements/seo"
-import { useRouter } from "next/router"
-import Layout from "../components/layout"
-import { getLocalizedPaths } from "utils/localize"
-import Head from "next/head"
-import { fetchStrapiGraphQL } from "@/lib/strapi"
+import ErrorPage from "next/error";
+import { getPageData, fetchAPI, getGlobalData } from "../utils/api";
+import Sections from "../components/strapi-sections/sections";
+import Seo from "@/components/elements/seo";
+import { useRouter } from "next/router";
+import Layout from "../components/layout";
+import { getLocalizedPaths } from "utils/localize";
+import Head from "next/head";
+import { fetchStrapiGraphQL } from "@/lib/strapi";
 
 // The file is called [[...slug]].js because we're using Next's
 // optional catch all routes feature. See the related docs:
@@ -18,36 +18,35 @@ const DynamicPage = ({
   preview,
   title,
   global,
-  pageContext
+  pageContext,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   // Check if the required data was provided
   if (!router.isFallback && !sections?.length) {
-    return <ErrorPage statusCode={404} />
+    return <ErrorPage statusCode={404} />;
   }
 
   // Loading screen (only possible in preview mode)
   if (router.isFallback) {
-    return <div className="container">Loading...</div>
+    return <div className="container">Loading...</div>;
   }
-  
+
   return (
     <div>
-      {Boolean(title) && <Head>
-        <title> { title } | RENCI.org</title>
-      </Head>}
+      {Boolean(title) && (
+        <Head>
+          <title> {title} | RENCI.org</title>
+        </Head>
+      )}
 
       {/* Add meta tags for SEO*/}
       <Seo metadata={metadata} />
       {/* Display content sections */}
-      <Sections
-        sections={sections}
-        preview={preview}
-      />
+      <Sections sections={sections} preview={preview} />
     </div>
-  )
-}
+  );
+};
 
 export async function getStaticPaths() {
   const pagesGql = await fetchStrapiGraphQL(`query {
@@ -61,43 +60,42 @@ export async function getStaticPaths() {
   }`);
 
   const paths = pagesGql.data.pages.data.map(({ attributes: { slug } }) => ({
-      params: {
-        slug: slug.split("/"),
-      }
-    })
-  );
+    params: {
+      slug: slug.split("/"),
+    },
+  }));
 
   return {
     paths,
-    fallback: 'blocking', 
+    fallback: "blocking",
   };
 }
 
 export async function getStaticProps(context) {
-  const { params, locale, locales, defaultLocale, preview = null } = context
+  const { params, locale, locales, defaultLocale, preview = null } = context;
 
-  const globalLocale = await getGlobalData(locale)
-  
+  const globalLocale = await getGlobalData(locale);
+
   // Fetch pages. Include drafts if preview mode is on
   const pageData = await getPageData(
     { slug: !params.slug ? [""] : params.slug },
     locale,
-    preview
-  )
+    preview,
+  );
 
   if (pageData == null) {
     // Giving the page no props will trigger a 404 page
-    return { props: {} }
+    return { props: {} };
   }
 
   // We have the required page data, pass it to the page component
-  const { contentSections, slug } = pageData
+  const { contentSections, slug } = pageData;
 
   const pageContext = {
     // defaultLocale,
     slug,
     // localizations,
-  }
+  };
 
   // const localizedPaths = getLocalizedPaths(pageContext)
 
@@ -113,7 +111,7 @@ export async function getStaticProps(context) {
         // localizedPaths,
       },
     },
-  }
+  };
 }
 
-export default DynamicPage
+export default DynamicPage;

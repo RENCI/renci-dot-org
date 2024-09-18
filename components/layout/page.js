@@ -1,8 +1,8 @@
-import { Fragment } from 'react'
-import PropTypes from 'prop-types'
-import Head from 'next/head'
-import { Divider, Typography } from '@mui/material'
-import { Hero } from './hero'
+import { Fragment } from "react";
+import PropTypes from "prop-types";
+import Head from "next/head";
+import { Divider, Typography } from "@mui/material";
+import { Hero } from "./hero";
 
 export const Page = ({
   title,
@@ -13,48 +13,44 @@ export const Page = ({
   children,
   heroImage,
 }) => {
-  const windowTitle = `${ title + ' | ' || '' } RENCI.org`
+  const windowTitle = `${title + " | " || ""} RENCI.org`;
   return (
     <Fragment>
       <Head>
-        <title> { title } | RENCI.org</title>
+        <title> {title} | RENCI.org</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {
-        !!heroImage && (
-          <Hero
-            backgroundImage={ heroImage }
-            backgroundColor="lightgrey"
-            title={ title }
-            superheader={ superheader }
-            superheaderUrl={ superheaderUrl }
-            description={ description }
-          />
-        )
-      }
+      {!!heroImage && (
+        <Hero
+          backgroundImage={heroImage}
+          backgroundColor="lightgrey"
+          title={title}
+          superheader={superheader}
+          superheaderUrl={superheaderUrl}
+          description={description}
+        />
+      )}
 
-      <br /><br />
+      <br />
+      <br />
 
-      {
-        !!heroImage || !hideTitle && (
+      {!!heroImage ||
+        (!hideTitle && (
           <Fragment>
-            <Typography variant="h1">
-              { title }
-            </Typography>
-            <br /><br />
+            <Typography variant="h1">{title}</Typography>
+            <br />
+            <br />
             <Divider />
-            <br /><br />
+            <br />
+            <br />
           </Fragment>
-        )
-      }
+        ))}
 
-
-      { children }
-      
+      {children}
     </Fragment>
-  )
-}
+  );
+};
 
 Page.propTypes = {
   children: PropTypes.node,
@@ -62,9 +58,9 @@ Page.propTypes = {
   superheader: PropTypes.string,
   superheader: PropTypes.string,
   hideTitle: PropTypes.bool.isRequired,
-  description: PropTypes.string,  
-}
+  description: PropTypes.string,
+};
 
 Page.defaultProps = {
   hideTitle: false,
-}
+};

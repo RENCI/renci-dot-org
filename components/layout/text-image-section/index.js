@@ -1,1 +1,1 @@
-export * from './text-image-section'
+export * from "./text-image-section";

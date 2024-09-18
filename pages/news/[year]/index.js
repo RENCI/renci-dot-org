@@ -3,10 +3,7 @@ import { fetchStrapiGraphQL } from "@/lib/strapi";
 import { isValidDate } from "@/utils/date";
 
 export default function YearCatalog({ year, posts }) {
-  return <TimeGrouping
-    year={year}
-    posts={posts}
-  />
+  return <TimeGrouping year={year} posts={posts} />;
 }
 
 export async function getStaticPaths() {
@@ -20,15 +17,17 @@ export async function getStaticPaths() {
     }
   }`);
 
-  const yearSet = new Set(postsGql.data.posts.data.map(({  attributes: { publishDate } }) => (
-    new Date(publishDate).getUTCFullYear().toString() 
-  )));
+  const yearSet = new Set(
+    postsGql.data.posts.data.map(({ attributes: { publishDate } }) =>
+      new Date(publishDate).getUTCFullYear().toString(),
+    ),
+  );
 
   const paths = Array.from(yearSet).map((year) => ({ params: { year } }));
 
   return {
     paths,
-    fallback: 'blocking', 
+    fallback: "blocking",
   };
 }
 
@@ -36,13 +35,14 @@ export async function getStaticProps({ params }) {
   const firstDayOfYear = new Date(params.year, 0, 1);
   const lastDayOfYear = new Date(params.year, 11, 31);
 
-  if (!isValidDate(firstDayOfYear) || !isValidDate(lastDayOfYear)) return {
-    notFound: true,
-  }
+  if (!isValidDate(firstDayOfYear) || !isValidDate(lastDayOfYear))
+    return {
+      notFound: true,
+    };
 
-  const firstDayOfYearStr = firstDayOfYear.toISOString().split('T')[0];
-  const lastDayOfYearStr = lastDayOfYear.toISOString().split('T')[0];
-  
+  const firstDayOfYearStr = firstDayOfYear.toISOString().split("T")[0];
+  const lastDayOfYearStr = lastDayOfYear.toISOString().split("T")[0];
+
   const postsGql = await fetchStrapiGraphQL(`
     query {
       posts(
@@ -66,7 +66,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       year: params.year,
-      posts
-    }
-  }
+      posts,
+    },
+  };
 }

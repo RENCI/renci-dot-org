@@ -1,2 +1,2 @@
-export * from './sections'
-export * from './strapi-components'
+export * from "./sections";
+export * from "./strapi-components";
