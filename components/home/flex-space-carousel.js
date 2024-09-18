@@ -57,6 +57,7 @@ function Slide({ title, content, tag }) {
           fontSize: '0.9rem',
           fontWeight: '500',
           letterSpacing: '1px',
+          userSelect: "none",
           position: 'relative',
           '&::after': {
             content: '""',
@@ -86,8 +87,12 @@ function Slide({ title, content, tag }) {
         endIcon={<ArrowRight />}
         sx={{
           alignSelf: "flex-end",
-          background: "rgb(255, 68, 202)",
           borderRadius: "8px",
+          color: 'white',
+          backgroundColor: 'rgb(255, 68, 202)',
+          '&:hover': {
+            backgroundColor: 'rgb(206, 57, 164)',
+          },
         }}
       >
         Learn more

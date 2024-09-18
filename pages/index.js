@@ -46,7 +46,7 @@ export default function Home({ selectedProjects, newsArray }) {
             projects, research groups, collaborations, and operations teams to
             learn more about our work and the people who make it happen.
           </Typography>
-          <Button variant="outlined" endIcon={<ArrowRight />}>
+          <Button variant="outlined" endIcon={<ArrowRight />} sx={{ borderRadius: '8px' }}>
             Learn more
           </Button>
         </Box>
@@ -177,7 +177,7 @@ export default function Home({ selectedProjects, newsArray }) {
             Founded in 2004, RENCI has demonstrated experience and driven
             innovation across a variety of projects and domains.
           </Typography>
-          <Button variant="outlined" endIcon={<ArrowRight />}>
+          <Button variant="outlined" endIcon={<ArrowRight />} sx={{ borderRadius: '8px' }}>
             Read our mission statement
           </Button>
         </Box>
@@ -215,8 +215,12 @@ export default function Home({ selectedProjects, newsArray }) {
             variant="contained"
             endIcon={<ArrowRight />}
             sx={{
-              background: "rgb(255, 68, 202)",
               borderRadius: "8px",
+              color: 'white',
+              backgroundColor: 'rgb(255, 68, 202)',
+              '&:hover': {
+                backgroundColor: 'rgb(206, 57, 164)',
+              },
             }}
           >
             Learn more
