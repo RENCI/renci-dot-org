@@ -1,4 +1,5 @@
 import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
+import { ContactForm } from "@/components/home/contact-form";
 import { FlexSpaceCarousel } from "@/components/home/flex-space-carousel";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
 import { Satellite } from "@/components/home/satellite";
@@ -8,16 +9,12 @@ import SliderPage from "@/components/home/slider-page";
 import { SolidSection } from "@/components/home/solid-section";
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 import { ArrowRight } from "@mui/icons-material";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import homeHero from "../images/eds-bg.png";
 import homeHero2 from "../images/home-hero-2.png";
 import { fetchHomeNews } from "../lib/strapi";
 
 export default function Home({ selectedProjects, newsArray }) {
-  const [questionType, setQuestionType] = useState('')
-  const handleChange = (e) => setQuestionType(e.target.value);
-
   return (
     <>
       <SliceSection
@@ -264,7 +261,8 @@ export default function Home({ selectedProjects, newsArray }) {
       />
 
       <SolidSection
-        bgColor={"white"}
+        bgColor={"rgb(32 49 82)"}
+        sx={{ color: 'white' }}
         title={
           <Box sx={{ maxWidth: "60%" }}>
             <Typography
@@ -281,27 +279,7 @@ export default function Home({ selectedProjects, newsArray }) {
         }
       >
         <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", width: '70%' }}>
-          <TextField variant="filled" label="Name" />
-          <TextField variant="filled" label="Email" />
-          <FormControl fullWidth>
-            <InputLabel variant="filled" id="select-label">Reason for inquiry</InputLabel>
-            <Select
-              variant="filled"
-              labelId="select-label"
-              id="select"
-              value={questionType}
-              label="Reason for inquiry"
-              onChange={handleChange}
-            >
-              <MenuItem value="general">General Question</MenuItem>
-              <MenuItem value="request">Request for collaboration</MenuItem>
-              <MenuItem value="media">Media request</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField variant="filled" label="Message" multiline minRows={30} />  
-          <Button variant="contained">
-            Send Message
-          </Button>
+          <ContactForm />
         </Box>        
       </SolidSection>
     </>
