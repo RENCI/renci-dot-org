@@ -49,6 +49,10 @@ export function SliceSection({
             backgroundColor: contentBgColor,
             zIndex: 2,
             height: "100%",
+            transform: 
+              contentSide === "left"
+                ? "translateX(-1px)"
+                : "translateX(1px)",
             clipPath:
               contentSide === "left"
                 ? "polygon(0 0, 100% 0, 0% 100%, 0% 100%)"
