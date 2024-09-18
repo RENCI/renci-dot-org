@@ -60,11 +60,6 @@ export const Menu = ({ ourWorkTrayItems }) => {
       ) : (
         <ul className={style.menu}>
           <li className={style.menuItem}>
-            <Link to="/" className={style.menuItemLink}>
-              Home
-            </Link>
-          </li>
-          <li className={style.menuItem}>
             <Link to="/about" className={style.menuItemLink}>
               About
             </Link>
@@ -93,6 +88,11 @@ export const Menu = ({ ourWorkTrayItems }) => {
           <li className={style.menuItem}>
             <Link to="/people" className={style.menuItemLink}>
               People
+            </Link>
+          </li>
+          <li className={style.menuItem}>
+            <Link to="/events" className={style.menuItemLink}>
+              Events
             </Link>
           </li>
         </ul>
