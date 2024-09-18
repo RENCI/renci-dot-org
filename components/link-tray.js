@@ -24,7 +24,13 @@ const ICONS = {
 const domainPattern = new RegExp(/\/\/(\w+\.\w+)\//);
 
 const SocialLink = ({ to }) => {
-  const url = new URL(to);
+  let url;
+  try {
+    url = new URL(to);
+  }
+  catch (e) {
+    return null;
+  }
   const domain = url.hostname.replace(/^www\./, "");
 
   // if the domain matches by our regular expression is a key in ICONS,
