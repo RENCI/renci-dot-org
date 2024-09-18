@@ -98,19 +98,19 @@ export default function Home({ selectedProjects, newsArray }) {
                 title: "Coastal Hazard and Risk Modeling - Evacuation Modeling",
                 tag: "Blog",
                 content: "To save lives, it is critical to know the best way to protect people in the path of a hurricane. While emergency managers use models to inform evacuation routes and timing, existing models are based primarily on “clearance time,” or ensuring that evacuees are on the roads for the shortest amount of time. The models do not take into account what populations are at most at risk, potential for injury or loss of life, or other social factors.",
-                link: "/projects",
+                link: "/news",
               },
               {
                 title: "ImPACT",
                 tag: "Projects",
                 content: "Scientific progress today requires multi-institutional and cross-disciplinary sharing and analysis of data. Many disciplines, such as social and health-related sciences, face a web of policies and technological constraints on data due to privacy concerns over, for example, Personal Health Information (PHI) or Personally Identifiable Information (PII). Issues of privacy, safety, competition, and ownership have led to regulations controlling data location, availability, movement, and access. Compliance poses obstacles to traditional data-processing practices and slows research; yet, increasingly, pressing scientific and societal problems demand collaborative efforts involving data from multiple stakeholders.",
-                link: "/projects",
+                link: "/projects/impact",
               },
               {
                 title: "Data Matters short-course series returns in August 2023",
                 tag: "News",
                 content: "Now in its tenth year, Data Matters, a week-long series of one and two-day courses aimed at students and professionals in business, research, and government, will take place August 7 – 11, 2023 virtually via Zoom. This short course series is sponsored by the Odum Institute for Research in Social Science at UNC-Chapel Hill, the National Consortium for Data Science, and RENCI.",
-                link: "/projects",
+                link: "/news/2023/7/11/data-matters-short-course-series-returns-in-august-2023",
               },
             ]}
           />
@@ -246,6 +246,7 @@ export default function Home({ selectedProjects, newsArray }) {
       <SliderPage
         title={"Featured Projects"}
         subtitle={"See all projects"}
+        link={"/projects"}
         items={
           selectedProjects.map(
             ({ id, webName, webDescription, slug, featuredImage }) =>
@@ -264,6 +265,7 @@ export default function Home({ selectedProjects, newsArray }) {
       <SliderPage
         title={"Recent articles"}
         subtitle={"See all articles"}
+        link={"/news"}
         items={
           newsArray.map(
             ({ id, title, slug, publishDate, excerpt }) => 

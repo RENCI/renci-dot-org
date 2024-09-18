@@ -18,7 +18,7 @@ import { MarkdownLess } from "../markdown";
  * }} 
  * @returns 
  */
-export default function SliderPage({ items, bgColor, color, title, subtitle }) {
+export default function SliderPage({ items, bgColor, color, title, subtitle, link }) {
   const [emblaRef, emblaApi] = useEmblaCarousel();
   
   const scrollPrev = useCallback(() => {
@@ -49,7 +49,7 @@ export default function SliderPage({ items, bgColor, color, title, subtitle }) {
           {title}
         </Typography>
         <Typography>
-          <Link href="/">{subtitle}</Link>
+          <Link href={link}>{subtitle}</Link>
         </Typography>
       </Box>
 
