@@ -9,6 +9,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
 
   const onMediaFallback = (event) =>
     (event.target.src = "/static/images/generic-avatar.svg");
+
   return (
     <Card
       elevation={0}
@@ -38,7 +39,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            src={`https://dashboard.renci.org/api/webinfo/people/${person.id}/photo`}
+            src={person.photo}
             onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
             image={person.photo}
