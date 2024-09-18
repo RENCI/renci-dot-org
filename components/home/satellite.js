@@ -5,9 +5,9 @@ export function Satellite() {
     <Orbit size={700}>
       <Planet orbitDiameter={700}>150<br />papers</Planet>
       <Orbit size={450}>
-      <Planet orbitDiameter={450}>200<br />researchers</Planet>
+      <Planet orbitDiameter={450}>224<br />researchers</Planet>
         <Orbit size={200}>
-        <Planet orbitDiameter={200}>40<br />projects</Planet>
+        <Planet orbitDiameter={200}>108<br />projects</Planet>
 
         </Orbit>
       </Orbit>
