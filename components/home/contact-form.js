@@ -72,7 +72,7 @@ export function ContactForm() {
       </Select>
     </StyledSelectFormControl>
     <StyledTextField variant="filled" label="Message" multiline minRows={15} />  
-    <StyledButton variant="contained" endIcon={<ArrowRight />}>
+    <StyledButton variant="contained" endIcon={<ArrowRight />} onClick={() => { alert("Under construction :)") }}>
       Send Message
     </StyledButton>
   </>

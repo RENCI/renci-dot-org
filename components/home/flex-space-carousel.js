@@ -4,6 +4,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { ArrowRight } from "@mui/icons-material";
 import { useCallback } from "react";
 import { DotButton, useDotButton } from "./carousel-dot-buttons";
+import Link from "next/link";
 
 export function FlexSpaceCarousel({ slides }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay()]);
@@ -29,7 +30,7 @@ export function FlexSpaceCarousel({ slides }) {
     <Box ref={emblaRef} sx={{ overflow: "hidden" }}>
       <Box sx={{ display: "flex" }}>
         {slides.map((slide, i) => (
-          <Slide title={slide.title} content={slide.content} tag={slide.tag} key={i} />
+          <Slide title={slide.title} content={slide.content} tag={slide.tag} link={slide.link} key={i} />
         ))}
       </Box>
     </Box>
@@ -46,7 +47,7 @@ export function FlexSpaceCarousel({ slides }) {
   </Box>
 }
 
-function Slide({ title, content, tag }) {
+function Slide({ title, content, tag, link }) {
   return (
     <Box sx={{ flex: '0 0 100%', minWidth: 0, padding: 1, userSelect: 'none', cursor: 'grab', '&:active': { cursor: 'grabbing' } }}>
       <Typography
@@ -82,21 +83,27 @@ function Slide({ title, content, tag }) {
       <Typography sx={{ textWrap: "balanced" }} my={4}>
         {content}
       </Typography>
-      <Button
-        variant="contained"
-        endIcon={<ArrowRight />}
-        sx={{
-          alignSelf: "flex-end",
-          borderRadius: "8px",
-          color: 'white',
-          backgroundColor: 'rgb(255, 68, 202)',
-          '&:hover': {
-            backgroundColor: 'rgb(206, 57, 164)',
-          },
-        }}
-      >
-        Learn more
-      </Button>
+      {
+        typeof link === "string" && link !== '' && (
+          <Link href={link} passHref>
+            <Button
+              variant="contained"
+              endIcon={<ArrowRight />}
+              sx={{
+                alignSelf: "flex-end",
+                borderRadius: "8px",
+                color: 'white',
+                backgroundColor: 'rgb(255, 68, 202)',
+                '&:hover': {
+                  backgroundColor: 'rgb(206, 57, 164)',
+                },
+              }}
+            >
+              Learn more
+            </Button>
+          </Link>
+        )
+      }
     </Box>
   );
 }
