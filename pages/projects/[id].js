@@ -3,10 +3,12 @@ import {
   fetchDashboardProjects,
   fetchSingleProject,
 } from "@/lib/dashboard/projects";
-import { Link, Page } from "../../components";
-import { Section } from "../../components/layout";
-import { PersonCard, PersonGrid } from "../../components/people/";
-import { Markdown } from "../../components/markdown";
+import { Link } from "@/components/link";
+import { LinkTray } from "@/components/link-tray";
+import { Markdown } from "@/components/markdown";
+import { Page } from "@/components/layout";
+import { PersonCard, PersonGrid } from "@/components/people";
+import { Section } from "@/components/layout";
 
 export default function Project({ project }) {
   //need to destructure project object
@@ -18,6 +20,8 @@ export default function Project({ project }) {
       superheader={project.researchGroup?.name}
       superheaderUrl={`/groups/${project.researchGroup?.slug}`}
     >
+      <LinkTray urls={project.urls} />
+
       {project.description && (
         <Section title="Description">
           <Markdown paragraph>{project.description}</Markdown>
