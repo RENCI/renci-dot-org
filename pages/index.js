@@ -132,7 +132,7 @@ export default function Home({ selectedProjects, newsArray }) {
             <Typography sx={{ textWrap: "balanced" }}>
               RENCI supports several research groups; centered around data
               science, each domain-specific group offers scientific and
-              technical expertise to advance discovery within their field
+              technical expertise to advance discovery within their field.
             </Typography>
           </Box>
         }
