@@ -86,7 +86,7 @@ function Slide({ title, description, link, image }) {
       boxShadow: "0px 5px 16px 0px #00000029",
       display: "flex",
       userSelect: "none",
-      maxHeight: 400,
+      maxHeight: 330,
       mx: 16,
       my: 2,
       p: 2,
