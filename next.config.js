@@ -23,7 +23,7 @@ module.exports = {
   },
   images: {
     domains: [
-      "https://dashboard.renci.org/",
+      "dashboard.renci.org",
       "radx-images.s3.amazonaws.com",
       "dashboard.sandy-web.ad.renci.org",
       "/static/images",
