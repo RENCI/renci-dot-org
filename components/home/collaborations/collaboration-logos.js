@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Image from "next/image";
-import Duke from "./images/duke.png";
-import NcState from "./images/ncstate.png";
+import Doe from "./images/doe.png";
+import Rti from "./images/rti.png"
 import Nih from "./images/nih.png";
 import Noaa from "./images/noaa.png";
 import Nsf from "./images/nsf.png";
@@ -20,11 +20,11 @@ export function CollaborationLogos() {
         justifyContent: "center",
       }}
     >
-      <Image src={Duke} layout="fixed" alt="" />
-      <Image src={NcState} layout="fixed" alt="" />
       <Image src={Nih} layout="fixed" alt="" />
       <Image src={Noaa} layout="fixed" alt="" />
       <Image src={Nsf} layout="fixed" alt="" />
+      <Image src={Doe} layout="fixed" alt="" />
+      <Image src={Rti} layout="fixed" alt="" />
       <Image src={Unc} layout="fixed" alt="" />
     </Box>
   );

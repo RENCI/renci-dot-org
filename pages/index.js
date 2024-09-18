@@ -224,7 +224,7 @@ export default function Home({ selectedProjects, newsArray }) {
             to continuously and intentionally embody the spirit of
             collaboration.
           </Typography>
-          <Link href="/collaborations" passHref>
+          <Link href="/news" passHref>
             <Button
               variant="contained"
               endIcon={<ArrowRight />}
