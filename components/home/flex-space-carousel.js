@@ -48,7 +48,7 @@ export function FlexSpaceCarousel({ slides }) {
 
 function Slide({ title, content, tag }) {
   return (
-    <Box sx={{ flex: '0 0 100%', minWidth: 0, padding: 1 }}>
+    <Box sx={{ flex: '0 0 100%', minWidth: 0, padding: 1, userSelect: 'none', cursor: 'grab', '&:active': { cursor: 'grabbing' } }}>
       <Typography
         sx={{
           textTransform: 'uppercase',
