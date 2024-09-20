@@ -35,7 +35,6 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
         minHeight: "60dvh",
         background: bgColor,
         color,
-        cursor: 'grab', '&:active': { cursor: 'grabbing' },
         display: "flex",
         flexDirection: "column",
         gap: "2rem",
@@ -53,7 +52,7 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
         </Typography>
       </Box>
 
-      <Box sx={{ width: "100%" }} ref={emblaRef}>
+      <Box sx={{ width: "100%", cursor: 'grab', '&:active': { cursor: 'grabbing' } }} ref={emblaRef}>
         <Box sx={{ display: "flex" }}>
             {items.map(({ title, description, link, image, key }) => (
               <Slide key={key} title={title} description={description} link={link} image={image} />
