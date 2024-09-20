@@ -4,10 +4,9 @@ import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@m
 import { useState } from "react";
 
 const StyledTextField = styled(TextField)({
+  backgroundColor: 'white',
+  borderRadius: '8px',
   '& .MuiInputBase-root': {
-    '&:hover': {
-      backgroundColor: 'white',
-    },
     backgroundColor: 'white',
     borderRadius: '8px',
     overflow: 'hidden',
@@ -22,13 +21,12 @@ const StyledTextField = styled(TextField)({
 });
 
 const StyledSelectFormControl = styled(FormControl)({
+  backgroundColor: 'white',
+  borderRadius: '8px',
   '& .MuiInputBase-root': {
     backgroundColor: 'white',
     borderRadius: '8px',
     overflow: 'hidden',
-  },
-  '&:hover': {
-    backgroundColor: 'white',
   },
   '& label.Mui-focused': {
     color: 'black',
