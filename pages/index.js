@@ -330,13 +330,11 @@ export async function getStaticProps() {
         selectedProjects: JSON.parse(JSON.stringify(projectSelection)),
         newsArray: JSON.parse(JSON.stringify(newsArray)),
       },
-      revalidate: 3600,
     };
   } catch (error) {
     console.error("Error fetching data:", error);
     return {
       props: { selectedProjects: [], newsArray: [] },
-      revalidate: 3600,
     };
   }
 }
