@@ -18,6 +18,7 @@ import { Pre } from "../pre";
 import { useTheme } from "@mui/material/styles";
 import { Markdown } from "../markdown";
 import { Pattern } from "./project-image";
+import { ProjectActivityChip } from "./project-activity-chip";
 
 export const ProjectCard = ({ project }) => {
   const theme = useTheme();
@@ -55,19 +56,7 @@ export const ProjectCard = ({ project }) => {
             justifyContent="space-between"
             sx={{ marginBottom: "0.25rem" }}
           >
-            {project.isActive ? (
-              <Chip
-                label="ACTIVE"
-                size="small"
-                sx={{
-                  background: "linear-gradient(135deg, #238b8b, #00778f)",
-                  color: "white",
-                  fontWeight: 500,
-                }}
-              />
-            ) : (
-              <Chip label="INACTIVE" size="small" />
-            )}
+            <ProjectActivityChip active={project.isActive} />
             {project.researchGroups.length > 0 ? (
               <Link
                 to={`/groups/${project.researchGroups[0].slug}`}
