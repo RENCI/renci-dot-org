@@ -54,7 +54,7 @@ export const Page = ({
 
 Page.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   superheader: PropTypes.string,
   superheader: PropTypes.string,
   hideTitle: PropTypes.bool.isRequired,

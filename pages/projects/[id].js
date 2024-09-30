@@ -3,6 +3,9 @@ import {
   fetchDashboardProjects,
   fetchSingleProject,
 } from "@/lib/dashboard/projects";
+import {
+  ProjectActivityChip,
+} from '@/components/projects';
 import { Link } from "@/components/link";
 import { LinkTray } from "@/components/link-tray";
 import { Markdown } from "@/components/markdown";
@@ -14,13 +17,14 @@ export default function Project({ project }) {
   //need to destructure project object
   return (
     <Page
-      title={`${project.name}`}
+      title={<span>{project.name} <ProjectActivityChip active={ true } /></span>}
       description={null} // project descriptions are too long, don't include in hero
       heroImage={project.featuredImage ? project.featuredImage : null}
       superheader={project.researchGroup?.name}
       superheaderUrl={`/groups/${project.researchGroup?.slug}`}
     >
       <LinkTray urls={project.urls} />
+      
 
       {project.description && (
         <Section title="Description">
