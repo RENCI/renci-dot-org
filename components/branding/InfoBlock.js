@@ -5,29 +5,16 @@ import ContentCopiedIcon from "@mui/icons-material/Check";
 import { copyToClipboard } from "@/utils/copyToClipboard";
 
 const styles = {
-  title: {
-    color: "#666676",
-  },
-  body: {
-    color: "#666676",
-    marginBottom: "8px",
-  },
+  title: { },
+  body: { },
   copyableBody: {
-    // color: '#666676',
-    marginBottom: "1px",
-    "&:active": {
-      color: "#474748",
-    },
-    "&:hover": {
-      cursor: "pointer",
-    },
     '.copyButton': {
-      opacity: 0,
+      filter: 'opacity(0.0)',
       transform: 'scale(0.5)',
     },
-    "&:hover .copyButton": {
-      opacity: 0.7,
-    },
+    '&:hover .copyButton': { filter: 'opacity(0.75)', transition: 'filter 250ms' },
+    '.copyButton.copied': { filter: 'opacity(0.75)', transition: 'filter 0' },
+    '.copyButton.uncopied': { filter: 'opacity(0.0)' },
   },
 };
 
@@ -35,7 +22,7 @@ const CopyButton = ({ copied = false, clickHandler }) => {
   return (
     <IconButton
       onClick={ clickHandler }
-      className="copyButton"
+      className={ copied ? "copyButton copied" : "copyButton"}
       color={ copied ? "success" : "default" }
     >
       { copied ? <ContentCopiedIcon /> : <ContentCopyIcon /> }
@@ -72,7 +59,7 @@ export const InfoBlock = ({
         sx={copyable ? styles.copyableBody : styles.body}
       >
         {body}
-        {copyable && <CopyButton clickHandler={ handleClick } copied={ copied } />}
+        {copyable && <CopyButton copied={ copied } clickHandler={ handleClick } />}
       </Typography>
     </div>
   );
