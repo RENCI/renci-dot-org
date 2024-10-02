@@ -9,7 +9,7 @@ const styles = {
   body: { },
   copyableBody: {
     '.copyButton': {
-      filter: 'opacity(0.0)',
+      filter: 'opacity(0.2)',
       transform: 'scale(0.5)',
     },
     '&:hover .copyButton': { filter: 'opacity(0.75)', transition: 'filter 250ms' },
@@ -19,14 +19,21 @@ const styles = {
 };
 
 const CopyButton = ({ copied = false, clickHandler }) => {
+  if (copied) {
+    return (
+      <IconButton
+        component="span"
+        className="copyButton copied"
+        color="success"
+      ><ContentCopiedIcon /></IconButton>
+    );
+  }
   return (
     <IconButton
       onClick={ clickHandler }
-      className={ copied ? "copyButton copied" : "copyButton"}
-      color={ copied ? "success" : "default" }
-    >
-      { copied ? <ContentCopiedIcon /> : <ContentCopyIcon /> }
-    </IconButton>
+      className="copyButton"
+      color="default"
+    ><ContentCopyIcon /></IconButton>
   );
 };
 
