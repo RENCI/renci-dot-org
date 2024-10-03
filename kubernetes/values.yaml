@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: containers.renci.org/renci-dot-org/frontend
-  tag: "1.3.2"
+  tag: "1.4.2-beta"
 
 env:
   - name: STRAPI_ACCESS_TOKEN
@@ -27,3 +27,4 @@ service:
 
 ingress:
   host: new.renci.org
+  public: true
