@@ -4,8 +4,6 @@ import { Page } from "@/components/layout";
 import { Link } from "@/components/link";
 
 export default function Partners({ organizations }) {
-  console.log(organizations);
-
   return (
     <Page title="Partners">
       {
