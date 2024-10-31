@@ -3,7 +3,7 @@ import { Typography, Box, useTheme } from "@mui/material";
 import { Page } from "../../components";
 // import { fetchAllStrapiProjects } from "../../lib/strapi";
 import { ProjectCard } from "@/components/projects/project-card";
-import { SearchBar } from "@/components/projects/search-bar";
+import { SearchBar } from "@/components/search-bar";
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 
 const filterData = (query, data) => {
@@ -49,6 +49,7 @@ export default function Projects({ projects, size = "medium" }) {
       </Typography>
 
       <SearchBar
+        title="Project Search"
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         options={projectsFiltered}

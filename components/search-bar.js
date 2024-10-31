@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import {
   IconButton,
@@ -28,8 +28,13 @@ const StyledAutocompleteSearch = styled("div")(
   `,
 );
 
-export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
-  const handleClickClear = () => setSearchQuery("");
+export const SearchBar = ({ title, searchQuery, setSearchQuery, options }) => {
+  const inputRef = useRef();
+
+  const handleClickClear = () => {
+    setSearchQuery("");
+    inputRef.current && inputRef.current.focus();
+  }
 
   return (
     <FormControl
@@ -38,7 +43,7 @@ export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
         ".MuiInputAdornment-root": { pr: 1 },
       }}
     >
-      <FormLabel htmlFor="project-search-input">Project Search</FormLabel>
+      { title && <FormLabel htmlFor="project-search-input">{ title }</FormLabel> }
       <StyledAutocompleteSearch>
         <OutlinedInput
           fullWidth
@@ -47,7 +52,8 @@ export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
           onInput={(e) => {
             setSearchQuery(e.target.value.toLowerCase());
           }}
-          placeholder="Search..."
+          inputRef={ inputRef }
+          placeholder="Enter query..."
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -66,6 +72,7 @@ export const SearchBar = ({ searchQuery, setSearchQuery, options }) => {
 };
 
 SearchBar.propTypes = {
+  title: PropTypes.string,
   setSearchQuery: PropTypes.func.isRequired,
   options: PropTypes.array.isRequired,
 };
