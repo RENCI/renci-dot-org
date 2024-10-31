@@ -17,28 +17,49 @@ export function FlexSpaceSection({ slides }) {
   }[currentTag]), [currentTag]);
   
   return (
-    <SliceSection
-      contentSide="right"
-      contentBgColor={"rgb(30 55 91)"}
-      bgImage={image}
-      sx={{ color: "white" }}
-    >
-      <Box
-        sx={{
-          maxWidth: "60%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          "@media (max-width: 800px)": {
-            maxWidth: "90%"
-          }
-        }}
-      >
+    <>
+      <Box sx={{
+        '@media (min-width: 799px)': {
+          display: 'none'
+        },
+        'background': 'rgb(30 55 91)',
+        padding: '2rem',
+        color: 'white'
+      }}>
         <FlexSpaceCarousel
           onCurrentSlideIndexChange={(i) => { setCurrentTag(slides?.[i]?.tag ?? "News") }}
           slides={slides}
         />
       </Box>
-    </SliceSection>
+      
+      <SliceSection
+        contentSide="right"
+        contentBgColor={"rgb(30 55 91)"}
+        bgImage={image}
+        sx={{ 
+          color: "white",
+          '@media (max-width: 800px)': {
+            display: 'none'
+          }
+        }}
+      >
+        <Box
+          sx={{
+            maxWidth: "60%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            "@media (max-width: 800px)": {
+              maxWidth: "90%"
+            }
+          }}
+        >
+          <FlexSpaceCarousel
+            onCurrentSlideIndexChange={(i) => { setCurrentTag(slides?.[i]?.tag ?? "News") }}
+            slides={slides}
+          />
+        </Box>
+      </SliceSection>
+    </>
   )
 }

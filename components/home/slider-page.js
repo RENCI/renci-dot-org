@@ -32,9 +32,6 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
   return (
     <Box
       sx={{
-        "@media (max-width: 800px)": {
-          display: "none",
-        },
         minHeight: "60dvh",
         background: bgColor,
         color,
@@ -46,7 +43,12 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
         justifyContent: "center",
       }}
     >
-      <Box sx={{ width: "60%" }}>
+      <Box sx={{ 
+        width: "60%",
+        '@media (max-width: 800px)': {
+          width: "100%"
+        }
+      }}>
         <Typography variant="h1" sx={{ fontWeight: "bold " }}>
           {title}
         </Typography>
@@ -78,6 +80,13 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
 function Slide({ title, description, link, image }) {
   return (
     <Box sx={{
+      '@media (max-width: 800px)': {
+        flex: "0 0 100%",
+        mx: 0,
+        '&:not(:last-of-type)': {
+          mr: 3
+        },
+      },
       flex: "0 0 33%",
       minWidth: "0px",
       maxWidth: "100%",

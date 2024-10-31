@@ -17,7 +17,7 @@ import { FlexSpaceSection } from "@/components/home/flex-space-section/flex-spac
 
 export default function Home({ selectedProjects, newsArray }) {
   return (
-    <>
+    <Box sx={{ overflowX: "hidden" }}>
       <SliceSection
         contentBgColor={"white"}
         bgImage={homeHero}
@@ -309,7 +309,7 @@ export default function Home({ selectedProjects, newsArray }) {
           <ContactForm />
         </Box>        
       </SolidSection>
-    </>
+    </Box>
   );
 }
 
