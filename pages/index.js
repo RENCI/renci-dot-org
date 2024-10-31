@@ -1,6 +1,6 @@
 import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
 import { ContactForm } from "@/components/home/contact-form";
-import { FlexSpaceCarousel } from "@/components/home/flex-space-carousel";
+import { FlexSpaceCarousel } from "@/components/home/flex-space-section/flex-space-carousel";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
 import { Satellite } from "@/components/home/satellite";
 import { SliceSection } from "@/components/home/slice-section";
@@ -11,9 +11,9 @@ import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 import { ArrowRight } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import homeHero from "../images/eds-bg.png";
-import homeHero2 from "../images/home-hero-2.png";
 import { fetchHomeNews } from "../lib/strapi";
 import Link from "next/link";
+import { FlexSpaceSection } from "@/components/home/flex-space-section/flex-space-section";
 
 export default function Home({ selectedProjects, newsArray }) {
   return (
@@ -24,7 +24,24 @@ export default function Home({ selectedProjects, newsArray }) {
         sx={{ position: "relative" }}
         clearBackground
       >
-        <Box sx={{ maxWidth: "60%" }}>
+        <Box sx={{
+          maxWidth: "60%",
+          position: "relative",
+          isolation: "isolate",
+          "&:after": {
+            content: "''",
+            backgroundColor: "white",
+            position: "absolute",
+            inset: -45,
+            zIndex: -1,
+            opacity: 0.85,
+            filter: "blur(45px)",
+            borderBottomRightRadius: 250,
+          },
+          "@media (max-width: 800px)": {
+            maxWidth: "90%"
+          }
+        }}>
           <Typography
             variant="h1"
             my={2}
@@ -53,12 +70,12 @@ export default function Home({ selectedProjects, newsArray }) {
               endIcon={<ArrowRight />}
               sx={{ borderRadius: '8px' }}
             >
-              Learn more
+              About RENCI
             </Button>
           </Link>
         </Box>
         <SlideUpBox
-          title={"Learn more about APSViz"}
+          title={"Learn more about graphic"}
           height={"300px"}
           width={"400px"}
         >
@@ -67,55 +84,39 @@ export default function Home({ selectedProjects, newsArray }) {
             Resilience Center at UNC-Chapel Hill, APSViz disseminates real-time
             coastal hazards information and enhances research productivity by
             making it much easier to understand computer simulations and
-            predictions of coastal hazards.
+            predictions of coastal hazards. <Link href="/projects/adcirc-viz">Learn more about APSViz</Link>.
           </p>
         </SlideUpBox>
       </SliceSection>
 
-      <SliceSection
-        contentSide="right"
-        contentBgColor={"rgb(30 55 91)"}
-        bgImage={homeHero2}
-        sx={{ color: "white" }}
-      >
-        <Box
-          sx={{
-            maxWidth: "60%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
-          <FlexSpaceCarousel 
-            slides={[
-              {
-                title: "NC researchers come together to harness...",
-                tag: "News",
-                content: "In an increasingly interconnected world, the integration of clinical and environmental health data holds immense potential for advancing research, improving patient outcomes, and shaping the future of healthcare. However, to truly make an impact on individuals and communities, institutional and scientific silos that hinder collaboration and resource",
-                link: "",
-              },
-              {
-                title: "Coastal Hazard and Risk Modeling - Evacuation Modeling",
-                tag: "Blog",
-                content: "To save lives, it is critical to know the best way to protect people in the path of a hurricane. While emergency managers use models to inform evacuation routes and timing, existing models are based primarily on “clearance time,” or ensuring that evacuees are on the roads for the shortest amount of time. The models do not take into account what populations are at most at risk, potential for injury or loss of life, or other social factors.",
-                link: "/news",
-              },
-              {
-                title: "ImPACT",
-                tag: "Projects",
-                content: "Scientific progress today requires multi-institutional and cross-disciplinary sharing and analysis of data. Many disciplines, such as social and health-related sciences, face a web of policies and technological constraints on data due to privacy concerns over, for example, Personal Health Information (PHI) or Personally Identifiable Information (PII). Issues of privacy, safety, competition, and ownership have led to regulations controlling data location, availability, movement, and access. Compliance poses obstacles to traditional data-processing practices and slows research; yet, increasingly, pressing scientific and societal problems demand collaborative efforts involving data from multiple stakeholders.",
-                link: "/projects/impact",
-              },
-              {
-                title: "Data Matters short-course series returns in August 2023",
-                tag: "News",
-                content: "Now in its tenth year, Data Matters, a week-long series of one and two-day courses aimed at students and professionals in business, research, and government, will take place August 7 – 11, 2023 virtually via Zoom. This short course series is sponsored by the Odum Institute for Research in Social Science at UNC-Chapel Hill, the National Consortium for Data Science, and RENCI.",
-                link: "/news/2023/7/11/data-matters-short-course-series-returns-in-august-2023",
-              },
-            ]}
-          />
-        </Box>
-      </SliceSection>
+      <FlexSpaceSection 
+        slides={[
+          {
+            title: "NC researchers come together to harness...",
+            tag: "News",
+            content: "In an increasingly interconnected world, the integration of clinical and environmental health data holds immense potential for advancing research, improving patient outcomes, and shaping the future of healthcare. However, to truly make an impact on individuals and communities, institutional and scientific silos that hinder collaboration and resource",
+            link: "",
+          },
+          {
+            title: "Coastal Hazard and Risk Modeling - Evacuation Modeling",
+            tag: "Blog",
+            content: "To save lives, it is critical to know the best way to protect people in the path of a hurricane. While emergency managers use models to inform evacuation routes and timing, existing models are based primarily on “clearance time,” or ensuring that evacuees are on the roads for the shortest amount of time. The models do not take into account what populations are at most at risk, potential for injury or loss of life, or other social factors.",
+            link: "/news",
+          },
+          {
+            title: "ImPACT",
+            tag: "Projects",
+            content: "Scientific progress today requires multi-institutional and cross-disciplinary sharing and analysis of data. Many disciplines, such as social and health-related sciences, face a web of policies and technological constraints on data due to privacy concerns over, for example, Personal Health Information (PHI) or Personally Identifiable Information (PII). Issues of privacy, safety, competition, and ownership have led to regulations controlling data location, availability, movement, and access. Compliance poses obstacles to traditional data-processing practices and slows research; yet, increasingly, pressing scientific and societal problems demand collaborative efforts involving data from multiple stakeholders.",
+            link: "/projects/impact",
+          },
+          {
+            title: "Data Matters short-course series returns in August 2023",
+            tag: "News",
+            content: "Now in its tenth year, Data Matters, a week-long series of one and two-day courses aimed at students and professionals in business, research, and government, will take place August 7 – 11, 2023 virtually via Zoom. This short course series is sponsored by the Odum Institute for Research in Social Science at UNC-Chapel Hill, the National Consortium for Data Science, and RENCI.",
+            link: "/news/2023/7/11/data-matters-short-course-series-returns-in-august-2023",
+          },
+        ]} 
+      />
 
       <SolidSection
         bgColor={"rgb(56 103 128)"}
@@ -176,13 +177,15 @@ export default function Home({ selectedProjects, newsArray }) {
       </SolidSection>
 
       <SolidSection bgColor={"white"} title={<Satellite />}>
-        <Box sx={{ maxWidth: "60%" }}>
+        <Box sx={{ maxWidth: "60%", "@media (max-width: 800px)": {
+            maxWidth: "90%"
+          }}}>
           <Typography
             variant="h1"
             my={2}
             sx={{ textWrap: "balanced", fontWeight: "bold" }}
           >
-            20 years of excellence
+            20+ years of excellence
           </Typography>
           <Typography sx={{ textWrap: "balanced", my: "2rem" }}>
             Founded in 2004, RENCI has demonstrated experience and driven
@@ -208,6 +211,9 @@ export default function Home({ selectedProjects, newsArray }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
+            "@media (max-width: 800px)": {
+              maxWidth: "90%"
+            }
           }}
         >
           <Typography variant="h1" my={2} sx={{ textWrap: "balanced" }}>
@@ -244,7 +250,7 @@ export default function Home({ selectedProjects, newsArray }) {
       </SliceSection>
 
       <SliderPage
-        title={"Featured Projects"}
+        title={"Featured projects"}
         subtitle={"See all projects"}
         link={"/projects"}
         items={
@@ -299,7 +305,7 @@ export default function Home({ selectedProjects, newsArray }) {
           </Box>
         }
       >
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", width: '70%' }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem", width: '70%', "@media (max-width: 800px)": { width: "90%" } }}>
           <ContactForm />
         </Box>        
       </SolidSection>

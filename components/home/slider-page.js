@@ -32,6 +32,9 @@ export default function SliderPage({ items, bgColor, color, title, subtitle, lin
   return (
     <Box
       sx={{
+        "@media (max-width: 800px)": {
+          display: "none",
+        },
         minHeight: "60dvh",
         background: bgColor,
         color,

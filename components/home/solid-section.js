@@ -22,6 +22,9 @@ export function SolidSection({
     >
       <Box
         sx={{
+          "@media (max-width: 800px)": {
+            display: "none",
+          },
           flex: 1,
           display: "grid",
           placeItems: "center",

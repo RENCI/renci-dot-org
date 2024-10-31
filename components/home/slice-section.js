@@ -5,6 +5,7 @@ export function SliceSection({
   children,
   contentSide = "left",
   contentBgColor,
+  justContent = false,
   bgImage,
   otherSide,
   clearBackground = false,
@@ -38,6 +39,9 @@ export function SliceSection({
         sx={{
           flex: "0 0 150px",
           visibility: clearBackground ? 'hidden' : 'visible',
+          '@media (max-width: 800px)': {
+            display: "none",
+          },
           filter:
             contentSide === "left"
               ? "drop-shadow(10px 0px 5px rgba(0,0,0,0.15))"
@@ -61,7 +65,17 @@ export function SliceSection({
         ></Box>
       </Box>
 
-      <Box sx={{ flex: 1, zIndex: -1 }}>
+      <Box sx={{ 
+        flex: 1,
+        zIndex: -1,
+        "@media (max-width: 800px)": {
+          position: "absolute",
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        },
+      }}>
         {" "}
         {otherSide ? otherSide : (
           <Image
