@@ -48,7 +48,6 @@ const Container = styled("div")(({ height, width }) => `
   }
 
   @media (max-width: 800px) {
-    /* font-size: 0.9rem; */
     left: 20px;
     right: 20px;
     bottom: calc(-1 * var(--height) + 5rem);
