@@ -15,6 +15,14 @@ export function SolidSection({
         display: "flex",
         backgroundColor: bgColor,
         flexDirection: contentSide === "left" ? "row" : "row-reverse",
+        '@media (max-width: 1000px)': {
+          flexDirection: contentSide === "left" ? "column" : "column-reverse",
+        },
+        '@media (max-width: 800px)': {
+          minHeight: 'auto',
+          py: 4,
+        },
+        gap: 4,
         alignItems: "stretch",
         overflow: "hidden",
         ...sx,
@@ -22,9 +30,6 @@ export function SolidSection({
     >
       <Box
         sx={{
-          "@media (max-width: 800px)": {
-            display: "none",
-          },
           flex: 1,
           display: "grid",
           placeItems: "center",

@@ -87,7 +87,7 @@ function Slide({ title, description, link, image }) {
           mr: 3
         },
       },
-      flex: "0 0 33%",
+      flex: "0 0 max(20%, 500px)",
       minWidth: "0px",
       maxWidth: "100%",
       "--background": "#ffffff",

@@ -25,7 +25,7 @@ const Container = styled("div")(({ height, width }) => `
   max-width: var(--width);
   max-height: var(--height);
   right: 150px;
-  bottom: calc(-1 * var(--height) + 3.5rem);
+  bottom: calc(-1 * var(--height) + 5rem);
 
   cursor: pointer;
   background-color: rgb(30 55 91);
@@ -48,9 +48,9 @@ const Container = styled("div")(({ height, width }) => `
   }
 
   @media (max-width: 800px) {
-    font-size: 0.9rem;
-    left: 50px;
-    right: 50px;
-    bottom: calc(-1 * var(--height) + 4.5rem);
+    /* font-size: 0.9rem; */
+    left: 20px;
+    right: 20px;
+    bottom: calc(-1 * var(--height) + 5rem);
   }
 `);

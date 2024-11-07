@@ -1,13 +1,26 @@
 import { styled } from "@mui/material";
+import { Link } from "../link";
 
-export function Satellite() {
+export function Satellite({sizes: { outerOrbitSize }}) {
   return (
-    <Orbit size={700}>
-      <Planet orbitDiameter={700}>150<br />papers</Planet>
-      <Orbit size={450}>
-      <Planet orbitDiameter={450}>224<br />researchers</Planet>
-        <Orbit size={200}>
-        <Planet orbitDiameter={200}>108<br />projects</Planet>
+    <Orbit size={outerOrbitSize}>
+      <Planet orbitDiameter={outerOrbitSize}>
+        <Link href="/about">
+          150<br />papers
+        </Link>
+      </Planet>
+      <Orbit size={outerOrbitSize - 250}>
+      <Planet orbitDiameter={outerOrbitSize - 250}>
+        <Link href="/people">
+          224<br />researchers
+        </Link>
+      </Planet>
+        <Orbit size={outerOrbitSize - 250 * 2}>
+          <Planet orbitDiameter={outerOrbitSize - 250 * 2}>
+            <Link href="/projects">
+              108<br />projects
+            </Link>
+          </Planet>
 
         </Orbit>
       </Orbit>

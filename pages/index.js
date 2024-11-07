@@ -1,19 +1,18 @@
 import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
 import { ContactForm } from "@/components/home/contact-form";
-import { FlexSpaceCarousel } from "@/components/home/flex-space-section/flex-space-carousel";
+import { FlexSpaceSection } from "@/components/home/flex-space-section/flex-space-section";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
-import { Satellite } from "@/components/home/satellite";
 import { SliceSection } from "@/components/home/slice-section";
 import { SlideUpBox } from "@/components/home/slide-up-box";
 import SliderPage from "@/components/home/slider-page";
 import { SolidSection } from "@/components/home/solid-section";
+import { TwentyYearsSection } from "@/components/home/twenty-years-section";
 import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 import { ArrowRight } from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
+import Link from "next/link";
 import homeHero from "../images/eds-bg.png";
 import { fetchHomeNews } from "../lib/strapi";
-import Link from "next/link";
-import { FlexSpaceSection } from "@/components/home/flex-space-section/flex-space-section";
 
 export default function Home({ selectedProjects, newsArray }) {
   return (
@@ -76,7 +75,7 @@ export default function Home({ selectedProjects, newsArray }) {
         </Box>
         <SlideUpBox
           title={"Learn more about graphic"}
-          height={"300px"}
+          height={"350px"}
           width={"400px"}
         >
           <p>
@@ -176,28 +175,7 @@ export default function Home({ selectedProjects, newsArray }) {
         </Box>
       </SolidSection>
 
-      <SolidSection bgColor={"white"} title={<Satellite />}>
-        <Box sx={{ maxWidth: "60%", "@media (max-width: 800px)": {
-            maxWidth: "90%"
-          }}}>
-          <Typography
-            variant="h1"
-            my={2}
-            sx={{ textWrap: "balanced", fontWeight: "bold" }}
-          >
-            20+ years of excellence
-          </Typography>
-          <Typography sx={{ textWrap: "balanced", my: "2rem" }}>
-            Founded in 2004, RENCI has demonstrated experience and driven
-            innovation across a variety of projects and domains.
-          </Typography>
-          <Link href="/about" passHref>
-            <Button variant="outlined" endIcon={<ArrowRight />} sx={{ borderRadius: '8px' }}>
-              Read our mission statement
-            </Button>
-          </Link>
-        </Box>
-      </SolidSection>
+      <TwentyYearsSection />
 
       <SliceSection
         contentSide="left"
