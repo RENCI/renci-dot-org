@@ -27,3 +27,4 @@ service:
 
 ingress:
   host: new.renci.org
+  public: true
