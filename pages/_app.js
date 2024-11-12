@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { Layout } from "../components";
+import { Layout as DefaultLayout, HomeLayout } from "../components";
 import "../style/global.css";
 import theme from "../style/theme";
 import { ConfigProvider } from "../context";
@@ -11,10 +11,15 @@ import fontCss from "../fonts/atlas-grotesk/fonts.css";
 import App from "next/app";
 import { getGlobalData } from "utils/api";
 import { DefaultSeo } from "next-seo";
-import { fetchOurWorkTrayItems } from "../lib/dashboard/ourWorkTray";
+import { fetchOurWorkTrayItems } from "../lib/strapi";
+import { useRouter } from "next/router";
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
+  const { route } = useRouter();
+
+  // Use the default layout unless the page has a Layout override provided
+  const Layout = route === '/' ? HomeLayout : DefaultLayout;
 
   return (
     <React.Fragment>

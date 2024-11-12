@@ -126,13 +126,8 @@ export default function People({ people, peopleFromDashboard }) {
     >
       <Typography paragraph>
         RENCI is comprised of people who contribute to research groups,
-        operational units, and collaborations. Laborum consequat voluptate culpa
-        non non consectetur ut minim consectetur minim duis enim laboris elit
-        consectetur ut. Reprehenderit aliqua eu qui quis ut veniam elit
-        adipisicing minim veniam exercitation culpa sit sit est reprehenderit
-        culpa. Exercitation laboris consectetur irure aliquip deserunt sint
-        dolore mollit labore adipisicing eu. Consectetur aute tempor culpa
-        fugiat qui anim ut aliqua tempor laboris dolor nulla.
+        operational units, and collaborations. To view contact information
+        and associated projects, click a name in the list below.
       </Typography>
 
       <Typography variant="h2">Office of the Director</Typography>
