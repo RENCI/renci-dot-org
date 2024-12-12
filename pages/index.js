@@ -1,4 +1,3 @@
-import { CollaborationLogos } from "@/components/home/collaborations/collaboration-logos";
 import { ContactForm } from "@/components/home/contact-form";
 import { FlexSpaceSection } from "@/components/home/flex-space-section/flex-space-section";
 import { ResearchGroupSummaries } from "@/components/home/research-group-summaries";
@@ -177,56 +176,6 @@ export default function Home({ selectedProjects, newsArray }) {
 
       <TwentyYearsSection />
 
-      <SliceSection
-        contentSide="left"
-        contentBgColor={"rgb(32 49 82)"}
-        sx={{ color: "white" }}
-        otherSide={<CollaborationLogos />}
-      >
-        <Box
-          sx={{
-            maxWidth: "60%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            "@media (max-width: 800px)": {
-              maxWidth: "90%"
-            }
-          }}
-        >
-          <Typography variant="h1" my={2} sx={{ textWrap: "balanced" }}>
-            Collaborating with industry-leading organizations
-          </Typography>
-          <Typography sx={{ textWrap: "balanced" }} my={4}>
-            RENCI’s expertise in leading and coordinating large and complex team
-            science projects is recognized at the national scale, and our
-            growing outreach and engagement expertise has landed us funding on
-            multiple new federal projects. Though we have well-established and
-            recognized expertise in many domain-specific areas, we know that our
-            potential for success and impact on society is far greater when we
-            combine our expertise and resources with other teams, and we strive
-            to continuously and intentionally embody the spirit of
-            collaboration.
-          </Typography>
-          <Link href="/news" passHref>
-            <Button
-              variant="contained"
-              endIcon={<ArrowRight />}
-              sx={{
-                borderRadius: "8px",
-                color: 'white',
-                backgroundColor: 'rgb(255, 68, 202)',
-                '&:hover': {
-                  backgroundColor: 'rgb(206, 57, 164)',
-                },
-              }}
-            >
-              Learn more
-            </Button>
-          </Link>
-        </Box>
-      </SliceSection>
-
       <SliderPage
         title={"Featured projects"}
         subtitle={"See all projects"}
@@ -243,7 +192,8 @@ export default function Home({ selectedProjects, newsArray }) {
               })
           )
         }
-        bgColor={"white"}
+        bgColor={"linear-gradient(to bottom, #2d385a, #4c6883)"}
+        color={"white"}
       />
 
       <SliderPage

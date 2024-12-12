@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: containers.renci.org/renci-dot-org/frontend
-  tag: "1.4.2-beta"
+  tag: "1.4.3-beta"
 
 env:
   - name: STRAPI_ACCESS_TOKEN

@@ -5,21 +5,15 @@ export function Satellite({sizes: { outerOrbitSize }}) {
   return (
     <Orbit size={outerOrbitSize}>
       <Planet orbitDiameter={outerOrbitSize}>
-        <Link href="/about">
-          150<br />papers
-        </Link>
+        150<br />papers
       </Planet>
       <Orbit size={outerOrbitSize - 250}>
       <Planet orbitDiameter={outerOrbitSize - 250}>
-        <Link href="/people">
-          224<br />researchers
-        </Link>
+        224<br />researchers
       </Planet>
         <Orbit size={outerOrbitSize - 250 * 2}>
           <Planet orbitDiameter={outerOrbitSize - 250 * 2}>
-            <Link href="/projects">
-              108<br />projects
-            </Link>
+            108<br />projects
           </Planet>
 
         </Orbit>
@@ -41,7 +35,7 @@ const Orbit = styled("div")(({ size }) => ({
 
 const Planet = styled("div")(({ orbitDiameter }) => `
   --size: 100px;
-  background-color: rgb(223 50 174);
+  background-color: #415b73;
   color: white;
   width: var(--size);
   height: var(--size);

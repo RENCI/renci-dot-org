@@ -41,12 +41,12 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
             }}
             src={person.photo}
             onError={onMediaFallback}
-            alt={`${person.firstName} ${person.lastName} photo`}
+            alt={`${person.firstName + " " + person.lastName} photo`}
             image={person.photo}
           />
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Typography mb={0.5} sx={{ textDecoration: "underline" }}>
-              {person.fullName || person.displayName}
+              {person.firstName} {person.lastName}
             </Typography>
 
             {showTitle && ((person.title && person.title !== 'default') || person.lead) && (
