@@ -1,12 +1,16 @@
-import { Page } from "@/components/layout";
+import React from 'react'
+import { Box } from '@mui/material'
+import { Calendar } from '@/components/events'
+import { Page } from '@/components/layout'
 
 export default function Events() {
   return (
     <Page
       title="Events"
-      description="..."
     >
-      &nbsp;
+      <Box sx={{ padding: 2 }}>
+        <Calendar />
+      </Box>
     </Page>
-  );
+  )
 }
