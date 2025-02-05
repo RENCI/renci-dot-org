@@ -151,7 +151,7 @@ export default function People({ people, peopleFromDashboard }) {
         justifyContent="flex-start"
         gap={2}
       >
-        <Typography variant="h2">Everyone Else</Typography>
+        <Typography variant="h2">RENCI Staff</Typography>
         {!tallViewport && (
           <HorizontalLettersMenu linkedLetters={linkedLetters} />
         )}
