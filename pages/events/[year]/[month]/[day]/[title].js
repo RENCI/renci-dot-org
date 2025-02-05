@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { fetchEvents } from '@/utils/msgraphapi'
 import { transformEventData } from '@/utils/eventHelpers'
-import { Page } from "@/components/layout"
-import { Markdown } from "@/components/markdown"
-import { Pre } from "@/components/pre"
-import { Button } from "@mui/material"
+import { Page, Section } from '@/components/layout'
+import { Markdown } from '@/components/markdown'
+import { Pre } from '@/components/pre'
+import { Button, Typography, Box } from '@mui/material'
 
 export default function EventPage() {
   const [event, setEvent] = useState(null)
@@ -65,7 +65,20 @@ export default function EventPage() {
   return (
     <Page 
       title={event.title}
-    >      
+    >
+      <Box sx={{
+        display: "flex", 
+        justifyContent: "space-between",
+        marginBottom: '1rem'
+      }}>
+        <Typography variant="body1" sx={{fontWeight: 600}}>
+          {event.dayOfWeek}, {event.displayDate}
+        </Typography>
+        <Typography variant="body1" sx={{fontWeight: 600}}>
+          {event.startTime} - {event.endTime} {event.displayTimeZone}
+        </Typography>
+      </Box>
+
       <Markdown>
         {event.description}
       </Markdown>

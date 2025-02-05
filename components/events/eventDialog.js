@@ -5,6 +5,7 @@ import {
   DialogActions,
   Button,
   Typography,
+  Box
 } from '@mui/material';
 
 export const EventDialog = ({ selectedEvent, handleSeeMore, handleCloseDialog }) => {
@@ -15,10 +16,14 @@ export const EventDialog = ({ selectedEvent, handleSeeMore, handleCloseDialog })
         <>
           <DialogTitle id="event-dialog-title">{selectedEvent.title}</DialogTitle>
           <DialogContent dividers>
-            <Typography variant="subtitle1">
-              <strong>Date:</strong> {new Date(selectedEvent.start).toLocaleString()}
-            </Typography>
-
+            <Box sx={{display: "flex", justifyContent: "space-between"}}>
+              <Typography variant="subtitle2">
+                {selectedEvent.dayOfWeek}, {selectedEvent.displayDate}
+              </Typography>
+              <Typography variant="subtitle2">
+                {selectedEvent.startTime} - {selectedEvent.endTime} {selectedEvent.displayTimeZone}
+              </Typography>
+            </Box>
             <Typography variant="body1">
               {`${selectedEvent.excerpt} ...` || 'No description available.'}
             </Typography>
