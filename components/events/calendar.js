@@ -18,8 +18,28 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
+const categoryColors = {
+  'Purple category': '#A020F0', 
+  'Green category': '#32CD32', 
+  'Yellow category': '#FFBF00',
+  'Uncategorized': '#3A3B3C', // Default color for uncategorized events
+};
 
-export const Calendar = ({ events }) => {
+export const Calendar = ({ events, onSelectEvent }) => {
+  // Function to style events by category
+  const eventStyleGetter = (event) => {
+    const backgroundColor = categoryColors[event.category] || '#D3D3D3'; // Default to gray
+    return {
+      style: {
+        backgroundColor,
+        borderRadius: '5px',
+        opacity: 0.8,
+        color: 'white',
+        border: '0px',
+        display: 'block',
+      },
+    };
+  };
 
   return (
     <BigCalendar
@@ -28,6 +48,7 @@ export const Calendar = ({ events }) => {
       startAccessor="start"
       endAccessor="end"
       style={{ height: 500, marginBottom: '3rem' }}
+      eventPropGetter={eventStyleGetter} // Apply colors based on categories
     />
   );
 };

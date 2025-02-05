@@ -17,6 +17,7 @@ export function transformEventData(events) {
       title: event.subject || 'Untitled',
       start: new Date(startDate),
       end: new Date(endDate),
+      category: event.categories.length > 0 ? event.categories[0] : 'Uncategorized',
     }
   })
 }
