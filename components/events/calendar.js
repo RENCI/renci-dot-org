@@ -48,6 +48,7 @@ export const Calendar = ({ events, onSelectEvent }) => {
       startAccessor="start"
       endAccessor="end"
       style={{ height: 500, marginBottom: '3rem' }}
+      onSelectEvent={onSelectEvent}
       eventPropGetter={eventStyleGetter} // Apply colors based on categories
     />
   );
