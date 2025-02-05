@@ -27,6 +27,7 @@ export function transformEventData(events) {
       excerpt: event.bodyPreview || '',
       slug: `${year}/${month}/${day}/${eventTitleSlug}`,  // Full slug with date and title
       description: formatEventDescription(event.body.content) || '',  
+      location: event.location.displayName || '',
     }
   })
 }

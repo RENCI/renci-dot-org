@@ -5,6 +5,7 @@ import { transformEventData } from '@/utils/eventHelpers'
 import { Page } from "@/components/layout"
 import { Markdown } from "@/components/markdown"
 import { Pre } from "@/components/pre"
+import { Button } from "@mui/material"
 
 export default function EventPage() {
   const [event, setEvent] = useState(null)
@@ -68,6 +69,9 @@ export default function EventPage() {
       <Markdown>
         {event.description}
       </Markdown>
+      
+      {event.location && (<Button variant="contained" href={event.location}>Register Here</Button>)}
+      <br />
 
       <Pre>{JSON.stringify(event, null, 2) }</Pre>
       <Pre>{JSON.stringify(rawEvents, null, 2) }</Pre>
