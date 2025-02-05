@@ -9,18 +9,15 @@ export default function Events() {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
-    const loadEvents = async () => {
+    (async () => {
       try {
         const fetchedEvents = await fetchEvents()
-        const formattedEvents = transformEventData(fetchedEvents)
-        setEvents(formattedEvents)
+        setEvents(transformEventData(fetchedEvents))
       } catch (error) {
         console.error('Error fetching events:', error)
       }
-    }
-  
-    loadEvents()
-  }, [])
+    })()
+  }, [fetchEvents, setEvents, transformEventData])
 
   return (
     <Page
