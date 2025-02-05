@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { fetchEvents } from '@/utils/msgraphapi'
 import { transformEventData } from '@/utils/eventHelpers'
 import { Page } from "@/components/layout"
+import { Markdown } from "@/components/markdown"
 import { Pre } from "@/components/pre"
 
 export default function EventPage() {
@@ -64,6 +65,10 @@ export default function EventPage() {
     <Page 
       title={event.title}
     >      
+      <Markdown>
+        {event.description}
+      </Markdown>
+
       <Pre>{JSON.stringify(event, null, 2) }</Pre>
       <Pre>{JSON.stringify(rawEvents, null, 2) }</Pre>
     </Page>
