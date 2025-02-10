@@ -34,6 +34,7 @@ export default function Branding() {
       lightBlue: { name: "Frost", hex: "#D6E8F2" },
       darkBlue: { name: "Twilight", hex: "#14385F" },
       blueGrey: { name: "Stone", hex: "#666676" },
+      quantumPink: { name: "Quantum Pink", hex: "#FF44CA" },
     },
   };
 
