@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { fetchEvents } from '@/utils/msgraphapi'
 import { transformEventData } from '@/utils/eventHelpers'
-import { Page, Section } from '@/components/layout'
+import { Page } from '@/components/layout'
 import { Markdown } from '@/components/markdown'
 import { Pre } from '@/components/pre'
-import { Button, Typography, Box } from '@mui/material'
+import { Link } from '@/components/link'
+import { Button, Typography, Box, Divider } from '@mui/material'
 
 export default function EventPage() {
   const [event, setEvent] = useState(null)
@@ -17,27 +18,22 @@ export default function EventPage() {
   const { year, month, day, title } = router.query
 
   useEffect(() => {
+    if (!year || !month || !day || !title) return
+
     const fetchEvent = async () => {
-      if (!year || !month || !day || !title) return
+      setLoading(true)
+      setError(null)
 
       try {
-        // from msgraphapi
-        const eventsFromQuery = await fetchEvents()
-
-        // rawEvents is only for debugging and exploratory purposes
-        // remove rawEvents and setRawEvents when this page is finalized
+        const eventsFromQuery = await fetchEvents(year, month, day)
         setRawEvents(eventsFromQuery)
 
-        // from react router
         const eventSlugFromURL = `${year}/${month}/${day}/${title}`
-
-        // transform msgraphapi events to be more readable
         const formattedEventsFromQuery = transformEventData(eventsFromQuery)
 
-        // match slug from react router with slug from transformed event data
-        const foundEvent = formattedEventsFromQuery.find((event) => {
-          return eventSlugFromURL === event.slug
-        })
+        const foundEvent = formattedEventsFromQuery.find(
+          (event) => event.slug === eventSlugFromURL
+        )
 
         if (!foundEvent) {
           throw new Error('Event not found')
@@ -50,9 +46,13 @@ export default function EventPage() {
         setLoading(false)
       }
     }
-
+  
     fetchEvent()
   }, [year, month, day, title])
+    
+  if (router.isFallback) {
+    return <p>Loading...</p>
+  }
 
   if (loading) {
     return <div>Loading...</div>
@@ -63,14 +63,21 @@ export default function EventPage() {
   }
 
   return (
-    <Page 
-      title={event.title}
-    >
-      <Box sx={{
-        display: "flex", 
-        justifyContent: "space-between",
-        marginBottom: '1rem'
-      }}>
+    <Page hideTitle title={event.title}>
+      <br/>
+      <Link to="/events">All Events</Link>
+      <br/>
+      <br/>
+
+      <Typography variant="h1">{event.title}</Typography>
+      <Divider sx={{my: '1.5rem'}}/>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "1rem",
+        }}
+      >
         <Typography variant="body1" sx={{fontWeight: 600}}>
           {event.dayOfWeek}, {event.displayDate}
         </Typography>
@@ -85,9 +92,23 @@ export default function EventPage() {
       
       {event.location && (<Button variant="contained" href={event.location}>Register Here</Button>)}
       <br />
+      <br />
 
       <Pre>{JSON.stringify(event, null, 2) }</Pre>
       <Pre>{JSON.stringify(rawEvents, null, 2) }</Pre>
     </Page>
   )
+}
+
+// there is no data needed for this page, but this is a workaround to prevent getInitialProps from
+// running on this client page
+export const getStaticProps = () => {
+  return { props: { dummyValue: 1 } }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  }
 }

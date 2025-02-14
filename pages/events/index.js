@@ -1,26 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import { Box, Dialog } from '@mui/material'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
+import { Box, Dialog, Typography, Divider } from '@mui/material'
+import { useRouter } from "next/router"
 import { fetchEvents } from '@/utils/msgraphapi'
 import { transformEventData } from '@/utils/eventHelpers'
 import { Calendar, EventDialog } from '@/components/events'
 import { Page } from '@/components/layout'
+import { format, addMonths, subMonths } from 'date-fns'
 
 export default function Events() {
+  const [date, setDate] = useState(new Date())
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const router = useRouter()
 
   useEffect(() => {
-    (async () => {
+    const fetchAndSetEvents = async () => {
       try {
-        const fetchedEvents = await fetchEvents()
+        const fetchedEvents = await fetchEvents(format(date, 'yyyy'), format(date, 'MM'))
         setEvents(transformEventData(fetchedEvents))
       } catch (error) {
         console.error('Error fetching events:', error)
       }
-    })()
-  }, [fetchEvents, setEvents, transformEventData])
+    }
+
+    fetchAndSetEvents()
+  }, [date])
+
+  const handleNavigate = (action) => {
+    let newDate
+    if (action === "NEXT") {
+      newDate = addMonths(date, 1)
+    } else if (action === "PREV") {
+      newDate = subMonths(date, 1)
+    } else {
+      newDate = new Date() // for 'today' button
+    }
+
+    setDate(newDate)
+    router.push(`/events/${format(newDate, "yyyy")}/${format(newDate, "MM")}`)
+  }
 
   const handleSelectEvent = (event) => setSelectedEvent(event)
 
@@ -31,13 +49,16 @@ export default function Events() {
   }
 
   return (
-    <Page
-      title="Events"
-    >
+    <Page hideTitle title="Events">
+      <Typography variant="h1">Events</Typography>
+      <Divider sx={{my: '1.5rem'}}/>
+
       <Box sx={{ padding: 2 }}>
-        <Calendar
-          events={events}
-          onSelectEvent={handleSelectEvent}
+        <Calendar 
+          date={date} 
+          events={events} 
+          onSelectEvent={handleSelectEvent} 
+          onNavigate={handleNavigate} 
         />
         <Dialog
           open={!!selectedEvent} 
@@ -52,4 +73,10 @@ export default function Events() {
       </Box>
     </Page>
   )
+}
+
+// there is no data needed for this page, but this is a workaround to prevent getInitialProps from
+// running on this client page
+export const getStaticProps = () => {
+  return { props: { dummyValue: 1 } }
 }
