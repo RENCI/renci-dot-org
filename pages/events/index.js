@@ -12,12 +12,15 @@ export default function Events() {
   const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const fetchAndSetEvents = async () => {
       try {
+        setLoading(true)
         const fetchedEvents = await fetchEvents(format(date, 'yyyy'), format(date, 'MM'))
         setEvents(transformEventData(fetchedEvents))
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching events:', error)
       }
@@ -46,6 +49,10 @@ export default function Events() {
 
   const handleSeeMore = () => {
     selectedEvent?.slug && router.push(`/events/${selectedEvent.slug}`)
+  }
+
+  if (loading) {
+    return <p>Loading...</p>;
   }
 
   return (

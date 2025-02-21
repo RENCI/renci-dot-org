@@ -12,6 +12,7 @@ export default function MonthViewPage() {
   const { year, month } = router.query;
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const initialDate = year && month ? new Date(year, month - 1) : new Date();
   const [date, setDate] = useState(initialDate);
@@ -27,8 +28,10 @@ export default function MonthViewPage() {
 
     const fetchAndSetEvents = async () => {
       try {
+        setLoading(true);
         const fetchedEvents = await fetchEvents(year, month);
         setEvents(transformEventData(fetchedEvents));
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -58,7 +61,7 @@ export default function MonthViewPage() {
     selectedEvent?.slug && router.push(`/events/${selectedEvent.slug}`);
   };
 
-  if (router.isFallback) {
+  if (loading) {
     return <p>Loading...</p>;
   }
 
