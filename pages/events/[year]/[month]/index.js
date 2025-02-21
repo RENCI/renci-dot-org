@@ -3,7 +3,7 @@ import { Box, Dialog } from "@mui/material";
 import { useRouter } from "next/router";
 import { fetchEvents } from "@/utils/msgraphapi";
 import { transformEventData } from "@/utils/eventHelpers";
-import { Calendar, EventDialog } from "@/components/events";
+import { Calendar, EventDialog, MonthToolbar } from '@/components/events'
 import { Page } from "@/components/layout";
 import { format, addMonths, subMonths } from "date-fns";
 
@@ -72,6 +72,9 @@ export default function MonthViewPage() {
     >
       <br />
       <Box sx={{ padding: 2 }}>
+
+        <MonthToolbar date={date}/>
+
         <Calendar
           date={date}
           events={events}

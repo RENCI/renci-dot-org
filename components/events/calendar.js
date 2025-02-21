@@ -4,7 +4,7 @@ import format from 'date-fns/format'
 import parse from 'date-fns/parse'
 import startOfWeek from 'date-fns/startOfWeek'
 import getDay from 'date-fns/getDay'
-import { Box, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 const locales = {
@@ -26,20 +26,12 @@ const categoryColors = {
   'Uncategorized': '#3A3B3C'
 }
 
-const CustomToolbar = ({ date, onNavigate }) => {
-  return (
-    <Box sx={{ display: "flex", justifyContent: "flex-start", alignItems: 'center', mb: 2, gap: "1rem" }}>
-      <Box>
-        <Button variant="outlined" onClick={() => onNavigate("PREV")}>Previous</Button>
-        <Button variant="outlined" onClick={() => onNavigate("TODAY")}>Today</Button>
-        <Button variant="outlined" onClick={() => onNavigate("NEXT")}>Next</Button>
-      </Box>
-      <Typography variant="h4">{format(date, "MMMM yyyy")}</Typography>
-    </Box>
-  )
-}
-
-export const Calendar = ({ events, date, onSelectEvent, onNavigate }) => {
+export const Calendar = ({ 
+  events, 
+  date, 
+  onSelectEvent, 
+  onNavigate 
+}) => {
   const eventStyleGetter = (event) => {
     const backgroundColor = categoryColors[event.category] || '#D3D3D3'
     return {
@@ -56,7 +48,6 @@ export const Calendar = ({ events, date, onSelectEvent, onNavigate }) => {
 
   return (
     <Box>
-      <CustomToolbar date={date} onNavigate={onNavigate} />
       <BigCalendar
         localizer={localizer}
         events={events}
