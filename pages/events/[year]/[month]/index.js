@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Box, Dialog } from "@mui/material";
 import { useRouter } from "next/router";
-import { fetchEvents } from "@/utils/msgraphapi";
-import { transformEventData } from "@/utils/eventHelpers";
-import { Calendar, EventDialog, MonthToolbar } from '@/components/events'
+import { fetchEvents, transformEventData } from "@/lib/msgraph";
+import { Calendar, EventDialog, MonthToolbar } from "@/components/events";
 import { Page } from "@/components/layout";
 import { format } from "date-fns";
 
@@ -49,13 +48,12 @@ export default function MonthViewPage() {
     >
       <br />
       <Box sx={{ padding: 2 }}>
-
-        <MonthToolbar date={date}/>
+        <MonthToolbar date={date} />
 
         <Calendar
           date={date}
           events={events}
-          onSelectEvent={setSelectedEvent} 
+          onSelectEvent={setSelectedEvent}
         />
 
         <Dialog open={!!selectedEvent} onClose={() => setSelectedEvent(null)}>

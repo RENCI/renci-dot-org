@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { fetchEvents } from '@/utils/msgraphapi'
-import { transformEventData } from '@/utils/eventHelpers'
+import { fetchEvents, transformEventData } from '@/lib/msgraph'
 import { Page } from '@/components/layout'
 import { Markdown } from '@/components/markdown'
 import { Pre } from '@/components/pre'

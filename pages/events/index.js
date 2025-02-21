@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, Dialog, Typography, Divider } from '@mui/material'
-import { useRouter } from "next/router"
-import { fetchEvents } from '@/utils/msgraphapi'
-import { transformEventData } from '@/utils/eventHelpers'
+import { fetchEvents, transformEventData } from '@/lib/msgraph'
 import { Calendar, EventDialog, MonthToolbar } from '@/components/events'
 import { Page } from '@/components/layout'
 import { format } from 'date-fns'

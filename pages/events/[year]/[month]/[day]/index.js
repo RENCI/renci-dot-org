@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Dialog } from "@mui/material";
-import { fetchEvents } from "@/utils/msgraphapi";
-import { transformEventData } from "@/utils/eventHelpers";
+import { fetchEvents, transformEventData } from "@/lib/msgraph";
 import { Calendar, EventDialog, DayToolbar } from "@/components/events";
 import { Page } from "@/components/layout";
 import format from "date-fns/format";
