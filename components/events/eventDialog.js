@@ -8,7 +8,7 @@ import {
   Box
 } from '@mui/material';
 
-export const EventDialog = ({ selectedEvent, handleSeeMore, handleCloseDialog }) => {
+export const EventDialog = ({ selectedEvent, handleCloseDialog }) => {
 
   return (
     <Fragment>
@@ -29,7 +29,7 @@ export const EventDialog = ({ selectedEvent, handleSeeMore, handleCloseDialog })
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleSeeMore} color="primary" variant="contained">
+            <Button href={`/events/${selectedEvent.slug}`} color="primary" variant="contained">
               See More
             </Button>
             <Button onClick={handleCloseDialog} color="secondary" variant="outlined">

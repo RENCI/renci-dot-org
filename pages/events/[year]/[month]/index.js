@@ -5,7 +5,7 @@ import { fetchEvents } from "@/utils/msgraphapi";
 import { transformEventData } from "@/utils/eventHelpers";
 import { Calendar, EventDialog, MonthToolbar } from '@/components/events'
 import { Page } from "@/components/layout";
-import { format, addMonths, subMonths } from "date-fns";
+import { format } from "date-fns";
 
 export default function MonthViewPage() {
   const router = useRouter();
@@ -18,13 +18,11 @@ export default function MonthViewPage() {
   const [date, setDate] = useState(initialDate);
 
   useEffect(() => {
+    if (!year || !month) return;
+
     if (year && month) {
       setDate(new Date(year, month - 1));
     }
-  }, [year, month]);
-
-  useEffect(() => {
-    if (!year || !month) return;
 
     const fetchAndSetEvents = async () => {
       try {
@@ -39,27 +37,6 @@ export default function MonthViewPage() {
 
     fetchAndSetEvents();
   }, [year, month]);
-
-  const handleNavigate = (action) => {
-    let newDate;
-    if (action === "NEXT") {
-      newDate = addMonths(date, 1);
-    } else if (action === "PREV") {
-      newDate = subMonths(date, 1);
-    } else {
-      newDate = new Date();
-    }
-
-    const newPath = `/events/${format(newDate, "yyyy")}/${format(newDate, "MM")}`;
-
-    router.push(newPath, undefined, { shallow: false });
-  };
-
-  const handleSelectEvent = (event) => setSelectedEvent(event);
-  const handleCloseDialog = () => setSelectedEvent(null);
-  const handleSeeMore = () => {
-    selectedEvent?.slug && router.push(`/events/${selectedEvent.slug}`);
-  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -78,14 +55,13 @@ export default function MonthViewPage() {
         <Calendar
           date={date}
           events={events}
-          onSelectEvent={handleSelectEvent}
-          onNavigate={handleNavigate}
+          onSelectEvent={setSelectedEvent} 
         />
-        <Dialog open={!!selectedEvent} onClose={handleCloseDialog}>
+
+        <Dialog open={!!selectedEvent} onClose={() => setSelectedEvent(null)}>
           <EventDialog
             selectedEvent={selectedEvent}
-            handleSeeMore={handleSeeMore}
-            handleCloseDialog={handleCloseDialog}
+            handleCloseDialog={() => setSelectedEvent(null)}
           />
         </Dialog>
       </Box>
@@ -93,15 +69,17 @@ export default function MonthViewPage() {
   );
 }
 
-// there is no data needed for this page, but this is a workaround to prevent getInitialProps from
-// running on this client page
-export const getStaticProps = () => {
-  return { props: { dummyValue: 1 } };
-};
-
 export async function getStaticPaths() {
   return {
     paths: [],
     fallback: "blocking",
   };
 }
+
+export const getStaticProps = async ({ params }) => {
+  return {
+    props: {
+      dummyValue: 1,
+    },
+  };
+};
