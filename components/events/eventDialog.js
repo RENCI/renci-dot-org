@@ -18,10 +18,7 @@ export const EventDialog = ({ selectedEvent, handleCloseDialog }) => {
           <DialogContent dividers>
             <Box sx={{display: "flex", justifyContent: "space-between"}}>
               <Typography variant="subtitle2">
-                {selectedEvent.dayOfWeek}, {selectedEvent.displayDate}
-              </Typography>
-              <Typography variant="subtitle2">
-                {selectedEvent.startTime} - {selectedEvent.endTime} {selectedEvent.displayTimeZone}
+                {selectedEvent.dayOfWeek}, {selectedEvent.displayDate} | {selectedEvent.startTime} - {selectedEvent.endTime} {selectedEvent.displayTimeZone}
               </Typography>
             </Box>
             <Typography variant="body1">
