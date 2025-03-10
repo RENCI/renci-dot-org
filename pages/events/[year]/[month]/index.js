@@ -1,50 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Dialog } from "@mui/material";
 import { useRouter } from "next/router";
 import { fetchEvents, transformEventData } from "@/lib/msgraph";
 import { Calendar, EventDialog, MonthToolbar } from "@/components/events";
 import { Page } from "@/components/layout";
 import { format } from "date-fns";
+import { useQuery } from "../../../../hooks/use-query";
 
 export default function MonthViewPage() {
   const router = useRouter();
   const { year, month } = router.query;
-  const [events, setEvents] = useState([]);
+
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  const initialDate = year && month ? new Date(year, month - 1) : new Date();
-  const [date, setDate] = useState(initialDate);
-
-  useEffect(() => {
     if (!year || !month) return;
 
-    if (year && month) {
-      setDate(new Date(year, month - 1));
-    }
+    const date = new Date(year, month - 1);
 
-    const fetchAndSetEvents = async () => {
-      try {
-        setLoading(true);
+    // fetch events using useQuery with cache
+    const { data: events, isLoading, error } = useQuery({
+      queryKey: `events-${year}-${month}`,
+      queryFn: async () => {
         const fetchedEvents = await fetchEvents(year, month);
-        setEvents(transformEventData(fetchedEvents));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
-
-    fetchAndSetEvents();
-  }, [year, month]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+        return transformEventData(fetchedEvents);
+      },
+    });
+    
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (error) {
+      return <p>Error...</p>;
+    }
 
   return (
     <Page
       hideTitle
-      title={`Events for ${format(date, "MMMM")} ${format(date, "yyyy")}`}
+      title={`Events for ${format(date, "MMMM yyyy")}`}
     >
       <br />
       <Box sx={{ padding: 2 }}>

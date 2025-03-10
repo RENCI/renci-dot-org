@@ -1,41 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Dialog } from "@mui/material";
 import { fetchEvents, transformEventData } from "@/lib/msgraph";
 import { Calendar, EventDialog, DayToolbar } from "@/components/events";
 import { Page } from "@/components/layout";
-import format from "date-fns/format";
+import { format } from "date-fns";
+import { useQuery } from "../../../../../hooks/use-query";
 
 export default function DayViewPage() {
   const router = useRouter();
   const { year, month, day } = router.query;
-  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(null);
 
-  useEffect(() => {
-    if (!year || !month || !day) return;
+  // Ensure date is valid
+  if (!year || !month || !day) return <p>Loading...</p>;
 
-    const selectedDate = new Date(year, month - 1, day);
-    setDate(selectedDate);
+  const date = new Date(year, month - 1, day);
 
-    const fetchAndSetEvents = async () => {
-      try {
-        setLoading(true);
-        const fetchedEvents = await fetchEvents(year, month, day);
-        setEvents(transformEventData(fetchedEvents));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
+  // Query and cache events
+  const { data: events, isLoading, error } = useQuery({
+    queryKey: `events-${year}-${month}-${day}`,
+    queryFn: async () => {
+      const fetchedEvents = await fetchEvents(year, month, day);
+      return transformEventData(fetchedEvents);
+    },
+  });
 
-    fetchAndSetEvents();
-  }, [year, month, day]);
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
-  if (!date || loading) {
-    return <p>Loading...</p>
+  if (error) {
+    return <p>Error...</p>;
   }
 
   return (
@@ -53,22 +49,13 @@ export default function DayViewPage() {
             views={{ agenda: true }} // lock agenda view
             defaultView="agenda" // force agenda mode
             scrollToTime={
-              new Date(
-                date.getFullYear(),
-                date.getMonth(),
-                date.getDate(),
-                8,
-                0,
-                0
-              )
+              new Date(date.getFullYear(), date.getMonth(), date.getDate(), 8, 0, 0)
             } // scroll to 8 AM of selected date
           />
         )}
+
         <Dialog open={!!selectedEvent} onClose={() => setSelectedEvent(null)}>
-          <EventDialog
-            selectedEvent={selectedEvent}
-            handleCloseDialog={() => setSelectedEvent(null)}
-          />
+          <EventDialog selectedEvent={selectedEvent} handleCloseDialog={() => setSelectedEvent(null)} />
         </Dialog>
       </Box>
     </Page>

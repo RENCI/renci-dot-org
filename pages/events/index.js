@@ -1,36 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Dialog, Typography, Divider } from "@mui/material";
 import { fetchEvents, transformEventData } from "@/lib/msgraph";
 import { Calendar, EventDialog, MonthToolbar } from "@/components/events";
 import { Page } from "@/components/layout";
 import { format } from "date-fns";
+import { useQuery } from "../../hooks/use-query";
 
 export default function Events() {
   const [date, setDate] = useState(new Date());
-  const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchAndSetEvents = async () => {
-      try {
-        setLoading(true);
-        const fetchedEvents = await fetchEvents(
-          format(date, "yyyy"),
-          format(date, "MM")
-        );
-        setEvents(transformEventData(fetchedEvents));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      }
-    };
+  const { data: events, isLoading, error } = useQuery({
+    queryKey: `events-${format(date, "yyyy-MM")}`,
+    queryFn: async () => {
+      const fetchedEvents = await fetchEvents(format(date, "yyyy"), format(date, "MM"));
+      return transformEventData(fetchedEvents);
+    },
+  });
 
-    fetchAndSetEvents();
-  }, [date]);
-
-  if (loading) {
+  if (isLoading) {
     return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error...</p>;
   }
 
   return (
