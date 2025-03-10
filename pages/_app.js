@@ -12,6 +12,7 @@ import App from "next/app";
 import { getGlobalData } from "utils/api";
 import { DefaultSeo } from "next-seo";
 import { fetchOurWorkTrayItems } from "../lib/dashboard/ourWorkTray";
+import { QueryCacheProvider } from "../hooks/use-query";
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
@@ -41,7 +42,9 @@ const MyApp = (props) => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Layout ourWorkTrayItems={pageProps.ourWorkTrayItems}>
-            <Component {...pageProps} />
+            <QueryCacheProvider>
+              <Component {...pageProps} />
+            </QueryCacheProvider>
           </Layout>
         </ThemeProvider>
       </ConfigProvider>

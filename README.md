@@ -20,6 +20,20 @@ In order to get data from the API server (`api.renci.org`), you'll need to provi
 STRAPI_ACCESS_TOKEN=YOUR_API_TOKEN
 ```
 
+### Microsoft Graph API Environment Variables
+To interact with Microsoft Graph API, set up the following environment variables in your .env.local file:
+```env
+SCOPE=https://graph.microsoft.com/.default
+GRANT_TYPE=client_credentials
+```
+Obtain the following credentials from the calendar administrator and add to your .env.local file:
+```env
+CLIENT_ID=YOUR_CLIENT_ID
+CLIENT_SECRET=YOUR_CLIENT_SECRET
+MSFT_TENANT=YOUR_TENANT_ID
+```
+These credentials will allow the application to authenticate and access Microsoft Graph API on behalf of the configured tenant.
+
 ## Formatting
 
 This project uses Prettier with the default rules. To format the entire project, run `npm run format` and to check if the project is properly formatted, run `npm run check-format`.

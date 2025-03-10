@@ -1,0 +1,69 @@
+import React from 'react'
+import { Calendar as BigCalendar, dateFnsLocalizer } from 'react-big-calendar'
+import { format, parse, startOfWeek, getDay } from 'date-fns'
+import { Box } from '@mui/material'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+
+const locales = {
+  'en-US': require('date-fns/locale/en-US'),
+}
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+})
+
+const categoryColors = {
+  'Purple category': '#A020F0', 
+  'Green category': '#32CD32', 
+  'Yellow category': '#FFBF00',
+  'Uncategorized': '#3A3B3C'
+}
+
+export const Calendar = ({ 
+  events, 
+  date, 
+  views, 
+  defaultView, 
+  scrollToTime,
+  onSelectEvent, 
+  onNavigate 
+}) => {
+  const eventStyleGetter = (event) => {
+    const backgroundColor = categoryColors[event.category] || '#D3D3D3'
+    return {
+      style: {
+        backgroundColor,
+        borderRadius: '5px',
+        opacity: 0.8,
+        color: 'white',
+        border: '0px',
+        display: 'block',
+      },
+    }
+  }
+
+  return (
+    <Box>
+      <BigCalendar
+        localizer={localizer}
+        events={events}
+        date={date}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 500, marginBottom: '3rem' }}
+        onSelectEvent={onSelectEvent}
+        eventPropGetter={eventStyleGetter}
+        toolbar={false}
+        selectable={false}
+        onNavigate={onNavigate}
+        views={views}
+        defaultView={defaultView}
+        scrollToTime={scrollToTime}
+      />
+    </Box>
+  )
+}

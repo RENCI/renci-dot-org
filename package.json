@@ -19,14 +19,18 @@
     "@mui/material": "^5.14.4",
     "autosuggest-highlight": "^3.3.4",
     "axios": "^0.27.2",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "next": "12.3.4",
     "next-seo": "^5.5.0",
     "qs": "^6.11.2",
     "react": "17.0.2",
+    "react-big-calendar": "^1.17.1",
     "react-dom": "17.0.2",
     "react-markdown": "^8.0.3",
     "remark-gfm": "^3.0.1",
-    "swr": "^2.2.4"
+    "swr": "^2.2.4",
+    "turndown": "^7.2.0"
   },
   "devDependencies": {
     "eslint": "8.10.0",
